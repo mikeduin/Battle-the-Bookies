@@ -5,5 +5,5 @@ angular
 
 function MainController () {
   var vm = this;
-  vm.name = {};
+  vm.name = 'mike';
 }

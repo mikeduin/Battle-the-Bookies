@@ -14,11 +14,12 @@ function siteConfig ($stateProvider, $urlRouterProvider) {
       views: {
         'header': {
           templateUrl: 'views/header.html',
-          controller: 'MainController',
-          controllerAs: 'main'
+          controller: 'MainController'
         },
         'content': {
-          templateUrl: 'views/content.html'
+          templateUrl: 'views/content.html',
+          controller: 'MainController',
+          controllerAs: 'vm'
         }
       }
     })
