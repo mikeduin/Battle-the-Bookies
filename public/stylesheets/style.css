@@ -1,6 +1,7 @@
 body {
   padding-left: 5px;
   padding-right: 5px;
+  font-family: 'Raleway', sans-serif;
 }
 
 a {
@@ -11,13 +12,82 @@ a {
 
 nav {
   border-radius: 10px;
-  font-weight: 600;
-  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: 700;
 }
 
 .brand-logo {
   margin-left: 10px;
 }
 
-
 /*END NAVBAR STYLES*/
+
+/*BEGIN LOGIN STYLES*/
+
+loginBox {
+  margin-top: 80px;
+  height: 360px;
+  background-color: #eeeeee;
+  border: solid 3px #bdbdbd;
+  border-radius: 5px;
+}
+
+loginTitle {
+  color: #01579B;
+  font-size: 36px;
+  font-weight: 700;
+}
+
+loginBox i {
+  padding-top: 10px
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label {
+  color: #01579B;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+  border-bottom: 1px solid #01579B;
+  box-shadow: 0 1px 0 0 #01579B;
+}
+
+/* label focus color */
+.input-field input[type=password]:focus + label {
+  color: #01579B;
+}
+/* label underline focus color */
+.input-field input[type=password]:focus {
+  border-bottom: 1px solid #01579B;
+  box-shadow: 0 1px 0 0 #01579B;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+  color: #01579B;
+}
+
+/* Change Autocomplete styles in Chrome*/
+.input-field input:-webkit-autofill,
+.input-field input:-webkit-autofill:focus {
+  border-bottom: 1px solid #01579B;
+  box-shadow: 0 1px 0 0 #01579B;
+  color: #01579B;
+}
+
+.login-button {
+  margin-top: 10px;
+  background-color: #D4D6D6;
+  color: #01579B;
+  font-weight: 800;
+  border-radius: 10px;
+}
+
+.login-button:hover {
+  background-color: #01579B;
+  color: white;
+}
+
+.login-button:focus {
+  background-color: #01579B;
+  color: white;
+}
