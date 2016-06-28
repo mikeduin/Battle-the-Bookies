@@ -13,7 +13,7 @@ var passport = require('passport');
 var User = mongoose.model('User');
 
 router.post('/register', function(req, res, next){
-  if(!req.body.username || !req.body.password || !req.body.nameFirst || !req.body.nameLast || !req.body.email){
+  if(!req.body.username || !req.body.password || !req.body.nameFirst || !req.body.nameLast || !req.body.email || !req.body.buyin){
     return res.status(400).json({message: 'Please fill out all fields'});
   }
 

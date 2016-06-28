@@ -1,18 +1,26 @@
 <div class="row">
   <loginBox class="col m6 offset-m3 z-depth-2">
-    <loginTitle> Login </loginTitle>
+    <div class="row">
+      <div class="col m3">
+        <loginTitle> Login </loginTitle>
+      </div>
+      <regLink class="col m7 offset-m2">
+        First time here?
+        <a ui-sref="home.register">Click to create account.</a>
+      </regLink>
+    </div>
     <div class="row">
       <form class="col s12">
         <div class="row">
           <div class="input-field col s8 offset-s2">
-            <i class="material-icons prefix">assignment_ind</i>
+            <i class="fa fa-user prefix" aria-hidden="true"></i>
             <input id="username" type="text" class="validate">
             <label for="username">Username</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s8 offset-s2">
-            <i class="material-icons prefix">vpn_key</i>
+            <i class="fa fa-lock prefix" aria-hidden="true"></i>
             <input id="password" type="password" class="validate">
             <label for="password">Password</label>
           </div>

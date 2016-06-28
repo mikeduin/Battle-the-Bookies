@@ -1,6 +1,31 @@
 angular
   .module('battleBookies')
   .factory('auth', ['$http', '$window', auth])
+  .factory('oddsService', ['$http', oddsService])
+
+// function oddsService ($http) {
+//   return {
+//     getMLBLines: function() {
+//       return $http.get('https://jsonodds.com/api/odds/mlb', {
+//         headers: {'JsonOdds-API-Key': 'f6e556e5-0092-49d9-9e4f-c7aa591eaecb'}
+//       }).then(function(results){
+//         var odds = results.data;
+//         return odds
+//       })
+//     }
+//   }
+// }
+
+function oddsService ($http) {
+  return {
+    getMLBLines: function() {
+      return $http.get('javascripts/odds/mlbLines_06_28_16.json').then(function(results){
+        var odds = results.data;
+        return odds
+      })
+    }
+  }
+}
 
 
 function auth ($http, $window) {

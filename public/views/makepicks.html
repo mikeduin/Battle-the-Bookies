@@ -1,0 +1,60 @@
+<makePicksHead class="row">
+  <div class="col m12 center-align">
+    Make Your Picks
+  </div>
+</makePicksHead>
+
+<button type="btn btn-large" ng-click="vm.getMLBLines()"> Get MLB Lines</button>
+
+<div class="row">
+  <divider class="divider col m6 offset-m3"></divider>
+</div>
+
+<picksTable class="row">
+  <table class="bordered col m11">
+    <thead>
+      <tr>
+        <th colspan="3">  </th>
+        <th class="center-align" colspan="2"> SPREAD </th>
+        <th class="center-align" colspan="2"> MONEYLINE </th>
+        <th class="center-align" colspan="2"> TOTAL </th>
+        <th class="center-align" colspan="2"> YOUR PICK </th>
+      </tr>
+      <tr class="center-align">
+        <th class="center-align"> Game ID </th>
+        <th class="center-align"> Date + Time </th>
+        <th class="center-align"> Teams </th>
+        <th class="center-align"> Points </th>
+        <th class="center-align"> Payout </th>
+        <th class="center-align"> ML </th>
+        <th class="center-align"> Payout </th>
+        <th class="center-align"> Total </th>
+        <th class="center-align"> Payout </th>
+        <th class="center-align" colspan="2"> Pick </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td rowspan="2"> Game ID</td>
+        <td rowspan="2"> Date + Time</td>
+        <td> Washington Redskins </td>
+        <td> <button class="btn btn-spread" name="button"> +6 (-115)</button> </td>
+        <td> $86.59 </td>
+        <td> <button class="btn btn-ml" name="button"> +160 </button> </td>
+        <td> $160 </td>
+        <td> <button class="btn btn-total" name="button"> O 42.5 (-110) </button> </td>
+        <td> $94.55 </td>
+        <td rowspan="2" colspan="2" class="center-align">Pick</td>
+      </tr>
+      <tr>
+        <td> Seattle Seahawks </td>
+        <td> <button class="btn btn-spread" name="button"> -6 (-115)</button> </td>
+        <td> $86.59 </td>
+        <td> <button class="btn btn-ml" name="button"> -190 </button> </td>
+        <td> $160 </td>
+        <td> <button class="btn btn-total" name="button"> U 42.5 (-110) </button> </td>
+        <td> $94.55 </td>
+      </tr>
+    </tbody>
+  </table>
+</picksTable>

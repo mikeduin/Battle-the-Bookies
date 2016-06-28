@@ -21,6 +21,10 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  buyin : {
+    type: Number,
+    required: true
+  },
   hash: String,
   salt: String
 })

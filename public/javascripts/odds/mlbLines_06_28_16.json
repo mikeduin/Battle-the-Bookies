@@ -1,0 +1,353 @@
+[
+  {
+    "ID": "91bb645d-74fc-40a3-a718-1c9d41725feb",
+    "HomeTeam": "New York Yankees",
+    "AwayTeam": "Texas Rangers",
+    "Sport": 0,
+    "MatchTime": "2016-06-28T23:05:00Z",
+    "Odds": [
+      {
+        "ID": "91bb645d-74fc-40a3-a718-1c9d41725feb",
+        "EventID": "91bb645d-74fc-40a3-a718-1c9d41725feb",
+        "SiteID": 3,
+        "MoneyLineHome": 111,
+        "MoneyLineAway": -121,
+        "PointSpreadHome": 1.5,
+        "PointSpreadAway": -1.5,
+        "PointSpreadHomeLine": -155,
+        "PointSpreadAwayLine": 135,
+        "TotalNumber": 8.5,
+        "OverLine": 100,
+        "UnderLine": -120,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "786852bf-9fc6-4b52-b106-bb1a8ac06c4f",
+    "HomeTeam": "Cincinnati Reds",
+    "AwayTeam": "Chicago Cubs",
+    "Sport": 0,
+    "MatchTime": "2016-06-28T23:10:00Z",
+    "Odds": [
+      {
+        "ID": "786852bf-9fc6-4b52-b106-bb1a8ac06c4f",
+        "EventID": "786852bf-9fc6-4b52-b106-bb1a8ac06c4f",
+        "SiteID": 3,
+        "MoneyLineHome": 220,
+        "MoneyLineAway": -240,
+        "PointSpreadHome": 1.5,
+        "PointSpreadAway": -1.5,
+        "PointSpreadHomeLine": 125,
+        "PointSpreadAwayLine": -145,
+        "TotalNumber": 8.5,
+        "OverLine": -115,
+        "UnderLine": -105,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "73ac0dfa-4ad7-4c65-bf2d-70e51dc1ff47",
+    "HomeTeam": "Tampa Bay Rays",
+    "AwayTeam": "Boston Red Sox",
+    "Sport": 0,
+    "MatchTime": "2016-06-28T23:10:00Z",
+    "Odds": [
+      {
+        "ID": "73ac0dfa-4ad7-4c65-bf2d-70e51dc1ff47",
+        "EventID": "73ac0dfa-4ad7-4c65-bf2d-70e51dc1ff47",
+        "SiteID": 3,
+        "MoneyLineHome": -105,
+        "MoneyLineAway": -105,
+        "PointSpreadHome": 1.5,
+        "PointSpreadAway": -1.5,
+        "PointSpreadHomeLine": -175,
+        "PointSpreadAwayLine": 155,
+        "TotalNumber": 7.5,
+        "OverLine": -130,
+        "UnderLine": 110,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "abb9a9be-d9ad-403e-b1a2-3c2656118482",
+    "HomeTeam": "Detroit Tigers",
+    "AwayTeam": "Miami Marlins",
+    "Sport": 0,
+    "MatchTime": "2016-06-28T23:10:00Z",
+    "Odds": [
+      {
+        "ID": "abb9a9be-d9ad-403e-b1a2-3c2656118482",
+        "EventID": "abb9a9be-d9ad-403e-b1a2-3c2656118482",
+        "SiteID": 3,
+        "MoneyLineHome": -106,
+        "MoneyLineAway": -104,
+        "PointSpreadHome": -1.5,
+        "PointSpreadAway": 1.5,
+        "PointSpreadHomeLine": 175,
+        "PointSpreadAwayLine": -205,
+        "TotalNumber": 9.5,
+        "OverLine": -115,
+        "UnderLine": -105,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "027394b0-f306-4c63-8eb1-36a59f07b4e9",
+    "HomeTeam": "Atlanta Braves",
+    "AwayTeam": "Cleveland Indians",
+    "Sport": 0,
+    "MatchTime": "2016-06-28T23:10:00Z",
+    "Odds": [
+      {
+        "ID": "027394b0-f306-4c63-8eb1-36a59f07b4e9",
+        "EventID": "027394b0-f306-4c63-8eb1-36a59f07b4e9",
+        "SiteID": 3,
+        "MoneyLineHome": 167,
+        "MoneyLineAway": -177,
+        "PointSpreadHome": 1.5,
+        "PointSpreadAway": -1.5,
+        "PointSpreadHomeLine": -105,
+        "PointSpreadAwayLine": -115,
+        "TotalNumber": 7.5,
+        "OverLine": 100,
+        "UnderLine": -120,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "f11fa63c-2463-4d98-a5ed-f7d2dd907ace",
+    "HomeTeam": "Milwaukee Brewers",
+    "AwayTeam": "Los Angeles Dodgers",
+    "Sport": 0,
+    "MatchTime": "2016-06-29T00:10:00Z",
+    "Odds": [
+      {
+        "ID": "f11fa63c-2463-4d98-a5ed-f7d2dd907ace",
+        "EventID": "f11fa63c-2463-4d98-a5ed-f7d2dd907ace",
+        "SiteID": 3,
+        "MoneyLineHome": 127,
+        "MoneyLineAway": -137,
+        "PointSpreadHome": 1.5,
+        "PointSpreadAway": -1.5,
+        "PointSpreadHomeLine": -140,
+        "PointSpreadAwayLine": 120,
+        "TotalNumber": 9,
+        "OverLine": -105,
+        "UnderLine": -115,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "161ed164-4000-4233-a077-3c1cb3fe040e",
+    "HomeTeam": "Chicago White Sox",
+    "AwayTeam": "Minnesota Twins",
+    "Sport": 0,
+    "MatchTime": "2016-06-29T00:10:00Z",
+    "Odds": [
+      {
+        "ID": "161ed164-4000-4233-a077-3c1cb3fe040e",
+        "EventID": "161ed164-4000-4233-a077-3c1cb3fe040e",
+        "SiteID": 3,
+        "MoneyLineHome": -164,
+        "MoneyLineAway": 154,
+        "PointSpreadHome": -1.5,
+        "PointSpreadAway": 1.5,
+        "PointSpreadHomeLine": 120,
+        "PointSpreadAwayLine": -140,
+        "TotalNumber": 8.5,
+        "OverLine": -110,
+        "UnderLine": -110,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "0d765b27-7052-4be0-9b50-2925fc45c848",
+    "HomeTeam": "Kansas City Royals",
+    "AwayTeam": "St. Louis Cardinals",
+    "Sport": 0,
+    "MatchTime": "2016-06-29T00:15:00Z",
+    "Odds": [
+      {
+        "ID": "0d765b27-7052-4be0-9b50-2925fc45c848",
+        "EventID": "0d765b27-7052-4be0-9b50-2925fc45c848",
+        "SiteID": 3,
+        "MoneyLineHome": -115,
+        "MoneyLineAway": 105,
+        "PointSpreadHome": -1.5,
+        "PointSpreadAway": 1.5,
+        "PointSpreadHomeLine": 175,
+        "PointSpreadAwayLine": -205,
+        "TotalNumber": 8.5,
+        "OverLine": -115,
+        "UnderLine": -105,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "a6af21c4-1676-4b1f-bec7-4144fcabd824",
+    "HomeTeam": "Colorado Rockies",
+    "AwayTeam": "Toronto Blue Jays",
+    "Sport": 0,
+    "MatchTime": "2016-06-29T00:40:00Z",
+    "Odds": [
+      {
+        "ID": "a6af21c4-1676-4b1f-bec7-4144fcabd824",
+        "EventID": "a6af21c4-1676-4b1f-bec7-4144fcabd824",
+        "SiteID": 3,
+        "MoneyLineHome": 129,
+        "MoneyLineAway": -139,
+        "PointSpreadHome": 1.5,
+        "PointSpreadAway": -1.5,
+        "PointSpreadHomeLine": -135,
+        "PointSpreadAwayLine": 115,
+        "TotalNumber": 12,
+        "OverLine": -115,
+        "UnderLine": -105,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "3d8fd271-8d98-45c3-926d-bbaea2fe90df",
+    "HomeTeam": "Arizona Diamondbacks",
+    "AwayTeam": "Philadelphia Phillies",
+    "Sport": 0,
+    "MatchTime": "2016-06-29T01:40:00Z",
+    "Odds": [
+      {
+        "ID": "3d8fd271-8d98-45c3-926d-bbaea2fe90df",
+        "EventID": "3d8fd271-8d98-45c3-926d-bbaea2fe90df",
+        "SiteID": 3,
+        "MoneyLineHome": -200,
+        "MoneyLineAway": 185,
+        "PointSpreadHome": -1.5,
+        "PointSpreadAway": 1.5,
+        "PointSpreadHomeLine": 105,
+        "PointSpreadAwayLine": -125,
+        "TotalNumber": 8,
+        "OverLine": 100,
+        "UnderLine": -120,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "dd0fc802-6978-44c6-8669-b1a8fe59d735",
+    "HomeTeam": "San Diego Padres",
+    "AwayTeam": "Baltimore Orioles",
+    "Sport": 0,
+    "MatchTime": "2016-06-29T02:10:00Z",
+    "Odds": [
+      {
+        "ID": "dd0fc802-6978-44c6-8669-b1a8fe59d735",
+        "EventID": "dd0fc802-6978-44c6-8669-b1a8fe59d735",
+        "SiteID": 3,
+        "MoneyLineHome": 131,
+        "MoneyLineAway": -141,
+        "PointSpreadHome": 1.5,
+        "PointSpreadAway": -1.5,
+        "PointSpreadHomeLine": -135,
+        "PointSpreadAwayLine": 115,
+        "TotalNumber": 8.5,
+        "OverLine": -120,
+        "UnderLine": 100,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "71e71c2a-57a9-4556-b41a-7c089c5a4330",
+    "HomeTeam": "Seattle Mariners",
+    "AwayTeam": "Pittsburgh Pirates",
+    "Sport": 0,
+    "MatchTime": "2016-06-29T02:10:00Z",
+    "Odds": [
+      {
+        "ID": "71e71c2a-57a9-4556-b41a-7c089c5a4330",
+        "EventID": "71e71c2a-57a9-4556-b41a-7c089c5a4330",
+        "SiteID": 3,
+        "MoneyLineHome": -139,
+        "MoneyLineAway": 129,
+        "PointSpreadHome": -1.5,
+        "PointSpreadAway": 1.5,
+        "PointSpreadHomeLine": 145,
+        "PointSpreadAwayLine": -165,
+        "TotalNumber": 8,
+        "OverLine": -115,
+        "UnderLine": -105,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  },
+  {
+    "ID": "0ca59d1b-f244-4eda-958c-ac0c4a5db87c",
+    "HomeTeam": "San Francisco Giants",
+    "AwayTeam": "Oakland Athletics",
+    "Sport": 0,
+    "MatchTime": "2016-06-29T02:15:00Z",
+    "Odds": [
+      {
+        "ID": "0ca59d1b-f244-4eda-958c-ac0c4a5db87c",
+        "EventID": "0ca59d1b-f244-4eda-958c-ac0c4a5db87c",
+        "SiteID": 3,
+        "MoneyLineHome": -149,
+        "MoneyLineAway": 139,
+        "PointSpreadHome": -1.5,
+        "PointSpreadAway": 1.5,
+        "PointSpreadHomeLine": 140,
+        "PointSpreadAwayLine": -160,
+        "TotalNumber": 8,
+        "OverLine": -115,
+        "UnderLine": -105,
+        "DrawLine": 0,
+        "LastUpdated": "2016-06-28T07:08:05Z",
+        "OddType": "Game"
+      }
+    ],
+    "Details": null
+  }
+]

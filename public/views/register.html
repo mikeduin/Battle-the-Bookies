@@ -1,0 +1,68 @@
+<div class="row">
+  <regBox class="col m8 offset-m2 z-depth-2">
+    <loginTitle> Register </loginTitle>
+    <div class="row">
+      <form class="col s12">
+          <div class="row">
+            <div class="input-field col s5 offset-s1">
+              <i class="fa fa-user prefix" aria-hidden="true"></i>
+              <input type="text" class="validate" ng-model="vm.username">
+              <label>Username</label>
+            </div>
+            <div class="input-field col s5">
+              <i class="material-icons prefix"></i>
+              <input type="text" ng-model="vm.email">
+              <label>Email</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s5 offset-s1">
+              <i class="fa fa-lock prefix" aria-hidden="true"></i>
+              <input type="password" class="validate" ng-model="vm.password">
+              <label>Password</label>
+            </div>
+            <div class="input-field col s5">
+              <i class="material-icons prefix"></i>
+              <input type="password" class="validate" ng-model="vm.confirmPassword">
+              <label>Confirm Password</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s5 offset-s1">
+              <i class="fa fa-child prefix" aria-hidden="true"></i>
+              <input type="password" class="validate" ng-model="vm.nameFirst">
+              <label>First Name</label>
+            </div>
+            <div class="input-field col s5">
+              <i class="material-icons prefix"></i>
+              <input type="password" class="validate" ng-model="vm.nameLast">
+              <label>Last Name</label>
+            </div>
+          </div>
+          <div class="row">
+            <buyInLevel class="col offset-s1">
+              <span class="buy-in-label"> Choose Your Buy-in Level:</span>
+              <span>
+                <input class="with-gap" name="group1" type="radio" id="bronzeTier" value="50">
+                <label for="bronzeTier"> Bronze ($50) </label>
+              </span>
+              <span>
+                <input class="with-gap" name="group1" type="radio" id="silverTier" value="100">
+                <label for="silverTier"> Silver ($100) </label>
+              </span>
+              <span>
+                <input class="with-gap" name="group1" type="radio" id="goldTier" value="200">
+                <label for="goldTier"> Gold ($200) </label>
+              </span>
+            </buyInLevel>
+          </div>
+          <div class="row">
+            <div class="col m3 offset-m9">
+              <button class="btn btn-large waves-effect waves-light login-button" name="button"> GAME ON! </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </regBox>
+</div>

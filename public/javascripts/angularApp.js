@@ -33,4 +33,24 @@ function siteConfig ($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('home.register', {
+      url: 'register',
+      views: {
+        'content@': {
+          templateUrl: 'views/register.html',
+          controller: 'AuthController',
+          controllerAs: 'vm'
+        }
+      }
+    })
+    .state('home.makepicks', {
+      url: 'makepicks',
+      views: {
+        'content@': {
+          templateUrl: 'views/makepicks.html',
+          controller: 'PickController',
+          controllerAs: 'vm'
+        }
+      }
+    })
 }

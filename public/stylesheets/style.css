@@ -17,17 +17,26 @@ nav {
 
 .brand-logo {
   margin-left: 10px;
+  color: #EEEEEE;
 }
 
 /*END NAVBAR STYLES*/
 
-/*BEGIN LOGIN STYLES*/
+/*BEGIN LOGIN + REG STYLES*/
 
 loginBox {
   margin-top: 80px;
-  height: 360px;
+  display: inline-block;
   background-color: #eeeeee;
-  border: solid 3px #bdbdbd;
+  border: solid 3px #CCCDCD;
+  border-radius: 5px;
+}
+
+regBox {
+  margin-top: 30px;
+  display: inline-block;
+  background-color: #eeeeee;
+  border: solid 3px #CCCDCD;
   border-radius: 5px;
 }
 
@@ -39,6 +48,23 @@ loginTitle {
 
 loginBox i {
   padding-top: 10px
+}
+
+regBox i {
+  padding-top: 10px
+}
+
+regLink {
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+regLink a {
+  color: #01579B
+}
+
+regBox form label {
+  padding-left: -50px;
 }
 
 /* label focus color */
@@ -74,6 +100,10 @@ loginBox i {
   color: #01579B;
 }
 
+.with-gap {
+  background-color: blue
+}
+
 .login-button {
   margin-top: 10px;
   background-color: #D4D6D6;
@@ -90,4 +120,70 @@ loginBox i {
 .login-button:focus {
   background-color: #01579B;
   color: white;
+}
+
+.push-up {
+  margin-top: -20px;
+}
+
+buyInLevel span {
+  margin-left: 20px;
+}
+
+.buy-in-label {
+  color: #01579B;
+  font-style: italic;
+  font-weight: 600;
+}
+
+/*END LOGIN/REG STYLES*/
+
+/*BEGIN MAKE PICK STYLES*/
+
+makePicksHead div {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.juice {
+  font-size: 10px
+}
+
+.payout {
+  font-size: 12px
+}
+
+.bet-type {
+  font-weight: 800
+}
+
+picksTable {
+  margin-left: 10px;
+}
+
+.btn-spread {
+  background-color: #B71C1C;
+  border-radius: 5%;
+}
+
+.btn-spread:hover {
+  background-color: #e53935;
+}
+
+.btn-ml {
+  background-color: #311b92;
+  border-radius: 5%;
+}
+
+.btn-ml:hover {
+  background-color: #5e35b1;
+}
+
+.btn-total {
+  background-color: #bf360c;
+  border-radius: 5%
+}
+
+.btn-total:hover {
+  background-color: #f4511e;
 }
