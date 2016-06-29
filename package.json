@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "async": "^2.0.0-rc.6",
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "crypto": "0.0.3",
