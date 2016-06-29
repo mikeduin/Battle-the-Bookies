@@ -10,6 +10,8 @@ var passport = require('passport');
 mongoose.connect('mongodb://localhost/battleTheBookies');
 
 require('./models/Users');
+require('./models/Lines');
+require('./models/Results');
 require('./config/passport')
 
 var db = mongoose.connection;

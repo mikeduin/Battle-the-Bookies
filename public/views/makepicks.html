@@ -4,7 +4,7 @@
   </div>
 </makePicksHead>
 
-<button type="btn btn-large" ng-click="vm.getMLBLines()"> Get MLB Lines</button>
+<button class="btn btn-large blue" ng-click="vm.getMLBLines()"> Get MLB Lines</button>
 
 <div class="row">
   <divider class="divider col m6 offset-m3"></divider>
@@ -33,27 +33,27 @@
         <th class="center-align" colspan="2"> Pick </th>
       </tr>
     </thead>
-    <tbody>
+    <tbody ng-repeat="game in vm.MLBLines">
       <tr>
         <td rowspan="2"> Game ID</td>
-        <td rowspan="2"> Date + Time</td>
-        <td> Washington Redskins </td>
-        <td> <button class="btn btn-spread" name="button"> +6 (-115)</button> </td>
-        <td> $86.59 </td>
-        <td> <button class="btn btn-ml" name="button"> +160 </button> </td>
-        <td> $160 </td>
-        <td> <button class="btn btn-total" name="button"> O 42.5 (-110) </button> </td>
-        <td> $94.55 </td>
-        <td rowspan="2" colspan="2" class="center-align">Pick</td>
+        <td rowspan="2"> {{game.MatchTime | date:'MM/dd/yyyy @ h:mma'}}</td>
+        <td> <b>(A)</b> {{game.AwayTeam}} </td>
+        <td> <button class="btn btn-spread" name="button"> {{game.Odds[0].PointSpreadAway}} ({{game.Odds[0].PointSpreadAwayLine | mlFormat}})</button> </td>
+        <td> {{game.Odds[0].PointSpreadAwayLine | payout}} </td>
+        <td> <button class="btn btn-ml" name="button"> {{game.Odds[0].MoneyLineAway | mlFormat}} </button> </td>
+        <td> {{game.Odds[0].MoneyLineAway | payout}} </td>
+        <td> <button class="btn btn-total" name="button"> O {{game.Odds[0].TotalNumber}} ({{game.Odds[0].OverLine | mlFormat}}) </button> </td>
+        <td> {{game.Odds[0].OverLine | payout}} </td>
+        <td rowspan="2" colspan="2" class="center-align"> {{game.pick}} </td>
       </tr>
       <tr>
-        <td> Seattle Seahawks </td>
-        <td> <button class="btn btn-spread" name="button"> -6 (-115)</button> </td>
-        <td> $86.59 </td>
-        <td> <button class="btn btn-ml" name="button"> -190 </button> </td>
-        <td> $160 </td>
-        <td> <button class="btn btn-total" name="button"> U 42.5 (-110) </button> </td>
-        <td> $94.55 </td>
+        <td> <b>(H)</b> {{game.HomeTeam}} </td>
+        <td> <button class="btn btn-spread" name="button"> {{game.Odds[0].PointSpreadHome}} ({{game.Odds[0].PointSpreadHomeLine | mlFormat}})</button> </td>
+        <td> {{game.Odds[0].PointSpreadHomeLine | payout}} </td>
+        <td> <button class="btn btn-ml" name="button"> {{game.Odds[0].MoneyLineHome | mlFormat}} </button> </td>
+        <td> {{game.Odds[0].MoneyLineHome | payout}} </td>
+        <td> <button class="btn btn-total" name="button"> U {{game.Odds[0].TotalNumber}} ({{game.Odds[0].UnderLine | mlFormat}}) </button> </td>
+        <td> {{game.Odds[0].UnderLine | payout}} </td>
       </tr>
     </tbody>
   </table>

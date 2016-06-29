@@ -19,9 +19,20 @@ angular
 function oddsService ($http) {
   return {
     getMLBLines: function() {
+      console.log('pre-express route call');
+      return $http.get('/api').then(function(results){
+        console.log('ok');
+        console.log(results.data);
+        return results.data
+      })
+    },
+    updateMLBLines: function() {
       return $http.get('javascripts/odds/mlbLines_06_28_16.json').then(function(results){
         var odds = results.data;
-        return odds
+        for (var i = 0; i < odds.length; i++) {
+          $http.get('/odds/')
+          odds[i]
+        }
       })
     }
   }

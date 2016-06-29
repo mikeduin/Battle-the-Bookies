@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'})
+var fetch = require('node-fetch');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -11,6 +12,21 @@ router.get('/', function(req, res, next) {
 var mongoose = require('mongoose');
 var passport = require('passport');
 var User = mongoose.model('User');
+var Line = mongoose.model('Line');
+var Result = mongoose.model('Result');
+
+router.get('/api', function(req, res, next){
+  fetch('https://jsonodds.com/api/odds/mlb', {
+    method: 'GET',
+    headers: {
+      'JsonOdds-API-Key': 'f6e556e5-0092-49d9-9e4f-c7aa591eaecb'
+    }
+  }).then(function(res){
+    return res.json()
+  }).then(function(odds){
+    res.json(odds);
+  })
+})
 
 router.post('/register', function(req, res, next){
   if(!req.body.username || !req.body.password || !req.body.nameFirst || !req.body.nameLast || !req.body.email || !req.body.buyin){
