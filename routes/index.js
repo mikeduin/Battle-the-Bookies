@@ -20,6 +20,7 @@ var abbrevs = require('../modules/abbrevs.js');
 var setWeek = require('../modules/weekSetter.js')
 
 router.get('/updateDb', function(req, res, next) {
+  console.log('hello');
   fetch('https://jsonodds.com/api/odds/mlb', {
     method: 'GET',
     headers: {
@@ -28,6 +29,7 @@ router.get('/updateDb', function(req, res, next) {
   }).then(function(res){
     return res.json()
   }).then(function(odds){
+    console.log(odds)
 
     var bulk = Line.collection.initializeOrderedBulkOp();
     var counter = 0;
@@ -40,7 +42,7 @@ router.get('/updateDb', function(req, res, next) {
           AwayTeam: odds[i].AwayTeam,
           HomeAbbrev: abbrevs.teamAbbrev(odds[i].HomeTeam),
           AwayAbbrev: abbrevs.teamAbbrev(odds[i].AwayTeam),
-          MatchTime: odds[i].MatchTime,
+          MatchTime: new Date(odds[i].MatchTime),
           Week: setWeek.weekSetter(odds[i].MatchTime),
           MoneyLineHome: odds[i].Odds[0].MoneyLineHome,
           MoneyLineAway: odds[i].Odds[0].MoneyLineAway,
@@ -84,16 +86,26 @@ router.get('/api', function(req, res, next){
 router.get('/api/today', function(req, res, next){
   var start = moment().startOf('day');
   var end = moment(start).add(1, 'days');
-  Line.find({
-    Week: "Week 1"},
 
-    // MatchTime: {
-    //   $gte: start.toDate(),
-    //   $lt: end.toDate()
-    // }},
+  // console.log("start_toDate: " + start.toDate().toUTCString());
+  // console.log("end_toDate: " + end.toDate().toUTCString());
+
+  console.log("start_toDate: " + new Date(start));
+  console.log("end_toDate: " + new Date(end));
+
+  Line.find({
+    // Week: "Week 1"},
+
+    MatchTime: {
+
+      $gte: new Date(start),
+      $lt: new Date(end)
+
+      // $gte: start.toDate().toUTCString(),
+      // $lt: end.toDate().toUTCString()
+    }},
 
   function(err, games) {
-    console.log(games);
     if (err) { next(err) };
 
     res.json(games);
@@ -104,7 +116,7 @@ router.get('/api/today', function(req, res, next){
 router.post('/picks', function(req, res, next){
   var pick = Pick({
     username: req.body.username,
-    EventID: req.body.EventID,
+    EventID: req.body.activeGame,
     activePick: req.body.activePick,
     activeLine: req.body.activeLine,
     activePayout: req.body.activePayout,

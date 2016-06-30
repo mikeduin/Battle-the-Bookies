@@ -161,6 +161,10 @@ picksTable {
   margin-left: 10px;
 }
 
+table tbody tr:nth-child(4n-1), table tbody tr:nth-child(4n)  {
+    background: #ccc;
+}
+
 .btn-spread {
   background-color: #B71C1C;
   border-radius: 5%;
@@ -186,4 +190,18 @@ picksTable {
 
 .btn-total:hover {
   background-color: #f4511e;
+}
+
+submitPick p {
+  font-size: 10px;
+}
+
+.submitted {
+  font-weight: 600;
+  color: #1b5e20;
+}
+
+pickLocked {
+  color: red;
+  font-weight: 800;
 }

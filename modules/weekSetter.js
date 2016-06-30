@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 module.exports = {
   weekSetter: function (MatchTime) {
     if (moment(MatchTime).isBetween('2016-06-23', '2016-07-01')) {

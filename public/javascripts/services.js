@@ -20,6 +20,7 @@ function oddsService ($http) {
   return {
     updateDb: function() {
       return $http.get('/updateDb').then(function(results){
+        console.log(results);
         console.log("db updated")
       })
     },
@@ -34,6 +35,7 @@ function oddsService ($http) {
       })
     },
     submitPick: function(pick) {
+      console.log(pick);
       return $http.post('/picks', pick)
     }
   }

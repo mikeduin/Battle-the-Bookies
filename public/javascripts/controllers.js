@@ -46,80 +46,92 @@ function PickController (oddsService) {
   vm.pick.activePick = {};
   vm.pick.activeLine = {};
   vm.pick.activePayout = {};
+  vm.pick.username = "mikeduin";
+  vm.sortOrder = "-MatchTime";
 
   vm.submitPick = function() {
     oddsService.submitPick(vm.pick).then(function(){
-      vm.pick = {};
-      console.log('pick submitted!')
-    })
+      console.log('pick submitted!');
+      vm.pick.activeGame = {};
+    });
   };
 
   vm.awaySpread = function(game) {
     vm.pick.activeGame = game.EventID;
-    vm.pick.activeLine = vm.mlFormat(game.PointSpreadAwayLine);
+    vm.pick.activeLine = game.PointSpreadAwayLine;
     vm.pick.activePick = (game.AwayAbbrev + ' ' + vm.mlFormat(game.PointSpreadAway));
-    vm.pick.activePayout = vm.payoutCalc(game.PointSpreadAwayLine);
+    vm.pick.activePayout = vm.activePayCalc(game.PointSpreadAwayLine);
     vm.pick.pickType = "Away Spread";
     game.pick = vm.pick.activePick;
-    game.activePayout = vm.pick.activePayout;
+    game.displayPayout = vm.displayPayCalc(game.PointSpreadAwayLine);
   }
 
   vm.homeSpread = function(game) {
     vm.pick.activeGame = game.EventID;
-    vm.pick.activeLine = vm.mlFormat(game.PointSpreadHomeLine);
+    vm.pick.activeLine = game.PointSpreadHomeLine;
     vm.pick.activePick = (game.HomeAbbrev + ' ' + vm.mlFormat(game.PointSpreadHome));
-    vm.pick.activePayout = vm.payoutCalc(game.PointSpreadHomeLine);
+    vm.pick.activePayout = vm.activePayCalc(game.PointSpreadHomeLine);
     vm.pick.pickType = "Home Spread";
     game.pick = vm.pick.activePick;
-    game.activePayout = vm.pick.activePayout;
+    game.displayPayout = vm.displayPayCalc(game.PointSpreadHomeLine);
   }
 
   vm.awayML = function(game) {
     vm.pick.activeGame = game.EventID;
-    vm.pick.activeLine = vm.mlFormat(game.MoneyLineAway);
-    vm.pick.activePick = (game.AwayAbbrev + ' ' + vm.pick.activeLine);
-    vm.pick.activePayout = vm.payoutCalc(game.MoneyLineAway);
+    vm.pick.activeLine = game.MoneyLineAway;
+    vm.pick.activePick = (game.AwayAbbrev + ' ' + vm.mlFormat(game.MoneyLineAway));
+    vm.pick.activePayout = vm.activePayCalc(game.MoneyLineAway);
     vm.pick.pickType = "Away Moneyline";
     game.pick = vm.pick.activePick;
-    game.activePayout = vm.pick.activePayout;
+    game.displayPayout = vm.displayPayCalc(game.MoneyLineAway);
   }
 
   vm.homeML = function(game) {
     vm.pick.activeGame = game.EventID;
-    vm.pick.activeLine = vm.mlFormat(game.MoneyLineHome);
-    vm.pick.activePick = (game.HomeAbbrev + ' ' + vm.pick.activeLine);
-    vm.pick.activePayout = vm.payoutCalc(game.MoneyLineHome);
+    vm.pick.activeLine = game.MoneyLineHome;
+    vm.pick.activePick = (game.HomeAbbrev + ' ' + vm.mlFormat(game.MoneyLineHome));
+    vm.pick.activePayout = vm.activePayCalc(game.MoneyLineHome);
     vm.pick.pickType = "Home Moneyline";
     game.pick = vm.pick.activePick;
-    game.activePayout = vm.pick.activePayout;
+    game.displayPayout = vm.displayPayCalc(game.MoneyLineHome);
   }
 
   vm.totalOver = function(game) {
     vm.pick.activeGame = game.EventID;
     vm.pick.activePick = (game.AwayAbbrev + '/' + game.HomeAbbrev + ' O' + game.TotalNumber);
-    vm.pick.activeLine = vm.mlFormat(game.OverLine);
-    vm.pick.activePayout = vm.payoutCalc(game.OverLine);
+    vm.pick.activeLine = game.OverLine;
+    vm.pick.activePayout = vm.activePayCalc(game.OverLine);
     vm.pick.pickType = "Total Over";
     game.pick = vm.pick.activePick;
-    game.activePayout = vm.pick.activePayout;
+    game.displayPayout = vm.displayPayCalc(game.OverLine);
   }
 
   vm.totalUnder = function(game) {
     vm.pick.activeGame = game.EventID;
     vm.pick.activePick = (game.AwayAbbrev + '/' + game.HomeAbbrev + ' U' + game.TotalNumber);
-    vm.pick.activeLine = vm.mlFormat(game.UnderLine);
-    vm.pick.activePayout = vm.payoutCalc(game.UnderLine);
+    vm.pick.activeLine = game.UnderLine;
+    vm.pick.activePayout = vm.activePayCalc(game.UnderLine);
     vm.pick.pickType = "Total Under";
     game.pick = vm.pick.activePick;
-    game.activePayout = vm.pick.activePayout;
+    game.displayPayout = vm.displayPayCalc(game.UnderLine);
   }
 
-  vm.payoutCalc = function(line) {
+  vm.displayPayCalc = function(line) {
     var payout;
     if (line < 0) {
       payout = "$"+((10000 / -line).toFixed(2))
     } else {
       payout = "$"+(line)
+    };
+    return payout
+  };
+
+  vm.activePayCalc = function(line) {
+    var payout;
+    if (line < 0) {
+      payout = (10000 / -line)
+    } else {
+      payout = line
     };
     return payout
   };
