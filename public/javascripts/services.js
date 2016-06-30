@@ -18,22 +18,23 @@ angular
 
 function oddsService ($http) {
   return {
+    updateDb: function() {
+      return $http.get('/updateDb').then(function(results){
+        console.log("db updated")
+      })
+    },
     getMLBLines: function() {
-      console.log('pre-express route call');
       return $http.get('/api').then(function(results){
-        console.log('ok');
-        console.log(results.data);
         return results.data
       })
     },
-    updateMLBLines: function() {
-      return $http.get('javascripts/odds/mlbLines_06_28_16.json').then(function(results){
-        var odds = results.data;
-        for (var i = 0; i < odds.length; i++) {
-          $http.get('/odds/')
-          odds[i]
-        }
+    getTodayGames: function() {
+      return $http.get('/api/today').then(function(results){
+        return results.data
       })
+    },
+    submitPick: function(pick) {
+      return $http.post('/picks', pick)
     }
   }
 }

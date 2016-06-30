@@ -3,7 +3,7 @@ var router = express.Router();
 var jwt = require('express-jwt');
 var auth = jwt({secret: 'SECRET', userProperty: 'payload'})
 var fetch = require('node-fetch');
-var async = require('async');
+var moment = require ('moment');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -15,8 +15,11 @@ var passport = require('passport');
 var User = mongoose.model('User');
 var Line = mongoose.model('Line');
 var Result = mongoose.model('Result');
+var Pick = mongoose.model('Pick');
+var abbrevs = require('../modules/abbrevs.js');
+var setWeek = require('../modules/weekSetter.js')
 
-router.get('/api', function(req, res, next){
+router.get('/updateDb', function(req, res, next) {
   fetch('https://jsonodds.com/api/odds/mlb', {
     method: 'GET',
     headers: {
@@ -25,6 +28,7 @@ router.get('/api', function(req, res, next){
   }).then(function(res){
     return res.json()
   }).then(function(odds){
+
     var bulk = Line.collection.initializeOrderedBulkOp();
     var counter = 0;
 
@@ -34,7 +38,10 @@ router.get('/api', function(req, res, next){
           EventID: odds[i].ID,
           HomeTeam: odds[i].HomeTeam,
           AwayTeam: odds[i].AwayTeam,
+          HomeAbbrev: abbrevs.teamAbbrev(odds[i].HomeTeam),
+          AwayAbbrev: abbrevs.teamAbbrev(odds[i].AwayTeam),
           MatchTime: odds[i].MatchTime,
+          Week: setWeek.weekSetter(odds[i].MatchTime),
           MoneyLineHome: odds[i].Odds[0].MoneyLineHome,
           MoneyLineAway: odds[i].Odds[0].MoneyLineAway,
           PointSpreadHome: odds[i].Odds[0].PointSpreadHome,
@@ -66,7 +73,51 @@ router.get('/api', function(req, res, next){
   )
 })
 
+router.get('/api', function(req, res, next){
+  Line.find(function(err, games) {
+    if (err) { next(err) };
 
+    res.json(games);
+  })
+})
+
+router.get('/api/today', function(req, res, next){
+  var start = moment().startOf('day');
+  var end = moment(start).add(1, 'days');
+  Line.find({
+    Week: "Week 1"},
+
+    // MatchTime: {
+    //   $gte: start.toDate(),
+    //   $lt: end.toDate()
+    // }},
+
+  function(err, games) {
+    console.log(games);
+    if (err) { next(err) };
+
+    res.json(games);
+    console.log('db query completed');
+  })
+})
+
+router.post('/picks', function(req, res, next){
+  var pick = Pick({
+    username: req.body.username,
+    EventID: req.body.EventID,
+    activePick: req.body.activePick,
+    activeLine: req.body.activeLine,
+    activePayout: req.body.activePayout,
+    pickType: req.body.pickType
+  });
+
+  pick.save(function(err, pick){
+    if (err) { return next(err) }
+
+    res.json(pick);
+    console.log(pick + 'has been added to db!');
+  })
+})
 
 router.post('/register', function(req, res, next){
   if(!req.body.username || !req.body.password || !req.body.nameFirst || !req.body.nameLast || !req.body.email || !req.body.buyin){

@@ -1,5 +1,7 @@
 var mongoose = require ('mongoose');
 
+// Keys in LineSchema are capitalized to be consistent with key names pulled from third-party API
+
 var LineSchema = new mongoose.Schema({
   EventID: {
     type: String,
@@ -18,6 +20,9 @@ var LineSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
+  Week: String,
+  HomeAbbrev: String,
+  AwayAbbrev: String,
   MoneyLineHome: Number,
   MoneyLineAway: Number,
   PointSpreadHome: Number,

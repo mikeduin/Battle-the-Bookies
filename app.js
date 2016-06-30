@@ -6,12 +6,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var passport = require('passport');
+var moment = require('moment-timezone');
 
 mongoose.connect('mongodb://localhost/battleTheBookies');
 
 require('./models/Users');
 require('./models/Lines');
 require('./models/Results');
+require('./models/Picks');
 require('./config/passport')
 
 var db = mongoose.connection;
@@ -52,7 +54,7 @@ app.use(function(req, res, next) {
 if (app.get('env') === 'development') {
   app.use(function(err, req, res, next) {
     res.status(err.status || 500);
-    res.render('error', {
+    res.json({
       message: err.message,
       error: err
     });
@@ -63,7 +65,7 @@ if (app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
-  res.render('error', {
+  res.json({
     message: err.message,
     error: {}
   });

@@ -6,6 +6,20 @@
 
 <button class="btn btn-large blue" ng-click="vm.getMLBLines()"> Get MLB Lines</button>
 
+<button class="btn btn-large blue" ng-click="vm.getTodayGames()"> Get Today's Games</button>
+
+<button class="btn btn-large blue" ng-click="vm.updateDb()"> Update Db</button>
+
+<p>
+  Active Game: {{vm.pick.activeGame}}
+</p>
+<p>
+  Active Pick: {{vm.pick.activePick}}
+</p>
+<p>
+  Active Payout: {{vm.pick.activePayout}}
+</p>
+
 <div class="row">
   <divider class="divider col m6 offset-m3"></divider>
 </div>
@@ -15,7 +29,7 @@
     <thead>
       <tr>
         <th colspan="3">  </th>
-        <th class="center-align" colspan="2"> SPREAD </th>
+        <th class="center-align" colspan="2"> SPREAD (RUN LINE) </th>
         <th class="center-align" colspan="2"> MONEYLINE </th>
         <th class="center-align" colspan="2"> TOTAL </th>
         <th class="center-align" colspan="2"> YOUR PICK </th>
@@ -35,25 +49,25 @@
     </thead>
     <tbody ng-repeat="game in vm.MLBLines">
       <tr>
-        <td rowspan="2"> Game ID</td>
+        <td rowspan="2"> Game ID </td>
         <td rowspan="2"> {{game.MatchTime | date:'MM/dd/yyyy @ h:mma'}}</td>
         <td> <b>(A)</b> {{game.AwayTeam}} </td>
-        <td> <button class="btn btn-spread" name="button"> {{game.Odds[0].PointSpreadAway}} ({{game.Odds[0].PointSpreadAwayLine | mlFormat}})</button> </td>
-        <td> {{game.Odds[0].PointSpreadAwayLine | payout}} </td>
-        <td> <button class="btn btn-ml" name="button"> {{game.Odds[0].MoneyLineAway | mlFormat}} </button> </td>
-        <td> {{game.Odds[0].MoneyLineAway | payout}} </td>
-        <td> <button class="btn btn-total" name="button"> O {{game.Odds[0].TotalNumber}} ({{game.Odds[0].OverLine | mlFormat}}) </button> </td>
-        <td> {{game.Odds[0].OverLine | payout}} </td>
-        <td rowspan="2" colspan="2" class="center-align"> {{game.pick}} </td>
+        <td> <button class="btn btn-spread" ng-click="vm.awaySpread(game)"> {{game.PointSpreadAway | mlFormat}} ({{game.PointSpreadAwayLine | mlFormat}})</button> </td>
+        <td> {{game.PointSpreadAwayLine | payoutFilter}} </td>
+        <td> <button class="btn btn-ml" ng-click="vm.awayML(game)"> {{game.MoneyLineAway | mlFormat}} </button> </td>
+        <td> {{game.MoneyLineAway | payoutFilter}} </td>
+        <td> <button class="btn btn-total" ng-click="vm.totalOver(game)"> O {{game.TotalNumber}} ({{game.OverLine | mlFormat}}) </button> </td>
+        <td> {{game.OverLine | payoutFilter}} </td>
+        <td rowspan="2" colspan="2" class="center-align"> {{game.pick}} <br> {{game.activePayout}} </td>
       </tr>
       <tr>
         <td> <b>(H)</b> {{game.HomeTeam}} </td>
-        <td> <button class="btn btn-spread" name="button"> {{game.Odds[0].PointSpreadHome}} ({{game.Odds[0].PointSpreadHomeLine | mlFormat}})</button> </td>
-        <td> {{game.Odds[0].PointSpreadHomeLine | payout}} </td>
-        <td> <button class="btn btn-ml" name="button"> {{game.Odds[0].MoneyLineHome | mlFormat}} </button> </td>
-        <td> {{game.Odds[0].MoneyLineHome | payout}} </td>
-        <td> <button class="btn btn-total" name="button"> U {{game.Odds[0].TotalNumber}} ({{game.Odds[0].UnderLine | mlFormat}}) </button> </td>
-        <td> {{game.Odds[0].UnderLine | payout}} </td>
+        <td> <button class="btn btn-spread" ng-click="vm.homeSpread(game)"> {{game.PointSpreadHome | mlFormat}} ({{game.PointSpreadHomeLine | mlFormat}})</button> </td>
+        <td> {{game.PointSpreadHomeLine | payoutFilter}} </td>
+        <td> <button class="btn btn-ml" ng-click="vm.homeML(game)"> {{game.MoneyLineHome | mlFormat}} </button> </td>
+        <td> {{game.MoneyLineHome | payoutFilter}} </td>
+        <td> <button class="btn btn-total" ng-click="vm.totalUnder(game)"> U {{game.TotalNumber}} ({{game.UnderLine | mlFormat}}) </button> </td>
+        <td> {{game.UnderLine | payoutFilter}} </td>
       </tr>
     </tbody>
   </table>
