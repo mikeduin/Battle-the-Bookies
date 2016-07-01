@@ -6,6 +6,7 @@ angular
   .filter('mlFormat', mlFormat)
   .filter('payoutFilter', payoutFilter)
 
+
 function mlFormat () {
   return function (ml) {
     if (ml < 0) {
@@ -40,8 +41,10 @@ function AuthController () {
 
 function PickController (oddsService) {
   var vm = this;
+  vm.currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
   vm.pick = {};
-  vm.MLBLines = {};
+  vm.MLBLines = [];
+  vm.daysOfGames = [];
   vm.pick.activeGame = {};
   vm.pick.activePick = {};
   vm.pick.activeLine = {};
@@ -55,6 +58,12 @@ function PickController (oddsService) {
       vm.pick.activeGame = {};
     });
   };
+
+  vm.timeCheck = function(game) {
+    if(moment(game.MatchTime).isBefore(moment())) {
+      game.locked = true;
+    }
+  }
 
   vm.awaySpread = function(game) {
     vm.pick.activeGame = game.EventID;
@@ -147,6 +156,7 @@ function PickController (oddsService) {
   vm.getMLBLines = function() {
     oddsService.getMLBLines().then(function(lines){
       vm.MLBLines = lines;
+      console.log(lines);
     })
   };
 
@@ -155,6 +165,14 @@ function PickController (oddsService) {
       vm.MLBLines = lines;
     })
   };
+
+  vm.getDates = function() {
+    oddsService.getDates().then(function(dates){
+      console.log(dates);
+      vm.daysOfGames = dates;
+    })
+  };
+  vm.getDates();
 
   vm.updateDb = function() {
     oddsService.updateDb().then(function(){

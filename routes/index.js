@@ -43,6 +43,7 @@ router.get('/updateDb', function(req, res, next) {
           HomeAbbrev: abbrevs.teamAbbrev(odds[i].HomeTeam),
           AwayAbbrev: abbrevs.teamAbbrev(odds[i].AwayTeam),
           MatchTime: new Date(odds[i].MatchTime),
+          MatchDay: moment(odds[i].MatchTime).format('MMMM Do, YYYY'),
           Week: setWeek.weekSetter(odds[i].MatchTime),
           MoneyLineHome: odds[i].Odds[0].MoneyLineHome,
           MoneyLineAway: odds[i].Odds[0].MoneyLineAway,

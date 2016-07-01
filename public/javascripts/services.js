@@ -3,19 +3,6 @@ angular
   .factory('auth', ['$http', '$window', auth])
   .factory('oddsService', ['$http', oddsService])
 
-// function oddsService ($http) {
-//   return {
-//     getMLBLines: function() {
-//       return $http.get('https://jsonodds.com/api/odds/mlb', {
-//         headers: {'JsonOdds-API-Key': 'f6e556e5-0092-49d9-9e4f-c7aa591eaecb'}
-//       }).then(function(results){
-//         var odds = results.data;
-//         return odds
-//       })
-//     }
-//   }
-// }
-
 function oddsService ($http) {
   return {
     updateDb: function() {
@@ -25,19 +12,35 @@ function oddsService ($http) {
       })
     },
     getMLBLines: function() {
-      return $http.get('/api').then(function(results){
-        return results.data
+      return $http.get('/api').then(function(lines){
+        return lines.data
       })
     },
     getTodayGames: function() {
-      return $http.get('/api/today').then(function(results){
-        return results.data
+      return $http.get('/api/today').then(function(lines){
+        return lines.data
       })
     },
     submitPick: function(pick) {
       console.log(pick);
       return $http.post('/picks', pick)
-    }
+    },
+    getDates: function() {
+      return $http.get('/api')
+      .then(function(lines) {
+        var dates = [];
+        var games = lines.data;
+        for (var i in games) {
+          for (var j in games[i].MatchDay) {
+            if (dates.indexOf(games[i].MatchDay) === -1) {
+              dates.push(games[i].MatchDay)
+            }
+          }
+        }
+        console.log(dates);
+        return dates;
+      })
+    },
   }
 }
 
