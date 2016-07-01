@@ -7,11 +7,10 @@ function oddsService ($http) {
   return {
     updateDb: function() {
       return $http.get('/updateDb').then(function(results){
-        console.log(results);
         console.log("db updated")
       })
     },
-    getMLBLines: function() {
+    getMlbLines: function() {
       return $http.get('/api').then(function(lines){
         return lines.data
       })

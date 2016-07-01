@@ -43,7 +43,7 @@ function PickController (oddsService) {
   var vm = this;
   vm.currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
   vm.pick = {};
-  vm.MLBLines = [];
+  vm.mlbLines = [];
   vm.daysOfGames = [];
   vm.pick.activeGame = {};
   vm.pick.activePick = {};
@@ -51,6 +51,31 @@ function PickController (oddsService) {
   vm.pick.activePayout = {};
   vm.pick.username = "mikeduin";
   vm.sortOrder = "-MatchTime";
+
+  vm.getMlbLines = function() {
+    oddsService.getMlbLines().then(function(lines){
+      vm.mlbLines = lines;
+    })
+  };
+
+  vm.getTodayGames = function() {
+    oddsService.getTodayGames().then(function(lines){
+      vm.mlbLines = lines;
+    })
+  };
+
+  vm.getDates = function() {
+    oddsService.getDates().then(function(dates){
+      vm.daysOfGames = dates;
+    })
+  };
+  vm.getDates();
+
+  vm.updateDb = function() {
+    oddsService.updateDb().then(function(){
+      console.log("db updated")
+    })
+  };
 
   vm.submitPick = function() {
     oddsService.submitPick(vm.pick).then(function(){
@@ -153,30 +178,4 @@ function PickController (oddsService) {
     }
   }
 
-  vm.getMLBLines = function() {
-    oddsService.getMLBLines().then(function(lines){
-      vm.MLBLines = lines;
-      console.log(lines);
-    })
-  };
-
-  vm.getTodayGames = function() {
-    oddsService.getTodayGames().then(function(lines){
-      vm.MLBLines = lines;
-    })
-  };
-
-  vm.getDates = function() {
-    oddsService.getDates().then(function(dates){
-      console.log(dates);
-      vm.daysOfGames = dates;
-    })
-  };
-  vm.getDates();
-
-  vm.updateDb = function() {
-    oddsService.updateDb().then(function(){
-      console.log("db updated")
-    })
-  };
 }

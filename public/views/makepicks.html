@@ -1,18 +1,18 @@
-<makePicksHead class="row" ng-init="vm.getMLBLines()">
+<makePicksHead class="row" ng-init="vm.getMlbLines()">
   <div class="col m12 center-align">
     Make Your Picks
   </div>
 </makePicksHead>
 
 <div class="row">
-  <button class="btn blue" ng-click="vm.getMLBLines()"> Get MLB Lines</button>
+  <button class="btn blue" ng-click="vm.getMlbLines()"> Get MLB Lines</button>
 
   <button class="btn blue" ng-click="vm.getTodayGames()"> Get Today's Games</button>
 
   <button class="btn blue" ng-click="vm.updateDb()"> Update Db</button>
 
-  time: {{vm.currentTime}}
   Current Time is: <time-keeper> </time-keeper>
+  <update-lines get-mlb-lines="vm.getMlbLines()" update-db="vm.updateDb()"> </update-lines>
 </div>
 
 <div class="row">
@@ -54,7 +54,7 @@
         <th class="center-align" colspan="2"> YOUR PICK </th>
       </tr>
     </thead>
-    <tbody ng-repeat="game in vm.MLBLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter } | filter: search">
+    <tbody ng-repeat="game in vm.mlbLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter } | filter: search">
       <tr ng-init="vm.timeCheck(game)">
         <td rowspan="2"> {{game.MatchDay}} <br> {{game.MatchTime | date:'MM/dd/yy'}} <br> {{game.MatchTime | date:'h:mm a'}} </td>
         <td> <b>(A)</b> {{game.AwayTeam}} </td>
