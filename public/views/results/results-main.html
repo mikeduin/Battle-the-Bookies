@@ -1,4 +1,4 @@
-<resultsHead class="row" ng-init="">
+<resultsHead class="row" ng-init="vm.getMlbLines()">
   <div class="col m12 center-align">
     Results
   </div>
@@ -6,8 +6,7 @@
 
 <div class="row">
   <div class="col m2">
-      <select class="browser-default" ng-model="vm.resultDayFilter">
-        <option value="" > Select a Day </option>
+      <select class="browser-default" ng-model="vm.gameDayFilter">
         <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
       </select>
   </div>
@@ -17,58 +16,45 @@
 <divider class="divider col m6 offset-m3"></divider>
 </div>
 
-<!-- <div class="row">
-  <div class="col m4">
-    <div class="col m6">
-      <div style="font-size: 13px"> Jeremiah Whatshisface</div>
-    </div>
-    <div class="col m3" style="border: solid 1px black">
-      $2,451.43
-    </div>
-    <div class="col m3 center-align" style="border: solid 1px black">
-      $2,451.43
-    </div>
-    <div class="col m1">
-      <div class="text-center">
-          16
-      </div>
-    </div>
-    <div class="col m1 center-align ">
-      16
-    </div>
-  </div>
-</div> -->
+<button class="btn blue" ng-click="vm.getMlbLines()"> Get Games</button>
 
-
-
-
-<div class="row">
-  <div class="col m3">
-    <resultsTable class="container-fixed">
-      <table class="table-responsive">
-        <thead>
-          <tr>
-            <th> Player </th>
-            <th> YTD $ </th>
-            <th> $ </th>
-            <th> W </th>
-            <th> L </th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- ng-repeat on row for users in whatever -->
-          <tr>
-            <td> Jeremiah Whatshisface </td>
-            <td> $1,650.45 </td>
-            <td> $290.89 </td>
-            <td> 602 </td>
-            <td> 3 </td>
-          </tr>
-        </tbody>
-      </table>
-    </resultsTable>
-  </div>
-  <div class="col m9">
-    <div ui-view="results-one"> </div>
-  </div>
-</div>
+<sampleTable>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Player
+        </th>
+        <th>
+          YTD
+        </th>
+        <th>
+          Today
+        </th>
+        <th ng-repeat="game in vm.mlbLines | filter: { MatchDay: vm.gameDayFilter }" ng-init="vm.getResult(game)"> {{game.AwayAbbrev}} {{game.AwayScore}} <br> {{game.HomeAbbrev}} {{game.HomeScore}} <br> {{game.status}} </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> Jeremiah Whatshisface </td>
+        <td> $2,435.69 </td>
+        <td> $1,435.34 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+        <td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+      </tr>
+    </tbody>
+  </table>
+</sampleTable>

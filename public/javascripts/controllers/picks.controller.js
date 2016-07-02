@@ -15,8 +15,8 @@ function PickController (oddsService) {
   vm.pick.activePayout = {};
   vm.pick.username = "mikeduin";
   vm.sortOrder = "MatchTime";
-  vm.getMlbLines = mlbLines;
-  vm.getMlbResults = mlbResults;
+  vm.getMlbLines = getMlbLines;
+  vm.getMlbResults = getMlbResults;
   vm.getTodayGames = getTodayGames;
   vm.getDates = getDates;
   vm.getResult = getResult;
@@ -30,17 +30,18 @@ function PickController (oddsService) {
   vm.homeML = homeML;
   vm.totalOver = totalOver;
   vm.totalUnder = totalUnder;
+  // vm.checkActiveStatus = checkActiveStatus;
   vm.displayPayCalc = displayPayCalc;
   vm.activePayCalc = activePayCalc;
   vm.mlFormat = mlFormat;
 
-  function mlbLines() {
+  function getMlbLines() {
     oddsService.getMlbLines().then(function(lines){
       vm.mlbLines = lines;
     })
   };
 
-  function mlbResults() {
+  function getMlbResults() {
     oddsService.getMlbResults().then(function(results){
       vm.mlbResults = results;
     })
@@ -102,7 +103,7 @@ function PickController (oddsService) {
   function awaySpread (game) {
     vm.pick.activeGame = game.EventID;
     vm.pick.activeLine = game.PointSpreadAwayLine;
-    vm.pick.activePick = (game.AwayAbbrev + ' ' + vm.mlFormat(game.PointSpreadAway));
+    vm.pick.activePick = (game.AwayAbbrev + ' ' +      vm.mlFormat(game.PointSpreadAway));
     vm.pick.activePayout = vm.activePayCalc(game.PointSpreadAwayLine);
     vm.pick.pickType = "Away Spread";
     game.pick = vm.pick.activePick;
@@ -158,13 +159,21 @@ function PickController (oddsService) {
     game.pick = vm.pick.activePick;
     game.displayPayout = vm.displayPayCalc(game.UnderLine);
   }
+  //
+  // function checkActiveStatus (game) {
+  //   console.log('hello');
+  //   if (vm.pick.activeGame === game.EventID) {
+  //     game.pick = vm.pick.activePick;
+  //     game.displayPayout = vm.displayPayCalc(vm.pick.activePayout)
+  //   };
+  // }
 
   function displayPayCalc (line) {
     var payout;
     if (line < 0) {
       payout = "$"+((10000 / -line).toFixed(2))
     } else {
-      payout = "$"+(line)
+      payout = "$"+(line).toFixed(2)
     };
     return payout
   };

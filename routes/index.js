@@ -19,6 +19,7 @@ var Pick = mongoose.model('Pick');
 var abbrevs = require('../modules/abbrevs.js');
 var setWeek = require('../modules/weekSetter.js')
 
+// BEGIN ROUTES TO AUTO-UPDATE ODDS + RESULTS FROM API
 
 router.get('/updateResults', function(req, res, next) {
   fetch('https://jsonodds.com/api/results/mlb', {
@@ -62,7 +63,6 @@ router.get('/updateResults', function(req, res, next) {
   })
 });
 
-
 router.get('/updateOdds', function(req, res, next) {
   fetch('https://jsonodds.com/api/odds/mlb', {
     method: 'GET',
@@ -105,7 +105,6 @@ router.get('/updateOdds', function(req, res, next) {
           bulk = Line.collection.initializeOrderedBulkOp();
         });
       }
-
     };
 
     if (counter % 1000 != 0)
@@ -117,6 +116,9 @@ router.get('/updateOdds', function(req, res, next) {
     }
   )
 });
+
+// END ROUTES TO AUTO-UPDATE ODDS + RESULTS FROM API
+// BEGIN LINE ROUTES
 
 router.get('/lines', function(req, res, next){
   Line.find(function(err, games) {
@@ -145,12 +147,43 @@ router.get('/lines/today', function(req, res, next){
   })
 })
 
+// END LINE ROUTES
+// BEGIN RESULTS ROUTES
+
 router.get('/results', function(req, res, next){
   Result.find(function(err, games) {
     if (err) { next(err) };
 
     res.json(games);
   })
+})
+
+router.param('EventID', function(req, res, next, EventID) {
+  var query = Result.find({ EventID: EventID });
+
+  query.exec(function (err, result) {
+    if (err) { next(err) }
+    if (!result) {return next(new Error("can't find game")); }
+
+    req.result = result;
+    return next();
+  })
+})
+
+router.get('/results/:EventID', function(req, res) {
+    res.json(req.result);
+})
+
+// END RESULTS ROUTES
+// BEGIN PICK ROUTES
+
+router.get('/picks', function (req, res, next){
+  Pick.find(function(err, picks){
+    if(err) { next(err) }
+
+    res.json(picks)
+  })
+
 })
 
 router.post('/picks', function(req, res, next){
@@ -164,29 +197,14 @@ router.post('/picks', function(req, res, next){
   });
 
   pick.save(function(err, pick){
-    if (err) { return next(err) }
+    if (err) { next(err) }
 
     res.json(pick);
     console.log(pick + 'has been added to db!');
   })
 })
 
-router.param('EventID', function(req, res, next, EventID) {
-  var query = Result.find({ EventID: EventID });
-
-  query.exec(function (err, result) {
-    if (err) {return next(err); }
-    if (!result) {return next(new Error("can't find game")); }
-
-    req.result = result;
-    return next();
-  })
-})
-
-router.get('/results/:EventID', function(req, res) {
-    res.json(req.result);
-})
-
+// BEGIN AUTH ROUTES
 
 router.post('/register', function(req, res, next){
   if(!req.body.username || !req.body.password || !req.body.nameFirst || !req.body.nameLast || !req.body.email || !req.body.buyin){
@@ -221,5 +239,7 @@ router.post('/login', function(req, res, next){
     }
   })(req, res, next);
 });
+
+// END AUTH ROUTES
 
 module.exports = router;

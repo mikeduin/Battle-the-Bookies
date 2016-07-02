@@ -59,10 +59,10 @@
       </tr>
     </thead>
     <tbody ng-repeat="game in vm.mlbLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter } | filter: search">
-      <tr ng-init="vm.timeCheck(game)">
+      <tr ng-init="vm.timeCheck(game); vm.checkActiveStatus(game)">
         <td rowspan="2"> {{game.MatchDay}} {{game.hello}} <br> {{game.MatchTime | date:'MM/dd/yy'}} <br> {{game.MatchTime | date:'h:mm a'}} </td>
         <td> <b>(A)</b> {{game.AwayTeam}}
-          <away-score get-result="vm.getResult(game)" game="game"> </away-score>
+          <!-- <away-score get-result="vm.getResult(game)" game="game"> </away-score> -->
         </td>
         <td> <button ng-class="{disabled: game.locked}" class="btn btn-spread" ng-click="game.locked || vm.awaySpread(game)"> {{game.PointSpreadAway | mlFormat}} ({{game.PointSpreadAwayLine | mlFormat}})</button> </td>
         <td> {{game.PointSpreadAwayLine | payoutFilter}} </td>

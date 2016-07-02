@@ -40,6 +40,11 @@ function oddsService ($http) {
         return result.data
       })
     },
+    getPicks: function(){
+      return $http.get('/picks').then(function(picks){
+        return picks.data
+      })
+    },
     getDates: function() {
       return $http.get('/lines')
       .then(function(lines) {
