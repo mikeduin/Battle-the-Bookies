@@ -9,10 +9,14 @@
 
   <button class="btn blue" ng-click="vm.getTodayGames()"> Get Today's Games</button>
 
-  <button class="btn blue" ng-click="vm.updateDb()"> Update Db</button>
+  <button class="btn blue" ng-click="vm.updateOdds()"> Update Db</button>
+
+  <button class="btn blue" ng-click="vm.updateResults()"> Update Results</button>
+
+  <button class="btn blue" ng-click="vm.getMlbResults()"> Get Results</button>
 
   Current Time is: <time-keeper> </time-keeper>
-  <update-lines get-mlb-lines="vm.getMlbLines()" update-db="vm.updateDb()"> </update-lines>
+  <update-lines get-mlb-lines="vm.getMlbLines()" update-odds="vm.updateOdds()"> </update-lines>
 </div>
 
 <div class="row">
@@ -56,8 +60,10 @@
     </thead>
     <tbody ng-repeat="game in vm.mlbLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter } | filter: search">
       <tr ng-init="vm.timeCheck(game)">
-        <td rowspan="2"> {{game.MatchDay}} <br> {{game.MatchTime | date:'MM/dd/yy'}} <br> {{game.MatchTime | date:'h:mm a'}} </td>
-        <td> <b>(A)</b> {{game.AwayTeam}} </td>
+        <td rowspan="2"> {{game.MatchDay}} {{game.hello}} <br> {{game.MatchTime | date:'MM/dd/yy'}} <br> {{game.MatchTime | date:'h:mm a'}} </td>
+        <td> <b>(A)</b> {{game.AwayTeam}}
+          <away-score get-result="vm.getResult(game)" game="game"> </away-score>
+        </td>
         <td> <button ng-class="{disabled: game.locked}" class="btn btn-spread" ng-click="game.locked || vm.awaySpread(game)"> {{game.PointSpreadAway | mlFormat}} ({{game.PointSpreadAwayLine | mlFormat}})</button> </td>
         <td> {{game.PointSpreadAwayLine | payoutFilter}} </td>
         <td> <button ng-class="{disabled: game.locked}" class="btn btn-ml" ng-click="game.locked || vm.awayML(game)"> {{game.MoneyLineAway | mlFormat}} </button> </td>

@@ -53,4 +53,24 @@ function siteConfig ($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('home.results', {
+      url: 'results',
+      views: {
+        'content@': {
+          templateUrl: 'views/results/results-main.html',
+          controller: 'ResultController',
+          controllerAs: 'vm'
+        }
+      }
+    })
+    .state('home.results.one', {
+      url: '/one',
+      views: {
+        'results-one@home.results': {
+          templateUrl: 'views/results/results-one.html',
+          controller: 'ResultController',
+          controllerAs: 'vm'
+        }
+      }
+    })
 }

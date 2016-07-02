@@ -205,3 +205,30 @@ pickLocked {
   color: red;
   font-weight: 800;
 }
+
+/*END MAKE PICK STYLES*/
+/*BEGIN RESULTS STYLES*/
+
+resultsTable table tr td {
+  border: solid 1px black
+}
+
+resultsTable table {
+  width: 30%
+}
+
+.playerName {
+  width: 15%
+}
+
+.resDollars {
+  width: 1%
+}
+
+.resW {
+  width: 1%
+}
+
+.resPct {
+  width: 3%
+}

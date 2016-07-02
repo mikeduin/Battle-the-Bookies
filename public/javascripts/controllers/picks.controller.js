@@ -1,96 +1,105 @@
 angular
   .module('battleBookies')
-  .controller('MainController', MainController)
-  .controller('AuthController', AuthController)
   .controller('PickController', ['oddsService', PickController])
-  .filter('mlFormat', mlFormat)
-  .filter('payoutFilter', payoutFilter)
-
-
-function mlFormat () {
-  return function (ml) {
-    if (ml < 0) {
-      return ml
-    } else {
-      return "+" + ml
-    }
-  }
-}
-
-function payoutFilter () {
-  return function (line) {
-    var payout;
-    if (line < 0) {
-      payout = "$"+((10000 / -line).toFixed(2))
-    } else {
-      payout = "$"+(line)
-    };
-    return payout
-  }
-}
-
-
-function MainController () {
-  var vm = this;
-  vm.name = 'mike';
-}
-
-function AuthController () {
-  var vm = this;
-}
 
 function PickController (oddsService) {
   var vm = this;
   vm.currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
   vm.pick = {};
   vm.mlbLines = [];
+  vm.mlbResults = [];
   vm.daysOfGames = [];
   vm.pick.activeGame = {};
   vm.pick.activePick = {};
   vm.pick.activeLine = {};
   vm.pick.activePayout = {};
   vm.pick.username = "mikeduin";
-  vm.sortOrder = "-MatchTime";
+  vm.sortOrder = "MatchTime";
+  vm.getMlbLines = mlbLines;
+  vm.getMlbResults = mlbResults;
+  vm.getTodayGames = getTodayGames;
+  vm.getDates = getDates;
+  vm.getResult = getResult;
+  vm.updateOdds = updateOdds;
+  vm.updateResults = updateResults;
+  vm.submitPick = submitPick;
+  vm.timeCheck = timeCheck;
+  vm.awaySpread = awaySpread;
+  vm.homeSpread = homeSpread;
+  vm.awayML = awayML;
+  vm.homeML = homeML;
+  vm.totalOver = totalOver;
+  vm.totalUnder = totalUnder;
+  vm.displayPayCalc = displayPayCalc;
+  vm.activePayCalc = activePayCalc;
+  vm.mlFormat = mlFormat;
 
-  vm.getMlbLines = function() {
+  function mlbLines() {
     oddsService.getMlbLines().then(function(lines){
       vm.mlbLines = lines;
     })
   };
 
-  vm.getTodayGames = function() {
+  function mlbResults() {
+    oddsService.getMlbResults().then(function(results){
+      vm.mlbResults = results;
+    })
+  }
+
+  function getTodayGames () {
     oddsService.getTodayGames().then(function(lines){
       vm.mlbLines = lines;
     })
   };
 
-  vm.getDates = function() {
+  function getDates () {
     oddsService.getDates().then(function(dates){
       vm.daysOfGames = dates;
     })
   };
   vm.getDates();
 
-  vm.updateDb = function() {
-    oddsService.updateDb().then(function(){
-      console.log("db updated")
+  function getResult (game) {
+    oddsService.getResult(game.EventID).then(function(result){
+      game.HomeScore = result[0].HomeScore;
+      game.AwayScore = result[0].AwayScore;
+      game.status;
+      function checkStatus (result) {
+        if(result.Final === true) {
+          game.status = "In Progress"
+        } else {
+          game.status = "Final"}
+        };
+      checkStatus(result);
+    })
+  }
+
+  function updateOdds () {
+    oddsService.updateOdds().then(function(){
+      console.log("odds updated")
     })
   };
 
-  vm.submitPick = function() {
+  function updateResults () {
+    oddsService.updateResults().then(function(){
+      console.log("results updated")
+    })
+  };
+
+  function submitPick () {
     oddsService.submitPick(vm.pick).then(function(){
       console.log('pick submitted!');
       vm.pick.activeGame = {};
     });
   };
 
-  vm.timeCheck = function(game) {
+  function timeCheck (game) {
     if(moment(game.MatchTime).isBefore(moment())) {
       game.locked = true;
     }
   }
 
-  vm.awaySpread = function(game) {
+  function awaySpread (game) {
     vm.pick.activeGame = game.EventID;
     vm.pick.activeLine = game.PointSpreadAwayLine;
     vm.pick.activePick = (game.AwayAbbrev + ' ' + vm.mlFormat(game.PointSpreadAway));
@@ -100,7 +109,7 @@ function PickController (oddsService) {
     game.displayPayout = vm.displayPayCalc(game.PointSpreadAwayLine);
   }
 
-  vm.homeSpread = function(game) {
+  function homeSpread (game) {
     vm.pick.activeGame = game.EventID;
     vm.pick.activeLine = game.PointSpreadHomeLine;
     vm.pick.activePick = (game.HomeAbbrev + ' ' + vm.mlFormat(game.PointSpreadHome));
@@ -110,7 +119,7 @@ function PickController (oddsService) {
     game.displayPayout = vm.displayPayCalc(game.PointSpreadHomeLine);
   }
 
-  vm.awayML = function(game) {
+  function awayML (game) {
     vm.pick.activeGame = game.EventID;
     vm.pick.activeLine = game.MoneyLineAway;
     vm.pick.activePick = (game.AwayAbbrev + ' ' + vm.mlFormat(game.MoneyLineAway));
@@ -120,7 +129,7 @@ function PickController (oddsService) {
     game.displayPayout = vm.displayPayCalc(game.MoneyLineAway);
   }
 
-  vm.homeML = function(game) {
+  function homeML (game) {
     vm.pick.activeGame = game.EventID;
     vm.pick.activeLine = game.MoneyLineHome;
     vm.pick.activePick = (game.HomeAbbrev + ' ' + vm.mlFormat(game.MoneyLineHome));
@@ -130,7 +139,7 @@ function PickController (oddsService) {
     game.displayPayout = vm.displayPayCalc(game.MoneyLineHome);
   }
 
-  vm.totalOver = function(game) {
+  function totalOver (game) {
     vm.pick.activeGame = game.EventID;
     vm.pick.activePick = (game.AwayAbbrev + '/' + game.HomeAbbrev + ' O' + game.TotalNumber);
     vm.pick.activeLine = game.OverLine;
@@ -140,7 +149,7 @@ function PickController (oddsService) {
     game.displayPayout = vm.displayPayCalc(game.OverLine);
   }
 
-  vm.totalUnder = function(game) {
+  function totalUnder (game) {
     vm.pick.activeGame = game.EventID;
     vm.pick.activePick = (game.AwayAbbrev + '/' + game.HomeAbbrev + ' U' + game.TotalNumber);
     vm.pick.activeLine = game.UnderLine;
@@ -150,7 +159,7 @@ function PickController (oddsService) {
     game.displayPayout = vm.displayPayCalc(game.UnderLine);
   }
 
-  vm.displayPayCalc = function(line) {
+  function displayPayCalc (line) {
     var payout;
     if (line < 0) {
       payout = "$"+((10000 / -line).toFixed(2))
@@ -160,7 +169,7 @@ function PickController (oddsService) {
     return payout
   };
 
-  vm.activePayCalc = function(line) {
+  function activePayCalc (line) {
     var payout;
     if (line < 0) {
       payout = (10000 / -line)
@@ -170,12 +179,11 @@ function PickController (oddsService) {
     return payout
   };
 
-  vm.mlFormat = function(ml) {
+  function mlFormat (ml) {
     if (ml < 0) {
       return ml
     } else {
       return "+" + ml
     }
   }
-
 }

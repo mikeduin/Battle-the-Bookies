@@ -5,18 +5,29 @@ angular
 
 function oddsService ($http) {
   return {
-    updateDb: function() {
-      return $http.get('/updateDb').then(function(results){
-        console.log("db updated")
+    updateOdds: function() {
+      return $http.get('/updateOdds').then(function(){
+        console.log("odds updated")
+      })
+    },
+    updateResults: function() {
+      return $http.get('/updateResults').then(function(){
+        console.log("results updated")
       })
     },
     getMlbLines: function() {
-      return $http.get('/api').then(function(lines){
+      return $http.get('/lines').then(function(lines){
         return lines.data
       })
     },
+    getMlbResults: function() {
+      return $http.get('/results').then(function(results){
+        console.log(results.data);
+        return results.data
+      })
+    },
     getTodayGames: function() {
-      return $http.get('/api/today').then(function(lines){
+      return $http.get('/lines/today').then(function(lines){
         return lines.data
       })
     },
@@ -24,8 +35,13 @@ function oddsService ($http) {
       console.log(pick);
       return $http.post('/picks', pick)
     },
+    getResult: function(EventID){
+      return $http.get('/results/' + EventID).then(function(result){
+        return result.data
+      })
+    },
     getDates: function() {
-      return $http.get('/api')
+      return $http.get('/lines')
       .then(function(lines) {
         var dates = [];
         var games = lines.data;
@@ -36,7 +52,6 @@ function oddsService ($http) {
             }
           }
         }
-        console.log(dates);
         return dates;
       })
     },

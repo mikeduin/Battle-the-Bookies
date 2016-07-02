@@ -1,0 +1,74 @@
+<resultsHead class="row" ng-init="">
+  <div class="col m12 center-align">
+    Results
+  </div>
+</resultsHead>
+
+<div class="row">
+  <div class="col m2">
+      <select class="browser-default" ng-model="vm.resultDayFilter">
+        <option value="" > Select a Day </option>
+        <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
+      </select>
+  </div>
+</div>
+
+<div class="row">
+<divider class="divider col m6 offset-m3"></divider>
+</div>
+
+<!-- <div class="row">
+  <div class="col m4">
+    <div class="col m6">
+      <div style="font-size: 13px"> Jeremiah Whatshisface</div>
+    </div>
+    <div class="col m3" style="border: solid 1px black">
+      $2,451.43
+    </div>
+    <div class="col m3 center-align" style="border: solid 1px black">
+      $2,451.43
+    </div>
+    <div class="col m1">
+      <div class="text-center">
+          16
+      </div>
+    </div>
+    <div class="col m1 center-align ">
+      16
+    </div>
+  </div>
+</div> -->
+
+
+
+
+<div class="row">
+  <div class="col m3">
+    <resultsTable class="container-fixed">
+      <table class="table-responsive">
+        <thead>
+          <tr>
+            <th> Player </th>
+            <th> YTD $ </th>
+            <th> $ </th>
+            <th> W </th>
+            <th> L </th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ng-repeat on row for users in whatever -->
+          <tr>
+            <td> Jeremiah Whatshisface </td>
+            <td> $1,650.45 </td>
+            <td> $290.89 </td>
+            <td> 602 </td>
+            <td> 3 </td>
+          </tr>
+        </tbody>
+      </table>
+    </resultsTable>
+  </div>
+  <div class="col m9">
+    <div ui-view="results-one"> </div>
+  </div>
+</div>

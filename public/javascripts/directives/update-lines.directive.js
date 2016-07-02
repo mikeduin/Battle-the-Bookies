@@ -8,13 +8,12 @@ function updateLines ($interval) {
     var refresh;
 
     function refreshLines () {
-      controller.updateDb();
+      controller.updateOdds();
       controller.getMlbLines();
     };
 
     scope.$watch(attrs.updateLines, function() {
       refreshLines();
-      alert("lines should have refreshed");
     })
 
     refresh = $interval(function() {
