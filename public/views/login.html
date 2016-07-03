@@ -10,7 +10,7 @@
       </regLink>
     </div>
     <div class="row">
-      <form class="col s12">
+      <form class="col s12" ng-submit="vm.logIn()">
         <div class="row">
           <div class="input-field col s8 offset-s2">
             <i class="fa fa-user prefix" aria-hidden="true"></i>
@@ -27,7 +27,7 @@
         </div>
         <div class="row">
           <div class="col m3 offset-m9">
-            <button class="btn btn-large waves-effect waves-light login-button" name="button"> LOGIN </button>
+            <button type="submit" class="btn btn-large waves-effect waves-light login-button"> LOGIN </button>
           </div>
         </div>
       </form>

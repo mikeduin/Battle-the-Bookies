@@ -3,11 +3,13 @@
   <div class="nav-wrapper">
     <a href="#" class="brand-logo">Battle the Bookies</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
-      <li><a ui-sref='home.login'>Login</a></li>
+      <li ng-show="vm.isLoggedIn()"><a href="">{{ vm.currentUser() }}</a></li>
+      <li ng-hide="vm.isLoggedIn()"><a ui-sref='home.login'>Login</a></li>
+      <li ng-show="vm.isLoggedIn()"><a href="" ng-click="vm.logOut()">Logout</a></li>
       <li><a>How to Play</a></li>
-      <li><a ui-sref="home.makepicks">Make Your Picks</a></li>
+      <li><a ui-sref="home.makepicks">Make Picks</a></li>
+      <li><a ui-sref='home.results'>Results</a></li>
       <li><a>YTD Standings</a></li>
-      <li><a ui-sref='home.results'>Weekly Results</a></li>
     </ul>
   </div>
 </nav>

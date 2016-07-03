@@ -5,12 +5,16 @@ var PickSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  // EventID is capitalized to stay consistent across all Schemas/with third-party API
+  // EventID + MatchDay are capitalized to stay consistent across all Schemas/with third-party API
   EventID: {
     type: String,
     required: true
   },
+  MatchDay: String,
+  MatchTime: Date,
   activePick: String,
+  activeSpread: Number,
+  activeTotal: Number,
   activeLine: Number,
   activePayout: Number,
   pickType: String

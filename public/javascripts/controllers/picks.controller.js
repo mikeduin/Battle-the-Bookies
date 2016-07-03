@@ -5,6 +5,7 @@ angular
 function PickController (oddsService) {
   var vm = this;
   vm.currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
+  vm.gameDayFilter = moment().format('MMMM Do, YYYY');
   vm.pick = {};
   vm.mlbLines = [];
   vm.mlbResults = [];
@@ -102,20 +103,26 @@ function PickController (oddsService) {
 
   function awaySpread (game) {
     vm.pick.activeGame = game.EventID;
+    vm.pick.activeSpread = game.PointSpreadAway;
     vm.pick.activeLine = game.PointSpreadAwayLine;
     vm.pick.activePick = (game.AwayAbbrev + ' ' +      vm.mlFormat(game.PointSpreadAway));
     vm.pick.activePayout = vm.activePayCalc(game.PointSpreadAwayLine);
     vm.pick.pickType = "Away Spread";
+    vm.pick.MatchDay = game.MatchDay;
+    vm.pick.MatchTime = game.MatchTime;
     game.pick = vm.pick.activePick;
     game.displayPayout = vm.displayPayCalc(game.PointSpreadAwayLine);
   }
 
   function homeSpread (game) {
     vm.pick.activeGame = game.EventID;
+    vm.pick.activeSpread = game.PointSpreadHome;
     vm.pick.activeLine = game.PointSpreadHomeLine;
     vm.pick.activePick = (game.HomeAbbrev + ' ' + vm.mlFormat(game.PointSpreadHome));
     vm.pick.activePayout = vm.activePayCalc(game.PointSpreadHomeLine);
     vm.pick.pickType = "Home Spread";
+    vm.pick.MatchDay = game.MatchDay;
+    vm.pick.MatchTime = game.MatchTime;
     game.pick = vm.pick.activePick;
     game.displayPayout = vm.displayPayCalc(game.PointSpreadHomeLine);
   }
@@ -126,6 +133,8 @@ function PickController (oddsService) {
     vm.pick.activePick = (game.AwayAbbrev + ' ' + vm.mlFormat(game.MoneyLineAway));
     vm.pick.activePayout = vm.activePayCalc(game.MoneyLineAway);
     vm.pick.pickType = "Away Moneyline";
+    vm.pick.MatchDay = game.MatchDay;
+    vm.pick.MatchTime = game.MatchTime;
     game.pick = vm.pick.activePick;
     game.displayPayout = vm.displayPayCalc(game.MoneyLineAway);
   }
@@ -136,26 +145,34 @@ function PickController (oddsService) {
     vm.pick.activePick = (game.HomeAbbrev + ' ' + vm.mlFormat(game.MoneyLineHome));
     vm.pick.activePayout = vm.activePayCalc(game.MoneyLineHome);
     vm.pick.pickType = "Home Moneyline";
+    vm.pick.MatchDay = game.MatchDay;
+    vm.pick.MatchTime = game.MatchTime;
     game.pick = vm.pick.activePick;
     game.displayPayout = vm.displayPayCalc(game.MoneyLineHome);
   }
 
   function totalOver (game) {
     vm.pick.activeGame = game.EventID;
+    vm.pick.activeTotal = game.TotalNumber;
     vm.pick.activePick = (game.AwayAbbrev + '/' + game.HomeAbbrev + ' O' + game.TotalNumber);
     vm.pick.activeLine = game.OverLine;
     vm.pick.activePayout = vm.activePayCalc(game.OverLine);
     vm.pick.pickType = "Total Over";
+    vm.pick.MatchDay = game.MatchDay;
+    vm.pick.MatchTime = game.MatchTime;
     game.pick = vm.pick.activePick;
     game.displayPayout = vm.displayPayCalc(game.OverLine);
   }
 
   function totalUnder (game) {
     vm.pick.activeGame = game.EventID;
+    vm.pick.activeTotal = game.TotalNumber;
     vm.pick.activePick = (game.AwayAbbrev + '/' + game.HomeAbbrev + ' U' + game.TotalNumber);
     vm.pick.activeLine = game.UnderLine;
     vm.pick.activePayout = vm.activePayCalc(game.UnderLine);
     vm.pick.pickType = "Total Under";
+    vm.pick.MatchDay = game.MatchDay;
+    vm.pick.MatchTime = game.MatchTime;
     game.pick = vm.pick.activePick;
     game.displayPayout = vm.displayPayCalc(game.UnderLine);
   }

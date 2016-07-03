@@ -1,7 +1,6 @@
 angular
   .module('battleBookies')
   .controller('MainController', MainController)
-  .controller('AuthController', AuthController)
   .filter('mlFormat', mlFormat)
   .filter('payoutFilter', payoutFilter)
 
@@ -30,8 +29,4 @@ function payoutFilter () {
 function MainController () {
   var vm = this;
   vm.name = 'mike';
-}
-
-function AuthController () {
-  var vm = this;
 }

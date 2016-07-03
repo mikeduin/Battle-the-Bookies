@@ -1,0 +1,71 @@
+<resultsHead class="row" ng-init="vm.updateResults(); vm.getMlbLines()">
+  <div class="col m12 center-align">
+    Results
+  </div>
+</resultsHead>
+
+<div class="row">
+  <button class="btn blue" ng-click="vm.updateResults()"> Update Results</button>
+<!--
+  <update-results get-mlb-lines="vm.getMlbLines()" update-results="vm.updateResults()"> </update-results> -->
+</div>
+
+
+<div class="row">
+  <div class="col m2">
+      <select class="browser-default" ng-model="vm.gameDayFilter">
+        <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
+      </select>
+  </div>
+</div>
+
+<div class="row">
+<divider class="divider col m6 offset-m3"></divider>
+</div>
+
+<sampleTable>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Player
+        </th>
+        <th>
+          YTD
+        </th>
+        <th>
+          Today
+        </th>
+        <th ng-repeat="game in vm.mlbLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter }" ng-init="vm.getResult(game)"> {{game.AwayAbbrev}} {{game.AwayScore}} <br> {{game.HomeAbbrev}} {{game.HomeScore}} <br> {{game.status}} </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="user in vm.users" ng-init="vm.getPicks()">
+        <td> {{user.username}} </td>
+        <td> {{user.ytd}} </td>
+        <td> {{user.today}} </td>
+        <td ng-repeat="pick in vm.picks | orderBy: vm.sortOrder | filter: {MatchDay: vm.gameDayFilter} | filter: {username: user.username}"> {{pick.activePick}} </td>
+      </tr>
+    </tbody>
+  </table>
+</sampleTable>
+
+
+<!-- <td> Jeremiah Whatshisface </td>
+<td> $2,435.69 </td>
+<td> $1,435.34 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
+<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td> -->

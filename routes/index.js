@@ -186,14 +186,22 @@ router.get('/picks', function (req, res, next){
 
 })
 
-router.post('/picks', function(req, res, next){
+
+// Adding auth as middleware here will ensure that the JWTToken is valid in order for a user to be accessing this route
+router.post('/picks', auth, function(req, res, next){
+
+// Note that I've included the username from req.payload, not req.body
   var pick = Pick({
-    username: req.body.username,
+    username: req.payload.username,
     EventID: req.body.activeGame,
     activePick: req.body.activePick,
+    activeSpread: req.body.activeSpread,
+    activeTotal: req.body.activeTotal,
     activeLine: req.body.activeLine,
     activePayout: req.body.activePayout,
-    pickType: req.body.pickType
+    pickType: req.body.pickType,
+    MatchDay: req.body.MatchDay,
+    MatchTime: new Date(req.body.MatchTime)
   });
 
   pick.save(function(err, pick){
@@ -207,21 +215,29 @@ router.post('/picks', function(req, res, next){
 // BEGIN AUTH ROUTES
 
 router.post('/register', function(req, res, next){
-  if(!req.body.username || !req.body.password || !req.body.nameFirst || !req.body.nameLast || !req.body.email || !req.body.buyin){
-    return res.status(400).json({message: 'Please fill out all fields'});
+  if(!req.body.username || !req.body.password || !req.body.nameFirst || !req.body.nameLast || !req.body.email || !req.body.buyin
+  ){
+    return res.status(400).json({message: 'You left something blank!'});
   }
 
   var user = new User();
 
   user.username = req.body.username;
+  user.nameFirst = req.body.nameFirst;
+  user.nameLast = req.body.nameLast;
+  user.email = req.body.email;
+  user.buyin = req.body.buyin;
+  user.setPassword(req.body.password);
 
-  user.setPassword(req.body.password)
+  console.log(user);
 
   user.save(function (err){
     if(err){ return next(err); }
 
-    return res.json({token: user.generateJWT()})
+    console.log(user + 'has been added to db!');
+    res.json({token: user.generateJWT()})
   });
+
 });
 
 router.post('/login', function(req, res, next){

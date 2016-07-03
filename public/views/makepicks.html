@@ -5,17 +5,16 @@
 </makePicksHead>
 
 <div class="row">
-  <button class="btn blue" ng-click="vm.getMlbLines()"> Get MLB Lines</button>
+  <!-- <button class="btn blue" ng-click="vm.getMlbLines()"> Get MLB Lines</button> -->
 
-  <button class="btn blue" ng-click="vm.getTodayGames()"> Get Today's Games</button>
+  <!-- <button class="btn blue" ng-click="vm.getTodayGames()"> Get Today's Games</button> -->
 
-  <button class="btn blue" ng-click="vm.updateOdds()"> Update Db</button>
+  <button class="btn blue" ng-click="vm.updateOdds()"> Update Odds</button>
 
   <button class="btn blue" ng-click="vm.updateResults()"> Update Results</button>
 
-  <button class="btn blue" ng-click="vm.getMlbResults()"> Get Results</button>
+  <!-- <button class="btn blue" ng-click="vm.getMlbResults()"> Get Results</button> -->
 
-  Current Time is: <time-keeper> </time-keeper>
   <update-lines get-mlb-lines="vm.getMlbLines()" update-odds="vm.updateOdds()"> </update-lines>
 </div>
 
@@ -40,7 +39,7 @@
   <table class="bordered col m11">
     <thead>
       <tr>
-        <th colspan="2">  </th>
+        <th colspan="2"> Current Time: <time-keeper> </time-keeper> </th>
         <th class="center-align" colspan="2"> SPREAD (RUN LINE) </th>
         <th class="center-align" colspan="2"> MONEYLINE </th>
         <th class="center-align" colspan="2"> TOTAL </th>
@@ -60,7 +59,7 @@
     </thead>
     <tbody ng-repeat="game in vm.mlbLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter } | filter: search">
       <tr ng-init="vm.timeCheck(game); vm.checkActiveStatus(game)">
-        <td rowspan="2"> {{game.MatchDay}} {{game.hello}} <br> {{game.MatchTime | date:'MM/dd/yy'}} <br> {{game.MatchTime | date:'h:mm a'}} </td>
+        <td rowspan="2"> {{game.MatchDay}} <br> {{game.MatchTime | date:'h:mm a'}} </td>
         <td> <b>(A)</b> {{game.AwayTeam}}
           <!-- <away-score get-result="vm.getResult(game)" game="game"> </away-score> -->
         </td>

@@ -25,6 +25,5 @@ function updateLines ($interval) {
     controller: 'PickController',
     controllerAs: 'vm',
     link: oneMinuteRefresh
-
   };
 }

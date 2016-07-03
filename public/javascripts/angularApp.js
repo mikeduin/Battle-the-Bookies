@@ -14,7 +14,8 @@ function siteConfig ($stateProvider, $urlRouterProvider) {
       views: {
         'header': {
           templateUrl: 'views/header.html',
-          controller: 'MainController'
+          controller: 'NavController',
+          controllerAs: 'vm'
         },
         'content': {
           templateUrl: 'views/content.html',
@@ -57,17 +58,7 @@ function siteConfig ($stateProvider, $urlRouterProvider) {
       url: 'results',
       views: {
         'content@': {
-          templateUrl: 'views/results/results-main.html',
-          controller: 'ResultController',
-          controllerAs: 'vm'
-        }
-      }
-    })
-    .state('home.results.one', {
-      url: '/one',
-      views: {
-        'results-one@home.results': {
-          templateUrl: 'views/results/results-one.html',
+          templateUrl: 'views/results.html',
           controller: 'ResultController',
           controllerAs: 'vm'
         }
