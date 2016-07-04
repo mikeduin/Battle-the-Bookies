@@ -2,6 +2,7 @@ angular
   .module('battleBookies')
   .factory('authService', ['$http', '$window', authService])
   .factory('oddsService', ['$http', oddsService])
+  .factory('picksService', ['$http', picksService])
 
 function oddsService ($http) {
   return {
@@ -40,11 +41,21 @@ function oddsService ($http) {
         return result.data
       })
     },
+    updateStatus: function(result){
+      return $http.put('/lines/updateStatus', result).then(function(){
+        console.log('status updated')
+      })
+    },
     getPicks: function(){
       return $http.get('/picks').then(function(picks){
         return picks.data
       })
     },
+    // settlePicks: function(){
+    //   return $http.put('/picks/' + eventToSettle).then(function(){
+    //     console.log('picks settled')
+    //   })
+    // },
     getDates: function() {
       return $http.get('/lines')
       .then(function(lines) {
@@ -59,7 +70,47 @@ function oddsService ($http) {
         }
         return dates;
       })
+    }
+  }
+}
+
+function picksService ($http) {
+  return {
+    checkSubmission: function(game){
+      return $http.get('/picks/' + game.EventID).then(function(result){
+        return result.data
+      })
     },
+    updateAwayML: function(resultObj) {
+      $http.put('/picks/awayML', resultObj).then(function(){
+        console.log('away ML updated')
+      })
+    },
+    updateHomeML: function(resultObj) {
+      $http.put('/picks/homeML', resultObj).then(function(){
+        console.log('home ML updated')
+      })
+    },
+    updateHomeSpread: function(resultObj) {
+      $http.put('/picks/homeSpread', resultObj).then(function(){
+        console.log('home spread updated')
+      })
+    },
+    updateAwaySpread: function(resultObj) {
+      $http.put('/picks/awaySpread', resultObj).then(function(){
+        console.log('away spread updated')
+      })
+    },
+    updateTotalOver: function(resultObj) {
+      $http.put('/picks/totalOver', resultObj).then(function(){
+        console.log('total over updated')
+      })
+    },
+    updateTotalUnder: function(resultObj) {
+      $http.put('/picks/totalUnder', resultObj).then(function(){
+        console.log('total under updated')
+      })
+    }
   }
 }
 

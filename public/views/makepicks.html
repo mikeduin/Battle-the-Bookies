@@ -58,7 +58,7 @@
       </tr>
     </thead>
     <tbody ng-repeat="game in vm.mlbLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter } | filter: search">
-      <tr ng-init="vm.timeCheck(game); vm.checkActiveStatus(game)">
+      <tr ng-init="vm.timeCheck(game); vm.checkSubmission(game)">
         <td rowspan="2"> {{game.MatchDay}} <br> {{game.MatchTime | date:'h:mm a'}} </td>
         <td> <b>(A)</b> {{game.AwayTeam}}
           <!-- <away-score get-result="vm.getResult(game)" game="game"> </away-score> -->

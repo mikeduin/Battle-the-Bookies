@@ -36,7 +36,7 @@
         <th>
           Today
         </th>
-        <th ng-repeat="game in vm.mlbLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter }" ng-init="vm.getResult(game)"> {{game.AwayAbbrev}} {{game.AwayScore}} <br> {{game.HomeAbbrev}} {{game.HomeScore}} <br> {{game.status}} </th>
+        <th ng-repeat="game in vm.mlbLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter }" ng-init="vm.resultChecker(game)"> {{game.AwayAbbrev}} {{game.AwayScore}} <br> {{game.HomeAbbrev}} {{game.HomeScore}} <br> {{game.GameStatus}} </th>
       </tr>
     </thead>
     <tbody>
@@ -44,28 +44,8 @@
         <td> {{user.username}} </td>
         <td> {{user.ytd}} </td>
         <td> {{user.today}} </td>
-        <td ng-repeat="pick in vm.picks | orderBy: vm.sortOrder | filter: {MatchDay: vm.gameDayFilter} | filter: {username: user.username}"> {{pick.activePick}} </td>
+        <td ng-repeat="pick in vm.picks | orderBy: vm.sortOrder | filter: {MatchDay: vm.gameDayFilter} | filter: {username: user.username}" ng-class="{pickWin: pick.pickResult === 'win', pickLoss: pick.pickResult === 'loss'}" ng-init="vm.pickSettle(pick)"> {{pick.activePick}} <br><span> {{pick.dollars | currency:$:0}} </span> </td>
       </tr>
     </tbody>
   </table>
 </sampleTable>
-
-
-<!-- <td> Jeremiah Whatshisface </td>
-<td> $2,435.69 </td>
-<td> $1,435.34 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td>
-<td style="font-size: 10px"> CLE/TOR O43.5 <br> $110.45 </td> -->

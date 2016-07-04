@@ -17,7 +17,9 @@ var PickSchema = new mongoose.Schema({
   activeTotal: Number,
   activeLine: Number,
   activePayout: Number,
-  pickType: String
+  pickType: String,
+  pickResult: String,
+  finalPayout: Number
 })
 
 mongoose.model('Pick', PickSchema);

@@ -32,7 +32,10 @@ var LineSchema = new mongoose.Schema({
   PointSpreadHomeLine: Number,
   TotalNumber: Number,
   OverLine: Number,
-  UnderLine: Number
+  UnderLine: Number,
+  GameStatus: String,
+  HomeScore: Number,
+  AwayScore: Number
 })
 
 mongoose.model('Line', LineSchema);

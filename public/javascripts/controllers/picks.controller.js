@@ -1,8 +1,8 @@
 angular
   .module('battleBookies')
-  .controller('PickController', ['oddsService', PickController])
+  .controller('PickController', ['oddsService', 'picksService', PickController])
 
-function PickController (oddsService) {
+function PickController (oddsService, picksService) {
   var vm = this;
   vm.currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
   vm.gameDayFilter = moment().format('MMMM Do, YYYY');
@@ -31,6 +31,7 @@ function PickController (oddsService) {
   vm.homeML = homeML;
   vm.totalOver = totalOver;
   vm.totalUnder = totalUnder;
+  vm.checkSubmission = checkSubmission;
   // vm.checkActiveStatus = checkActiveStatus;
   vm.displayPayCalc = displayPayCalc;
   vm.activePayCalc = activePayCalc;
@@ -175,6 +176,18 @@ function PickController (oddsService) {
     vm.pick.MatchTime = game.MatchTime;
     game.pick = vm.pick.activePick;
     game.displayPayout = vm.displayPayCalc(game.UnderLine);
+  }
+
+  function checkSubmission (game) {
+    picksService.checkSubmission(game).then(function(foundPick){
+      console.log(foundPick[0])
+      if(foundPick[0]) {
+        game.locked = true;
+        game.pick = foundPick[0].activePick;
+        game.displayPayout = displayPayCalc(foundPick[0].activePayout);
+      }
+      // foundPick[0].activePick = game.activePick;
+    })
   }
   //
   // function checkActiveStatus (game) {

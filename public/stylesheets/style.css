@@ -209,26 +209,14 @@ pickLocked {
 /*END MAKE PICK STYLES*/
 /*BEGIN RESULTS STYLES*/
 
-resultsTable table tr td {
-  border: solid 1px black
+.pickWin {
+  color: green;
+  font-weight: 600;
+  font-size: 12px;
 }
 
-resultsTable table {
-  width: 30%
-}
-
-.playerName {
-  width: 15%
-}
-
-.resDollars {
-  width: 1%
-}
-
-.resW {
-  width: 1%
-}
-
-.resPct {
-  width: 3%
+.pickLoss {
+  color: red;
+  font-weight: 600;
+  font-size: 12px;
 }

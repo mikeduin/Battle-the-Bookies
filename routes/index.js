@@ -35,6 +35,18 @@ router.get('/updateResults', function(req, res, next) {
     var counter = 0;
 
     for (i = 0; i < results.length; i++) {
+      // Line.find({EventID: results[i].ID}).upsert().updateOne({
+      //   $set: {
+      //     FinalType: results[i].FinalType,
+      //     Final: results[i].Final,
+      //     HomeScore: results[i].HomeScore,
+      //     AwayScore:results[i].AwayScore
+      //   }
+      // }, function(err, line){
+      //   if(err) {console.log(err)}
+      //   console.log(line)
+      // });
+
       bulk.find({EventID: results[i].ID}).upsert().updateOne({
         $set: {
           EventID: results[i].ID,
@@ -77,6 +89,7 @@ router.get('/updateOdds', function(req, res, next) {
     var counter = 0;
 
     for (i = 0; i < odds.length; i++) {
+
       bulk.find({EventID: odds[i].ID}).upsert().updateOne({
         $set : {
           EventID: odds[i].ID,
@@ -147,6 +160,21 @@ router.get('/lines/today', function(req, res, next){
   })
 })
 
+router.put('/lines/updateStatus', function (req, res, next){
+  console.log(req.body)
+  Line.update({EventID: req.body[0].EventID},
+    {
+      GameStatus: "Final",
+      HomeScore: req.body[0].HomeScore,
+      AwayScore: req.body[0].AwayScore,
+    }
+  , function(err, game){
+    if (err) { console.log(err) };
+
+    console.log('game status updated to final')
+  })
+})
+
 // END LINE ROUTES
 // BEGIN RESULTS ROUTES
 
@@ -183,16 +211,96 @@ router.get('/picks', function (req, res, next){
 
     res.json(picks)
   })
+})
 
+router.param('pickSubmission', function(req, res, next, pickSubmission) {
+  var query = Pick.find({
+    EventID: pickSubmission,
+    username: "mikeduin"
+  });
+
+  query.exec(function (err, result) {
+    if (err) { next(err) }
+    if (!result) {return next(new Error("no pick for this game")); }
+
+    req.pick = result;
+    return next();
+  })
+})
+
+router.get('/picks/:pickSubmission', function(req, res, next){
+  res.json(req.pick);
+})
+
+router.put('/picks/awayML', function(req, res, next) {
+  console.log(req.body);
+  Pick.update({EventID: req.body.EventID, pickType: "Away Moneyline"}, {
+      pickResult: req.body.awayMLResult
+    }, {multi: true}, function(err){
+      if (err) { console.log(err) };
+
+      console.log('away ML picks supposedly updated')
+    })
+})
+
+router.put('/picks/homeML', function(req, res, next) {
+  Pick.update({EventID: req.body.EventID, pickType: "Home Moneyline"}, {
+      pickResult: req.body.homeMLResult
+    }, {multi: true}, function(err){
+      if (err) { console.log(err) };
+
+      console.log('home ML picks supposedly updated')
+    })
+})
+
+router.put('/picks/awaySpread', function(req, res, next) {
+  Pick.update({EventID: req.body.EventID, pickType: "Away Spread"}, {
+      pickResult: req.body.awaySpreadResult
+    }, {multi: true}, function(err){
+      if (err) { console.log(err) };
+
+      console.log('away spread picks supposedly updated')
+    })
+})
+
+router.put('/picks/homeSpread', function(req, res, next) {
+  Pick.update({EventID: req.body.EventID, pickType: "Home Spread"}, {
+      pickResult: req.body.homeSpreadResult
+    }, {multi: true}, function(err){
+      if (err) { console.log(err) };
+
+      console.log('home spread picks supposedly updated')
+    })
+})
+
+router.put('/picks/totalOver', function(req, res, next) {
+  Pick.update({EventID: req.body.EventID, pickType: "Total Over"}, {
+      pickResult: req.body.totalOverResult
+    }, {multi: true}, function(err){
+      if (err) { console.log(err) };
+
+      console.log('total over picks supposedly updated')
+    })
+})
+
+router.put('/picks/totalUnder', function(req, res, next) {
+  Pick.update({EventID: req.body.EventID, pickType: "Total Under"}, {
+      pickResult: req.body.totalUnderResult
+    }, {multi: true}, function(err){
+      if (err) { console.log(err) };
+
+      console.log('total under picks supposedly updated')
+    })
 })
 
 
 // Adding auth as middleware here will ensure that the JWTToken is valid in order for a user to be accessing this route
-router.post('/picks', auth, function(req, res, next){
+// !!!TEMPORARILY REMOVED AUTH AS MIDDLEWARE!!!
+router.post('/picks', function(req, res, next){
 
 // Note that I've included the username from req.payload, not req.body
   var pick = Pick({
-    username: req.payload.username,
+    username: "mikeduin",
     EventID: req.body.activeGame,
     activePick: req.body.activePick,
     activeSpread: req.body.activeSpread,
