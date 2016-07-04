@@ -1,14 +1,15 @@
 angular
   .module('battleBookies')
-  .controller('ResultController', ['oddsService', 'picksService', ResultController])
+  .controller('ResultController', ['oddsService', 'picksService', 'resultsService', ResultController])
 
-function ResultController (oddsService, picksService) {
+function ResultController (oddsService, picksService, resultsService) {
   var vm = this;
   vm.gameDayFilter = moment().format('MMMM Do, YYYY');
   vm.daysOfGames = [];
   vm.mlbLines = [];
   vm.getMlbLines = getMlbLines;
   vm.sortOrder = "MatchTime";
+  vm.sortOrderTwo = "EventID"
   vm.updateResults = updateResults;
   vm.getPicks = getPicks;
   vm.getResult = getResult;
@@ -38,6 +39,11 @@ function ResultController (oddsService, picksService) {
     }
   }
 
+  vm.updateDollars = function(){
+    picksService.updateDollars().then(function(){
+      console.log('res controller says update dollars')
+    })
+  }
 
   function getMlbLines (){
     oddsService.getMlbLines().then(function(games){
@@ -47,7 +53,7 @@ function ResultController (oddsService, picksService) {
   }
 
   function updateResults () {
-    oddsService.updateResults().then(function(){
+    resultsService.updateResults().then(function(){
       console.log("results updated")
     })
   };
@@ -68,7 +74,7 @@ function ResultController (oddsService, picksService) {
   }
 
   function getResult (game) {
-    oddsService.getResult(game.EventID).then(function(result){
+    resultsService.getResult(game.EventID).then(function(result){
       console.log("result " + result[0].EventID + result[0].Final);
       game.HomeScore = result[0].HomeScore;
       game.AwayScore = result[0].AwayScore;
@@ -80,36 +86,48 @@ function ResultController (oddsService, picksService) {
 
         if (game.HomeScore > game.AwayScore) {
           resultObj.homeMLResult = "win";
+          resultObj.homeMLBinary = 1;
           resultObj.awayMLResult = "loss";
+          resultObj.awayMLBinary = 0;
         } else {
           resultObj.homeMLResult = "loss";
+          resultObj.homeMLBinary = 0;
           resultObj.awayMLResult = "win";
+          resultObj.awayMLBinary = 1;
         };
 
         if ((game.HomeScore + game.PointSpreadHome) > game.AwayScore) {
           resultObj.homeSpreadResult = "win";
+          resultObj.homeSpreadBinary = 1;
           resultObj.awaySpreadResult = "loss";
+          resultObj.awaySpreadBinary = 0;
         } else {
           resultObj.homeSpreadResult = "loss";
+          resultObj.homeSpreadBinary = 0;
           resultObj.awaySpreadResult = "win";
+          resultObj.awaySpreadBinary = 1;
         };
 
         if ((game.HomeScore + game.AwayScore) > game.TotalNumber) {
           resultObj.totalOverResult = "win";
+          resultObj.totalOverBinary = 1;
           resultObj.totalUnderResult = "loss";
+          resultObj.totalUnderBinary = 0;
         } else {
           resultObj.totalOverResult = "loss";
+          resultObj.totalOverBinary = 0;
           resultObj.totalUnderResult = "win";
+          resultObj.totalUnderBinary = 1;
         }
 
         // console.log(resultObj);
 
-        // picksService.updateAwayML(resultObj);
-        // picksService.updateHomeML(resultObj);
+        picksService.updateAwayML(resultObj);
+        picksService.updateHomeML(resultObj);
         picksService.updateAwaySpread(resultObj);
         picksService.updateHomeSpread(resultObj);
         picksService.updateTotalOver(resultObj);
-        // picksService.updateTotalUnder(resultObj);
+        picksService.updateTotalUnder(resultObj);
         oddsService.updateStatus(result);
       }
     })

@@ -141,25 +141,6 @@ router.get('/lines', function(req, res, next){
   })
 })
 
-router.get('/lines/today', function(req, res, next){
-  var start = moment().startOf('day');
-  var end = moment(start).add(1, 'days');
-
-  Line.find({
-
-    MatchTime: {
-      $gte: new Date(start),
-      $lt: new Date(end)
-    }},
-
-  function(err, games) {
-    if (err) { next(err) };
-
-    res.json(games);
-    console.log('db query completed');
-  })
-})
-
 router.put('/lines/updateStatus', function (req, res, next){
   console.log(req.body)
   Line.update({EventID: req.body[0].EventID},
@@ -167,8 +148,9 @@ router.put('/lines/updateStatus', function (req, res, next){
       GameStatus: "Final",
       HomeScore: req.body[0].HomeScore,
       AwayScore: req.body[0].AwayScore,
-    }
-  , function(err, game){
+    },
+    function(err, game){
+    console.log("this is what returns from update status "+ game);
     if (err) { console.log(err) };
 
     console.log('game status updated to final')
@@ -205,6 +187,23 @@ router.get('/results/:EventID', function(req, res) {
 // END RESULTS ROUTES
 // BEGIN PICK ROUTES
 
+router.put('/updateDollars', function(req, res, next){
+  Pick.find(function(err, picks){
+    if(err) { console.log(err) }
+
+    picks.forEach(function(doc){
+      var finalPayout = (doc.activePayout * doc.resultBinary);
+      Pick.update({"_id": doc._id}, {finalPayout: finalPayout}, function(err){
+        if(err) {console.log(err)}
+
+        console.log('final payouts updated')
+      })
+    })
+
+    res.json({message: "payouts updated"})
+  })
+})
+
 router.get('/picks', function (req, res, next){
   Pick.find(function(err, picks){
     if(err) { next(err) }
@@ -234,8 +233,12 @@ router.get('/picks/:pickSubmission', function(req, res, next){
 
 router.put('/picks/awayML', function(req, res, next) {
   console.log(req.body);
-  Pick.update({EventID: req.body.EventID, pickType: "Away Moneyline"}, {
-      pickResult: req.body.awayMLResult
+  Pick.update({
+    EventID: req.body.EventID,
+    pickType: "Away Moneyline"
+  }, {
+      pickResult: req.body.awayMLResult,
+      resultBinary: req.body.awayMLBinary
     }, {multi: true}, function(err){
       if (err) { console.log(err) };
 
@@ -245,7 +248,8 @@ router.put('/picks/awayML', function(req, res, next) {
 
 router.put('/picks/homeML', function(req, res, next) {
   Pick.update({EventID: req.body.EventID, pickType: "Home Moneyline"}, {
-      pickResult: req.body.homeMLResult
+      pickResult: req.body.homeMLResult,
+      resultBinary: req.body.homeMLBinary
     }, {multi: true}, function(err){
       if (err) { console.log(err) };
 
@@ -255,7 +259,8 @@ router.put('/picks/homeML', function(req, res, next) {
 
 router.put('/picks/awaySpread', function(req, res, next) {
   Pick.update({EventID: req.body.EventID, pickType: "Away Spread"}, {
-      pickResult: req.body.awaySpreadResult
+      pickResult: req.body.awaySpreadResult,
+      resultBinary: req.body.awaySpreadBinary
     }, {multi: true}, function(err){
       if (err) { console.log(err) };
 
@@ -265,7 +270,8 @@ router.put('/picks/awaySpread', function(req, res, next) {
 
 router.put('/picks/homeSpread', function(req, res, next) {
   Pick.update({EventID: req.body.EventID, pickType: "Home Spread"}, {
-      pickResult: req.body.homeSpreadResult
+      pickResult: req.body.homeSpreadResult,
+      resultBinary: req.body.homeSpreadBinary
     }, {multi: true}, function(err){
       if (err) { console.log(err) };
 
@@ -275,7 +281,8 @@ router.put('/picks/homeSpread', function(req, res, next) {
 
 router.put('/picks/totalOver', function(req, res, next) {
   Pick.update({EventID: req.body.EventID, pickType: "Total Over"}, {
-      pickResult: req.body.totalOverResult
+      pickResult: req.body.totalOverResult,
+      resultBinary: req.body.totalOverBinary
     }, {multi: true}, function(err){
       if (err) { console.log(err) };
 
@@ -285,14 +292,14 @@ router.put('/picks/totalOver', function(req, res, next) {
 
 router.put('/picks/totalUnder', function(req, res, next) {
   Pick.update({EventID: req.body.EventID, pickType: "Total Under"}, {
-      pickResult: req.body.totalUnderResult
+      pickResult: req.body.totalUnderResult,
+      resultBinary: req.body.totalUnderBinary
     }, {multi: true}, function(err){
       if (err) { console.log(err) };
 
       console.log('total under picks supposedly updated')
     })
 })
-
 
 // Adding auth as middleware here will ensure that the JWTToken is valid in order for a user to be accessing this route
 // !!!TEMPORARILY REMOVED AUTH AS MIDDLEWARE!!!

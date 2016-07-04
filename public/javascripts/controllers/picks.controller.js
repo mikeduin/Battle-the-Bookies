@@ -1,8 +1,8 @@
 angular
   .module('battleBookies')
-  .controller('PickController', ['oddsService', 'picksService', PickController])
+  .controller('PickController', ['oddsService', 'picksService', 'resultsService', PickController])
 
-function PickController (oddsService, picksService) {
+function PickController (oddsService, picksService, resultsService) {
   var vm = this;
   vm.currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
   vm.gameDayFilter = moment().format('MMMM Do, YYYY');
@@ -18,7 +18,6 @@ function PickController (oddsService, picksService) {
   vm.sortOrder = "MatchTime";
   vm.getMlbLines = getMlbLines;
   vm.getMlbResults = getMlbResults;
-  vm.getTodayGames = getTodayGames;
   vm.getDates = getDates;
   vm.getResult = getResult;
   vm.updateOdds = updateOdds;
@@ -32,7 +31,6 @@ function PickController (oddsService, picksService) {
   vm.totalOver = totalOver;
   vm.totalUnder = totalUnder;
   vm.checkSubmission = checkSubmission;
-  // vm.checkActiveStatus = checkActiveStatus;
   vm.displayPayCalc = displayPayCalc;
   vm.activePayCalc = activePayCalc;
   vm.mlFormat = mlFormat;
@@ -44,16 +42,10 @@ function PickController (oddsService, picksService) {
   };
 
   function getMlbResults() {
-    oddsService.getMlbResults().then(function(results){
+    resultsService.getMlbResults().then(function(results){
       vm.mlbResults = results;
     })
   }
-
-  function getTodayGames () {
-    oddsService.getTodayGames().then(function(lines){
-      vm.mlbLines = lines;
-    })
-  };
 
   function getDates () {
     oddsService.getDates().then(function(dates){
@@ -63,7 +55,7 @@ function PickController (oddsService, picksService) {
   vm.getDates();
 
   function getResult (game) {
-    oddsService.getResult(game.EventID).then(function(result){
+    resultsService.getResult(game.EventID).then(function(result){
       game.HomeScore = result[0].HomeScore;
       game.AwayScore = result[0].AwayScore;
       game.status;
@@ -84,13 +76,13 @@ function PickController (oddsService, picksService) {
   };
 
   function updateResults () {
-    oddsService.updateResults().then(function(){
+    resultsService.updateResults().then(function(){
       console.log("results updated")
     })
   };
 
   function submitPick () {
-    oddsService.submitPick(vm.pick).then(function(){
+    picksService.submitPick(vm.pick).then(function(){
       console.log('pick submitted!');
       vm.pick.activeGame = {};
     });
@@ -189,14 +181,6 @@ function PickController (oddsService, picksService) {
       // foundPick[0].activePick = game.activePick;
     })
   }
-  //
-  // function checkActiveStatus (game) {
-  //   console.log('hello');
-  //   if (vm.pick.activeGame === game.EventID) {
-  //     game.pick = vm.pick.activePick;
-  //     game.displayPayout = vm.displayPayCalc(vm.pick.activePayout)
-  //   };
-  // }
 
   function displayPayCalc (line) {
     var payout;
