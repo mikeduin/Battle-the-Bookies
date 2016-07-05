@@ -192,7 +192,15 @@ router.put('/updateDollars', function(req, res, next){
     if(err) { console.log(err) }
 
     picks.forEach(function(doc){
-      var finalPayout = (doc.activePayout * doc.resultBinary);
+      var finalPayout;
+      if (doc.pickResult === "win") {
+        finalPayout = doc.activePayout
+      } else if (doc.pickResult === "loss") {
+        finalPayout = -100
+      } else {
+        finalPayout = 0
+      }
+      // var finalPayout = (doc.activePayout * doc.resultBinary);
       Pick.update({"_id": doc._id}, {finalPayout: finalPayout}, function(err){
         if(err) {console.log(err)}
 
@@ -212,23 +220,28 @@ router.get('/picks', function (req, res, next){
   })
 })
 
-router.param('pickSubmission', function(req, res, next, pickSubmission) {
-  var query = Pick.find({
-    EventID: pickSubmission,
-    username: "mikeduin"
-  });
+router.get('/picks/:username/all', function (req, res, next) {
+  Pick.find({
+    username: req.params.username
+  }, function(err, result){
+    if(err) {console.log(err)}
 
-  query.exec(function (err, result) {
-    if (err) { next(err) }
-    if (!result) {return next(new Error("no pick for this game")); }
-
-    req.pick = result;
-    return next();
+    console.log(result)
+    res.json(result)
   })
 })
 
-router.get('/picks/:pickSubmission', function(req, res, next){
-  res.json(req.pick);
+router.get('/picks/:username/:date', function (req, res, next) {
+  var matchDay = moment(req.params.date).format('MMMM Do, YYYY');
+  Pick.find({
+    username: req.params.username,
+    MatchDay: matchDay
+  }, function(err, result){
+    if(err) {console.log(err)}
+
+    console.log(result)
+    res.json(result)
+  })
 })
 
 router.put('/picks/awayML', function(req, res, next) {
@@ -301,30 +314,99 @@ router.put('/picks/totalUnder', function(req, res, next) {
     })
 })
 
+router.param('pickSubmission', function(req, res, next, pickSubmission) {
+  var query = Pick.find({
+    EventID: pickSubmission,
+    username: "mikeduin"
+  });
+
+  query.exec(function (err, result) {
+    if (err) { next(err) }
+    if (!result) {return next(new Error("no pick for this game")); }
+
+    req.pick = result;
+    return next();
+  })
+})
+
+router.get('/picks/:pickSubmission', function(req, res, next){
+  res.json(req.pick);
+})
+
 // Adding auth as middleware here will ensure that the JWTToken is valid in order for a user to be accessing this route
 // !!!TEMPORARILY REMOVED AUTH AS MIDDLEWARE!!!
-router.post('/picks', function(req, res, next){
-
-// Note that I've included the username from req.payload, not req.body
+router.post('/picks/addTemp', function (req, res, next){
   var pick = Pick({
     username: "mikeduin",
-    EventID: req.body.activeGame,
-    activePick: req.body.activePick,
-    activeSpread: req.body.activeSpread,
-    activeTotal: req.body.activeTotal,
-    activeLine: req.body.activeLine,
-    activePayout: req.body.activePayout,
-    pickType: req.body.pickType,
+    EventID: req.body.EventID,
     MatchDay: req.body.MatchDay,
-    MatchTime: new Date(req.body.MatchTime)
+    MatchTime: req.body.MatchTime
   });
 
   pick.save(function(err, pick){
-    if (err) { next(err) }
+    if (err) {console.log(err)}
 
     res.json(pick);
-    console.log(pick + 'has been added to db!');
+    console.log(pick + 'has been saved as a template!')
   })
+})
+
+router.put('/picks', function(req, res, next){
+  console.log(req.body);
+  var activeSpread;
+  var activeTotal;
+  if (req.body.activeSpread) {
+    console.log ('active spread found!')
+    activeSpread = req.body.activeSpread
+  } else {
+    console.log('active spread not found!')
+    activeSpread = 0;
+  };
+  if (req.body.activeTotal) {
+    console.log ('active total found!')
+    activeTotal = req.body.activeTotal
+  } else {
+    console.log('active total not found!')
+    activeTotal = 0;
+  };
+
+  Pick.update({
+    EventID: req.body.activeGame,
+    username: "mikeduin"
+  }, {
+    activePick: req.body.activePick,
+    activeSpread: activeSpread,
+    activeTotal: activeTotal,
+    activeLine: req.body.activeLine,
+    activePayout: req.body.activePayout,
+    pickType: req.body.pickType,
+  }, function(err, pick) {
+    if (err) {console.log(err)}
+
+    console.log(pick + ' has been updated with pick submission info!');
+    res.json(pick);
+  })
+
+// Username is currently hard-coded, will need to be updated to req.payload once auth is nailed down.
+  // var pick = Pick({
+  //   username: "mikeduin",
+  //   EventID: req.body.activeGame,
+  //   activePick: req.body.activePick,
+  //   activeSpread: req.body.activeSpread,
+  //   activeTotal: req.body.activeTotal,
+  //   activeLine: req.body.activeLine,
+  //   activePayout: req.body.activePayout,
+  //   pickType: req.body.pickType,
+  //   MatchDay: req.body.MatchDay,
+  //   MatchTime: new Date(req.body.MatchTime)
+  // });
+
+  // pick.save(function(err, pick){
+  //   if (err) { next(err) }
+  //
+  //   res.json(pick);
+  //   console.log(pick + 'has been added to db!');
+  // })
 })
 
 // BEGIN AUTH ROUTES

@@ -15,6 +15,7 @@ function ResultController (oddsService, picksService, resultsService) {
   vm.getResult = getResult;
   vm.resultChecker = resultChecker;
   vm.getDates = getDates;
+  vm.activeUserSumToday;
   vm.picks = [];
   vm.users = [
     {
@@ -28,6 +29,27 @@ function ResultController (oddsService, picksService, resultsService) {
       today: -100.59
     }
   ];
+  vm.matchTimePull = function(time) {
+    vm.matchTimeFilter = time
+  }
+
+  vm.sumToday = function(user, date) {
+    username = user.username;
+    // console.log(user);
+    console.log(date);
+    picksService.sumToday(username, date).then(function(result){
+      console.log("total returned is " + result);
+      user.sumToday = result
+    })
+  }
+
+  vm.sumAllPicks = function(user) {
+    username = user.username;
+    picksService.sumAllPicks(username).then(function(result){
+      console.log("total returned is " + result);
+      user.sumYtd = result
+    })
+  }
 
   vm.pickSettle = function(pick) {
     if (pick.pickResult === "win") {
@@ -47,7 +69,7 @@ function ResultController (oddsService, picksService, resultsService) {
 
   function getMlbLines (){
     oddsService.getMlbLines().then(function(games){
-      // console.log(games)
+      console.log(games)
       vm.mlbLines = games;
     })
   }
@@ -122,12 +144,12 @@ function ResultController (oddsService, picksService, resultsService) {
 
         // console.log(resultObj);
 
-        picksService.updateAwayML(resultObj);
-        picksService.updateHomeML(resultObj);
-        picksService.updateAwaySpread(resultObj);
-        picksService.updateHomeSpread(resultObj);
-        picksService.updateTotalOver(resultObj);
-        picksService.updateTotalUnder(resultObj);
+        // picksService.updateAwayML(resultObj);
+        // picksService.updateHomeML(resultObj);
+        // picksService.updateAwaySpread(resultObj);
+        // picksService.updateHomeSpread(resultObj);
+        // picksService.updateTotalOver(resultObj);
+        // picksService.updateTotalUnder(resultObj);
         oddsService.updateStatus(result);
       }
     })
@@ -138,6 +160,5 @@ function ResultController (oddsService, picksService, resultsService) {
       vm.daysOfGames = dates;
     })
   };
-  vm.getDates();
 
 }

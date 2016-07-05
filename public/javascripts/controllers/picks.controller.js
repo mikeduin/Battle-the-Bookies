@@ -52,7 +52,6 @@ function PickController (oddsService, picksService, resultsService) {
       vm.daysOfGames = dates;
     })
   };
-  vm.getDates();
 
   function getResult (game) {
     resultsService.getResult(game.EventID).then(function(result){
@@ -172,11 +171,18 @@ function PickController (oddsService, picksService, resultsService) {
 
   function checkSubmission (game) {
     picksService.checkSubmission(game).then(function(foundPick){
-      console.log(foundPick[0])
-      if(foundPick[0]) {
+      if(!foundPick[0]) {
+        console.log('following pick is not found, should be added as template');
+        console.log(game);
+        picksService.addTemplate(game);
+      };
+      console.log(foundPick[0]);
+      if(foundPick[0].activePick) {
         game.locked = true;
         game.pick = foundPick[0].activePick;
         game.displayPayout = displayPayCalc(foundPick[0].activePayout);
+      } else {
+        console.log('pick not found')
       }
       // foundPick[0].activePick = game.activePick;
     })

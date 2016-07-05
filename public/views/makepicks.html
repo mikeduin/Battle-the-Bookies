@@ -18,7 +18,7 @@
 
 <div class="row">
   <div class="col m2">
-      <select class="browser-default" ng-model="vm.gameDayFilter">
+      <select class="browser-default" ng-model="vm.gameDayFilter" ng-init="vm.getDates()">
         <option value="" > (all Days) </option>
         <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
       </select>

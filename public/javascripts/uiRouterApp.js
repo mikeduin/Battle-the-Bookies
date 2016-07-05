@@ -64,4 +64,14 @@ function siteConfig ($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('home.standings', {
+      url: 'results',
+      views: {
+        'content@': {
+          templateUrl: 'views/standings.html',
+          controller: 'StandingsController',
+          controllerAs: 'vm'
+        }
+      }
+    })
 }

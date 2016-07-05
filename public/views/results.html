@@ -1,4 +1,4 @@
-<resultsHead class="row" ng-init="vm.updateResults(); vm.getMlbLines()">
+<resultsHead class="row" ng-init="vm.updateResults(); vm.getMlbLines(); vm.getDates()">
   <div class="col m12 center-align">
     Results
   </div>
@@ -7,6 +7,15 @@
 <div class="row">
   <button class="btn blue" ng-click="vm.updateResults()"> Update Results</button>
   <button class="btn blue" ng-click="vm.updateDollars()"> Update Dollars</button>
+  <button class="btn blue" ng-click="vm.sumToday('mikeduin', vm.matchTimeFilter)"> Run SumToday</button>
+
+  <div>
+    UserSumToday: {{vm.userSumToday}}
+  </div>
+  <div>
+    MatchTimeFilter: {{vm.matchTimeFilter}}
+  </div>
+
 <!--
   <update-results get-mlb-lines="vm.getMlbLines()" update-results="vm.updateResults()"> </update-results> -->
 </div>
@@ -37,14 +46,14 @@
         <th>
           Today
         </th>
-        <th ng-repeat="game in vm.mlbLines | orderBy: [vm.sortOrder, vm.sortOrderTwo] | filter: { MatchDay: vm.gameDayFilter }" ng-init="vm.resultChecker(game)"> {{game.AwayAbbrev}} {{game.AwayScore}} <br> {{game.HomeAbbrev}} {{game.HomeScore}} <br> {{game.GameStatus}} </th>
+        <th ng-repeat="game in vm.mlbLines | orderBy: [vm.sortOrder, vm.sortOrderTwo] | filter: { MatchDay: vm.gameDayFilter }" ng-init="vm.resultChecker(game); vm.matchTimePull(game.MatchTime)"> {{game.AwayAbbrev}} {{game.AwayScore}} <br> {{game.HomeAbbrev}} {{game.HomeScore}} <br> {{game.GameStatus}} </th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="user in vm.users" ng-init="vm.getPicks()">
+      <tr ng-repeat="user in vm.users" ng-init="vm.getPicks(); vm.sumAllPicks(user); vm.sumToday(user, '2016-07-05T01:10:00.000Z')">
         <td> {{user.username}} </td>
-        <td> {{user.ytd}} </td>
-        <td> {{vm.sumTotal()}} </td>
+        <td> {{user.sumYtd | currency:$:0}} </td>
+        <td> {{user.sumToday | currency:$:0}} </td>
         <td ng-repeat="pick in vm.picks | orderBy: [vm.sortOrder, vm.sortOrderTwo] | filter: {MatchDay: vm.gameDayFilter} | filter: {username: user.username}" ng-class="{pickWin: pick.pickResult === 'win', pickLoss: pick.pickResult === 'loss'}" ng-init="vm.pickSettle(pick)"> {{pick.activePick}} <br><span> {{pick.dollars | currency:$:0}} </span> </td>
       </tr>
     </tbody>
