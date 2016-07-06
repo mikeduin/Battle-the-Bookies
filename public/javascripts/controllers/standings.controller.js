@@ -35,7 +35,7 @@ function StandingsController (picksService, oddsService) {
   vm.sumAllPicks = function(user) {
     username = user.username;
     picksService.sumAllPicks(username).then(function(result){
-      console.log("returned from sumAllPicks is " + result);
+      console.log(result);
       user.sumYtd = result.totalDollars;
       user.ytdW = result.totalW;
       user.ytdL = result.totalG - result.totalW;

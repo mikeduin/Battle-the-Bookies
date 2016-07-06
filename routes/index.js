@@ -227,7 +227,6 @@ router.get('/picks/:username/all', function (req, res, next) {
   }, function(err, result){
     if(err) {console.log(err)}
 
-    console.log(result)
     res.json(result)
   })
 })
@@ -240,7 +239,6 @@ router.get('/picks/:username/:datenumb', function (req, res, next) {
   }, function(err, result){
     if(err) {console.log(err)}
 
-    console.log(result)
     res.json(result)
   })
 })
@@ -414,6 +412,7 @@ router.put('/picks', function(req, res, next){
 // BEGIN AUTH ROUTES
 
 router.post('/register', function(req, res, next){
+  console.log(req.body);
   if(!req.body.username || !req.body.password || !req.body.nameFirst || !req.body.nameLast || !req.body.email || !req.body.buyin
   ){
     return res.status(400).json({message: 'You left something blank!'});
@@ -431,7 +430,7 @@ router.post('/register', function(req, res, next){
   console.log(user);
 
   user.save(function (err){
-    if(err){ return next(err); }
+    if(err){ console.log(err); }
 
     console.log(user + 'has been added to db!');
     res.json({token: user.generateJWT()})
@@ -444,7 +443,10 @@ router.post('/login', function(req, res, next){
     return res.status(400).json({message: 'You forgot to include either your username or your password!'});
   }
 
+  console.log(req.body);
+
   passport.authenticate('local', function(err, user, info){
+    console.log(user);
     if(err){ return next(err); }
 
     if(user){

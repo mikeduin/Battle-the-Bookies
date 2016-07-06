@@ -10,18 +10,18 @@
       </regLink>
     </div>
     <div class="row">
-      <form class="col s12" ng-submit="vm.logIn()">
+      <form class="col s12" ng-submit="vm.logIn(user)">
         <div class="row">
           <div class="input-field col s8 offset-s2">
             <i class="fa fa-user prefix" aria-hidden="true"></i>
-            <input id="username" type="text" class="validate">
+            <input type="text" class="validate" ng-model="user.username">
             <label for="username">Username</label>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s8 offset-s2">
             <i class="fa fa-lock prefix" aria-hidden="true"></i>
-            <input id="password" type="password" class="validate">
+            <input type="password" class="validate" ng-model="user.password">
             <label for="password">Password</label>
           </div>
         </div>

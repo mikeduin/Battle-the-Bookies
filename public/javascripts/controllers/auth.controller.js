@@ -13,8 +13,8 @@ function AuthController ($state, authService) {
     })
   };
 
-  vm.login = function() {
-    authService.login(vm.user).error(function(error){
+  vm.logIn = function(user) {
+    authService.logIn(user).error(function(error){
       vm.error = error;
     }).then(function(){
       $state.go('home.makepicks');

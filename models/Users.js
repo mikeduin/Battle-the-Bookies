@@ -4,39 +4,41 @@ var jwt = require('jsonwebtoken');
 
 var UserSchema = new mongoose.Schema({
   username: {
-    type: String,
-    required: true,
-    unique: true
+    type: String
+    // required: true,
+    // unique: true
   },
   email: {
-    type: String,
-    required: true,
-    unique: true
+    type: String
+    // required: true,
+    // unique: true
   },
   nameFirst: {
-    type: String,
-    required: true
+    type: String
+    // required: true
   },
   nameLast: {
-    type: String,
-    required: true
+    type: String
+    // required: true
   },
-  buyin : {
-    type: Number,
-    required: true
+  buyin: {
+    type: String
+    // required: true
   },
   hash: String,
   salt: String
 })
 
 UserSchema.methods.setPassword = function(password) {
+
   this.salt = crypto.randomBytes(16).toString('hex');
 
-  this.hash = crytpo.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+
 };
 
 UserSchema.methods.validPassword = function(password) {
-  var hash = crytpo.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+  var hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
 
   return this.hash === hash;
 };

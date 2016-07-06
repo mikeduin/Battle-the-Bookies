@@ -43,10 +43,10 @@ function picksService ($http) {
         for (i=0; i<ytdPicks.length; i++) {
           var pickPayout = ytdPicks[i].finalPayout;
           var resultBinary = ytdPicks[i].resultBinary;
-          if (typeof pickPayout === 'number') {
+          if (typeof resultBinary === 'number') {
             totalDollars += pickPayout;
             totalW += resultBinary;
-            totalG += 1
+            totalG += 1;
           };
         }
         return {
