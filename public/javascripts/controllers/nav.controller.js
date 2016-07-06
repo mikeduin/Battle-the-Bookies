@@ -6,7 +6,8 @@ function NavController (authService) {
   var vm = this;
 
   vm.isLoggedIn = function(){
-    authService.isLoggedIn()
+    var value = authService.isLoggedIn();
+    return value
   }
 
   vm.logOut = function(){
@@ -14,7 +15,8 @@ function NavController (authService) {
   }
 
   vm.currentUser = function(){
-    authService.currentUser()
+    var value = authService.currentUser();
+    return value
   }
 
 }
