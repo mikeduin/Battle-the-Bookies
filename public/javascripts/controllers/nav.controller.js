@@ -4,10 +4,11 @@ angular
 
 function NavController (authService) {
   var vm = this;
+  // vm.isLoggedIn;
+  // vm.currentUser
 
   vm.isLoggedIn = function(){
-    var value = authService.isLoggedIn();
-    return value
+    return authService.isLoggedIn();
   }
 
   vm.logOut = function(){
@@ -15,8 +16,7 @@ function NavController (authService) {
   }
 
   vm.currentUser = function(){
-    var value = authService.currentUser();
-    return value
+    return authService.currentUser();
   }
 
 }
