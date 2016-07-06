@@ -38,6 +38,7 @@ function PickController (oddsService, picksService, resultsService) {
   function getMlbLines() {
     oddsService.getMlbLines().then(function(lines){
       vm.mlbLines = lines;
+      console.log(vm.mlbLines)
     })
   };
 

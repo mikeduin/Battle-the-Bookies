@@ -7,13 +7,13 @@
 <div class="row">
   <button class="btn blue" ng-click="vm.updateResults()"> Update Results</button>
   <button class="btn blue" ng-click="vm.updateDollars()"> Update Dollars</button>
-  <button class="btn blue" ng-click="vm.sumToday('mikeduin', vm.matchTimeFilter)"> Run SumToday</button>
+  <button class="btn blue" ng-click="vm.sumToday('mikeduin', vm.dateNumbFilter)"> Run SumToday</button>
 
   <div>
     UserSumToday: {{vm.userSumToday}}
   </div>
   <div>
-    MatchTimeFilter: {{vm.matchTimeFilter}}
+    dateNumbFilter: {{vm.dateNumbFilter}}
   </div>
 
 <!--
@@ -23,7 +23,7 @@
 
 <div class="row">
   <div class="col m2">
-      <select class="browser-default" ng-model="vm.gameDayFilter">
+      <select class="browser-default" ng-model="vm.matchDayFilter">
         <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
       </select>
   </div>
@@ -46,7 +46,7 @@
         <th>
           Day
         </th>
-        <th ng-repeat="game in vm.mlbLines | orderBy: [vm.sortOrder, vm.sortOrderTwo] | filter: { MatchDay: vm.gameDayFilter }" ng-init="vm.resultChecker(game); vm.matchTimePull(game.MatchTime)"> {{game.AwayAbbrev}} {{game.AwayScore}} <br> {{game.HomeAbbrev}} {{game.HomeScore}} <br> {{game.GameStatus}} </th>
+        <th ng-repeat="game in vm.mlbLines | orderBy: [vm.sortOrder, vm.sortOrderTwo] | filter: { MatchDay: vm.matchDayFilter }" ng-init="vm.resultChecker(game); vm.matchTimePull(game.MatchTime)"> {{game.AwayAbbrev}} {{game.AwayScore}} <br> {{game.HomeAbbrev}} {{game.HomeScore}} <br> {{game.GameStatus}} </th>
       </tr>
     </thead>
     <tbody>
@@ -54,7 +54,7 @@
         <td> {{user.username}} </td>
         <td> {{user.sumYtd | currency:$:0}} </td>
         <td> {{user.sumToday | currency:$:0}} </td>
-        <td ng-repeat="pick in vm.picks | orderBy: [vm.sortOrder, vm.sortOrderTwo] | filter: {MatchDay: vm.gameDayFilter} | filter: {username: user.username}" ng-class="{pickWin: pick.pickResult === 'win', pickLoss: pick.pickResult === 'loss'}" ng-init="vm.pickSettle(pick)"> {{pick.activePick}} <br><span> {{pick.dollars | currency:$:0}} </span> </td>
+        <td ng-repeat="pick in vm.picks | orderBy: [vm.sortOrder, vm.sortOrderTwo] | filter: {MatchDay: vm.matchDayFilter} | filter: {username: user.username}" ng-class="{pickWin: pick.pickResult === 'win', pickLoss: pick.pickResult === 'loss'}" ng-init="vm.pickSettle(pick)"> {{pick.activePick}} <br><span> {{pick.dollars | currency:$:0}} </span> </td>
       </tr>
     </tbody>
   </table>

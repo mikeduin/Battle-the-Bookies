@@ -3,6 +3,7 @@ angular
   .controller('MainController', MainController)
   .filter('mlFormat', mlFormat)
   .filter('payoutFilter', payoutFilter)
+  .filter('percentage', ['$filter', pctFilter])
 
 function mlFormat () {
   return function (ml) {
@@ -23,6 +24,12 @@ function payoutFilter () {
       payout = "$"+(line)
     };
     return payout
+  }
+}
+
+function pctFilter ($filter) {
+  return function (input, decimals) {
+    return $filter('number')(input*100, decimals) + '%';
   }
 }
 

@@ -12,12 +12,9 @@
 <pagination class="row">
   <div class="col m3 push-m9">
     <ul class="pagination">
-      <li class="disabled"><a><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
-      <!-- <li class="active waves-effect"> 1 </li>
-      <li class="waves-effect"> 2 </li>
-      <li class="waves-effect"> 3 </li> -->
-      <li ng-repeat="i in vm.pageArray" class="waves-effect"> {{i}}</li>
-      <li class="waves-effect"><a><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+      <li class="waves-effect" ng-class="{disabled: vm.activePage === 1}" ng-click="vm.activePage !== 1? vm.pageDown() : null"><a><i class="fa fa-chevron-left"></i></a></li>
+      <li ng-repeat="i in vm.pageArray" ng-class="{active: i === vm.activePage}" ng-click="vm.pageClick(i)" class="waves-effect"> {{i}}</li>
+      <li class="waves-effect" ng-class="{disabled: vm.activePage > (vm.dayArrayLength / 4)}" ng-click="vm.activePage < (vm.dayArrayLength / 4) ? vm.pageUp() : null"><a><i class="fa fa-chevron-right"></i></a></li>
     </ul>
   </div>
 </pagination>
@@ -27,10 +24,13 @@
     <thead>
       <tr>
         <th rowspan="2"> Entrant</th>
+        <th colspan="1"> </th>
         <th colspan="4" class="center-align"> YTD </th>
-        <th colspan="4" class="center-align" ng-repeat="day in vm.daysOfGames | limitTo: 4: vm.daySelector"> {{day}} </th>
+        <th colspan="4" class="center-align" ng-repeat="day in vm.daysOfGames | limitTo: 4: vm.pageView"> {{day}} </th>
       </tr>
       <tr>
+        <th> Buy-in </th>
+        <!-- <th> High Weeks </th> -->
         <th> W </th>
         <th> L </th>
         <th> Win% </th>
@@ -38,13 +38,19 @@
         <span ng-repeat="day in vm.daysOfGames">
           <th> W </th>
           <th> L </th>
-          <th> Win% </th>
           <th> $ </th>
         </span>
       </tr>
     </thead>
     <tbody>
-
+      <tr ng-repeat="user in vm.users" ng-init="vm.sumAllPicks(user)">
+        <td> {{user.username}} </td>
+        <td> {{user.buyin}} </td>
+        <td> {{user.ytdW}} </td>
+        <td> {{user.ytdL}} </td>
+        <td> {{user.ytdPct | percentage:2}} </td>
+        <td> {{user.sumYtd | currency:$:2}} </td>
+      </tr>
     </tbody>
   </table>
 </standings>

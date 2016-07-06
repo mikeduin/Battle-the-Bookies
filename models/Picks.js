@@ -11,6 +11,7 @@ var PickSchema = new mongoose.Schema({
     required: true
   },
   MatchDay: String,
+  DateNumb: Number,
   MatchTime: Date,
   activePick: String,
   activeSpread: Number,

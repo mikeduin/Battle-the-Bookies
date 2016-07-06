@@ -1,11 +1,11 @@
 angular
   .module('battleBookies')
-  .controller('ResultController', ['oddsService', 'picksService', 'resultsService', ResultController])
+  .controller('ResultController', ['oddsService', 'picksService', 'resultsService', '$scope', ResultController])
 
-function ResultController (oddsService, picksService, resultsService) {
+function ResultController (oddsService, picksService, resultsService, $scope) {
   var vm = this;
-  vm.gameDayFilter = moment().format('MMMM Do, YYYY');
-  vm.matchTimeFilter;
+  vm.matchDayFilter = moment().format('MMMM Do, YYYY');
+  vm.dateNumbFilter;
   vm.daysOfGames = [];
   vm.mlbLines = [];
   vm.getMlbLines = getMlbLines;
@@ -20,34 +20,32 @@ function ResultController (oddsService, picksService, resultsService) {
   vm.picks = [];
   vm.users = [
     {
-      username: "mikeduin"
+      username: "mikeduin",
     },
     {
       username: "seanstokke"
     }
   ];
+
   vm.matchTimePull = function(time) {
-    vm.matchTimeFilter = time
+    vm.dateNumbFilter = moment(time).format('YYYYMMDD')
   }
 
-  vm.sumToday = function(user) {
+  vm.sumToday = function(user, datenumb) {
     username = user.username;
-    // console.log(user);
-    setTimeout(function() {
-      console.log(vm.matchTimeFilter);
-      picksService.sumToday(username, vm.matchTimeFilter).then(function(result){
-        console.log("total returned is " + result);
-        user.sumToday = result
-    }, 3000)
+    console.log('datenumb in controller is ' + datenumb);
+    picksService.sumToday(username, vm.matchTimeFilter).then(function(result){
+      console.log("total returned is " + result);
+      user.sumToday = result
+  })
 
-    })
   }
 
   vm.sumAllPicks = function(user) {
     username = user.username;
     picksService.sumAllPicks(username).then(function(result){
-      console.log("total returned is " + result);
-      user.sumYtd = result
+      console.log("returned from sumAllPicks is " + result);
+      user.sumYtd = result.totalDollars
     })
   }
 
@@ -83,7 +81,7 @@ function ResultController (oddsService, picksService, resultsService) {
   function getPicks () {
     oddsService.getPicks().then(function(data){
       vm.picks = data;
-      // console.log(vm.picks);
+      console.log(vm.picks);
     })
   }
 
@@ -97,7 +95,7 @@ function ResultController (oddsService, picksService, resultsService) {
 
   function getResult (game) {
     resultsService.getResult(game.EventID).then(function(result){
-      console.log("result " + result[0].EventID + result[0].Final);
+      // console.log("result " + result[0].EventID + result[0].Final);
       game.HomeScore = result[0].HomeScore;
       game.AwayScore = result[0].AwayScore;
       if (result[0].Final === true) {

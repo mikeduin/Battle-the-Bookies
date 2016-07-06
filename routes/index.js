@@ -99,6 +99,7 @@ router.get('/updateOdds', function(req, res, next) {
           AwayAbbrev: abbrevs.teamAbbrev(odds[i].AwayTeam),
           MatchTime: new Date(odds[i].MatchTime),
           MatchDay: moment(odds[i].MatchTime).format('MMMM Do, YYYY'),
+          DateNumb: moment(odds[i].MatchTime).format('YYYYMMDD'),
           Week: setWeek.weekSetter(odds[i].MatchTime),
           MoneyLineHome: odds[i].Odds[0].MoneyLineHome,
           MoneyLineAway: odds[i].Odds[0].MoneyLineAway,
@@ -231,11 +232,11 @@ router.get('/picks/:username/all', function (req, res, next) {
   })
 })
 
-router.get('/picks/:username/:date', function (req, res, next) {
-  var matchDay = moment(req.params.date).format('MMMM Do, YYYY');
+router.get('/picks/:username/:datenumb', function (req, res, next) {
+  console.log(req.params.datenumb);
   Pick.find({
     username: req.params.username,
-    MatchDay: matchDay
+    DateNumb: req.params.datenumb
   }, function(err, result){
     if(err) {console.log(err)}
 
@@ -340,7 +341,8 @@ router.post('/picks/addTemp', function (req, res, next){
     username: "mikeduin",
     EventID: req.body.EventID,
     MatchDay: req.body.MatchDay,
-    MatchTime: req.body.MatchTime
+    MatchTime: req.body.MatchTime,
+    DateNumb: req.body.DateNumb
   });
 
   pick.save(function(err, pick){

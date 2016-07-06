@@ -224,11 +224,15 @@ pickLocked {
 /*END RESULT STYLES*/
 /*BEGIN STANDINGS STYLES*/
 
-standings th {
+standings th, standings td {
   padding: 0px;
   text-align: center;
 }
 
 .active {
   color: white;
+}
+
+.nopad {
+  padding: 0px;
 }
