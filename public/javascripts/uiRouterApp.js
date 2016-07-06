@@ -65,7 +65,7 @@ function siteConfig ($stateProvider, $urlRouterProvider) {
       }
     })
     .state('home.standings', {
-      url: 'results',
+      url: 'standings',
       views: {
         'content@': {
           templateUrl: 'views/standings.html',

@@ -9,9 +9,7 @@ function picksService ($http) {
       return $http.put('/picks', pick)
     },
     addTemplate: function(game) {
-      return $http.post('/picks/addTemp', game).then(function(result){
-        console.log('pick template for ' + result + ' posted!')
-      })
+      return $http.post('/picks/addTemp', game)
     },
     checkSubmission: function(game){
       return $http.get('/picks/' + game.EventID).then(function(result){
@@ -41,7 +39,6 @@ function picksService ($http) {
         var total = 0;
         for (i=0; i<ytdPicks.length; i++) {
           var pickPayout = ytdPicks[i].finalPayout;
-          console.log(pickPayout);
           if (typeof pickPayout === 'number') {
             total += pickPayout;
           };

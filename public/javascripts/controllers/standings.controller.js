@@ -1,16 +1,31 @@
 angular
   .module('battleBookies')
-  .controller('StandingsConroller', ['picksService', StandingsConroller])
+  .controller('StandingsController', ['picksService', 'oddsService', StandingsController])
 
-function StandingsConroller (picksService) {
+function StandingsController (picksService, oddsService) {
   var vm = this;
-  var getDates = getDates;
+  vm.getDates = getDates;
+  vm.daysOfGames = [];
+  vm.pageArray = [1];
 
   function getDates () {
     oddsService.getDates().then(function(dates){
+      // console.log(dates);
       vm.daysOfGames = dates;
+    }).then(function(){
+      getPageArray(vm.daysOfGames)
     })
   };
-  vm.getDates();
 
+  function getPageArray (games) {
+    console.log(games)
+    var pageArray = [1];
+    for (i = 1; i<games.length; i++) {
+      if ((i % 4) === 0) {
+        pageArray.push((i/4)+1)
+      }
+    }
+    console.log(pageArray)
+    vm.pageArray = pageArray
+  }
 }

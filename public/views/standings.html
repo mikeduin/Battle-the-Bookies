@@ -1,5 +1,50 @@
-<standingsHead class="row">
+<standingsHead class="row" ng-init="vm.getDates()">
   <div class="col m12 center-align">
     Standings
   </div>
 </standingsHead>
+
+<div class="row">
+  <input class="col m2" type="number" ng-model="vm.daySelector">
+<divider class="divider col m6 offset-m3"></divider>
+</div>
+
+<pagination class="row">
+  <div class="col m3 push-m9">
+    <ul class="pagination">
+      <li class="disabled"><a><i class="fa fa-chevron-left" aria-hidden="true"></i></a></li>
+      <!-- <li class="active waves-effect"> 1 </li>
+      <li class="waves-effect"> 2 </li>
+      <li class="waves-effect"> 3 </li> -->
+      <li ng-repeat="i in vm.pageArray" class="waves-effect"> {{i}}</li>
+      <li class="waves-effect"><a><i class="fa fa-chevron-right" aria-hidden="true"></i></a></li>
+    </ul>
+  </div>
+</pagination>
+
+<standings>
+  <table>
+    <thead>
+      <tr>
+        <th rowspan="2"> Entrant</th>
+        <th colspan="4" class="center-align"> YTD </th>
+        <th colspan="4" class="center-align" ng-repeat="day in vm.daysOfGames | limitTo: 4: vm.daySelector"> {{day}} </th>
+      </tr>
+      <tr>
+        <th> W </th>
+        <th> L </th>
+        <th> Win% </th>
+        <th> $ </th>
+        <span ng-repeat="day in vm.daysOfGames">
+          <th> W </th>
+          <th> L </th>
+          <th> Win% </th>
+          <th> $ </th>
+        </span>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+</standings>

@@ -220,3 +220,15 @@ pickLocked {
   font-weight: 600;
   font-size: 12px;
 }
+
+/*END RESULT STYLES*/
+/*BEGIN STANDINGS STYLES*/
+
+standings th {
+  padding: 0px;
+  text-align: center;
+}
+
+.active {
+  color: white;
+}

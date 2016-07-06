@@ -5,6 +5,7 @@ angular
 function ResultController (oddsService, picksService, resultsService) {
   var vm = this;
   vm.gameDayFilter = moment().format('MMMM Do, YYYY');
+  vm.matchTimeFilter;
   vm.daysOfGames = [];
   vm.mlbLines = [];
   vm.getMlbLines = getMlbLines;
@@ -19,27 +20,26 @@ function ResultController (oddsService, picksService, resultsService) {
   vm.picks = [];
   vm.users = [
     {
-      username: "mikeduin",
-      ytd: 1546.98,
-      today: 245.69
+      username: "mikeduin"
     },
     {
-      username: "seanstokke",
-      ytd: 598.35,
-      today: -100.59
+      username: "seanstokke"
     }
   ];
   vm.matchTimePull = function(time) {
     vm.matchTimeFilter = time
   }
 
-  vm.sumToday = function(user, date) {
+  vm.sumToday = function(user) {
     username = user.username;
     // console.log(user);
-    console.log(date);
-    picksService.sumToday(username, date).then(function(result){
-      console.log("total returned is " + result);
-      user.sumToday = result
+    setTimeout(function() {
+      console.log(vm.matchTimeFilter);
+      picksService.sumToday(username, vm.matchTimeFilter).then(function(result){
+        console.log("total returned is " + result);
+        user.sumToday = result
+    }, 3000)
+
     })
   }
 
@@ -150,7 +150,7 @@ function ResultController (oddsService, picksService, resultsService) {
         // picksService.updateHomeSpread(resultObj);
         // picksService.updateTotalOver(resultObj);
         // picksService.updateTotalUnder(resultObj);
-        oddsService.updateStatus(result);
+        // oddsService.updateStatus(result);
       }
     })
   }
