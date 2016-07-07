@@ -1,23 +1,34 @@
 angular
   .module('battleBookies')
-  .factory('picksService', ['$http', picksService])
+  .factory('picksService', ['$http', 'authService', picksService])
 
-function picksService ($http) {
+function picksService ($http, authService) {
   return {
     submitPick: function(pick) {
-      return $http.put('/picks', pick)
+      return $http.put('/picks', pick, {
+        headers: {Authorization: 'Bearer '+authService.getToken()}
+      })
     },
     addTemplate: function(game) {
-      return $http.post('/picks/addTemp', game)
+      return $http.post('/picks/addTemp', game, {
+        headers: {Authorization: 'Bearer '+authService.getToken()}
+      })
     },
     checkSubmission: function(game){
-      return $http.get('/picks/' + game.EventID).then(function(result){
+      return $http.get('/picks/checkSubmission/' + game.EventID, {
+        headers: {Authorization: 'Bearer '+authService.getToken()}
+      }).then(function(result){
         return result.data
       })
     },
     updateDollars: function() {
       return $http.put('/updateDollars').then(function(){
         console.log ('dollars updated')
+      })
+    },
+    updatePicks: function() {
+      return $http.get('/updatePicks').then(function(){
+        console.log('hello')
       })
     },
     sumToday: function(username, datenumb) {

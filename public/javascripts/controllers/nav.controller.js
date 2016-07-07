@@ -4,9 +4,7 @@ angular
 
 function NavController (authService) {
   var vm = this;
-  // vm.isLoggedIn;
-  // vm.currentUser
-
+  
   vm.isLoggedIn = function(){
     return authService.isLoggedIn();
   }

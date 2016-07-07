@@ -1,9 +1,10 @@
 angular
   .module('battleBookies')
-  .controller('PickController', ['oddsService', 'picksService', 'resultsService', PickController])
+  .controller('PickController', ['oddsService', 'picksService', 'resultsService', 'authService', PickController])
 
-function PickController (oddsService, picksService, resultsService) {
+function PickController (oddsService, picksService, resultsService, authService) {
   var vm = this;
+  vm.currentUser = currentUser;
   vm.currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
   vm.gameDayFilter = moment().format('MMMM Do, YYYY');
   vm.pick = {};
@@ -14,8 +15,9 @@ function PickController (oddsService, picksService, resultsService) {
   vm.pick.activePick = {};
   vm.pick.activeLine = {};
   vm.pick.activePayout = {};
-  vm.pick.username = "mikeduin";
+  vm.pick.username = vm.currentUser();
   vm.sortOrder = "MatchTime";
+  vm.updatePicks = updatePicks;
   vm.getMlbLines = getMlbLines;
   vm.getMlbResults = getMlbResults;
   vm.getDates = getDates;
@@ -34,6 +36,14 @@ function PickController (oddsService, picksService, resultsService) {
   vm.displayPayCalc = displayPayCalc;
   vm.activePayCalc = activePayCalc;
   vm.mlFormat = mlFormat;
+
+  function currentUser() {
+    return authService.currentUser();
+  }
+
+  function updatePicks() {
+    picksService.updatePicks();
+  }
 
   function getMlbLines() {
     oddsService.getMlbLines().then(function(lines){
@@ -176,15 +186,17 @@ function PickController (oddsService, picksService, resultsService) {
         console.log('following pick is not found, should be added as template');
         console.log(game);
         picksService.addTemplate(game);
-      };
-      console.log(foundPick[0]);
-      if(foundPick[0].activePick) {
-        game.locked = true;
-        game.pick = foundPick[0].activePick;
-        game.displayPayout = displayPayCalc(foundPick[0].activePayout);
       } else {
-        console.log('pick not found')
+        if(foundPick[0].activePick) {
+          game.locked = true;
+          game.pick = foundPick[0].activePick;
+          game.displayPayout = displayPayCalc(foundPick[0].activePayout);
+        } else {
+          console.log('pick not found')
+        }
       }
+      // console.log(foundPick[0]);
+
       // foundPick[0].activePick = game.activePick;
     })
   }

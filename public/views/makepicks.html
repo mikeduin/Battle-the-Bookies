@@ -11,9 +11,11 @@
 
   <button class="btn blue" ng-click="vm.updateResults()"> Update Results</button>
 
-  <!-- <button class="btn blue" ng-click="vm.getMlbResults()"> Get Results</button> -->
+  <button class="btn blue" ng-click="vm.updatePicks()"> Update Picks</button>
 
   <update-lines get-mlb-lines="vm.getMlbLines()" update-odds="vm.updateOdds()"> </update-lines>
+
+  Current User: {{vm.currentUser()}}
 </div>
 
 <div class="row">
@@ -56,7 +58,7 @@
       </tr>
     </thead>
     <tbody ng-repeat="game in vm.mlbLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter } | filter: search">
-      <tr ng-init="vm.timeCheck(game); vm.checkSubmission(game)">
+      <tr ng-init="vm.timeCheck(game); vm.checkSubmission(game, vm.currentUser())">
         <td rowspan="2"> {{game.MatchDay}} <br> {{game.MatchTime | date:'h:mm a'}} </td>
         <td> <b>(A)</b> {{game.AwayTeam}}
           <!-- <away-score get-result="vm.getResult(game)" game="game"> </away-score> -->

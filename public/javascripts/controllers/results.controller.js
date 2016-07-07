@@ -99,56 +99,56 @@ function ResultController (oddsService, picksService, resultsService, $scope) {
       game.HomeScore = result[0].HomeScore;
       game.AwayScore = result[0].AwayScore;
       if (result[0].Final === true) {
-        var finalObj = {};
-        finalObj.EventID = game.EventID;
-        finalObj.HomeTeam = game.HomeTeam;
-        finalObj.AwayTeam = game.AwayTeam;
-
-        if (game.HomeScore > game.AwayScore) {
-          finalObj.homeMLResult = "win";
-          finalObj.homeMLBinary = 1;
-          finalObj.awayMLResult = "loss";
-          finalObj.awayMLBinary = 0;
-        } else {
-          finalObj.homeMLResult = "loss";
-          finalObj.homeMLBinary = 0;
-          finalObj.awayMLResult = "win";
-          finalObj.awayMLBinary = 1;
-        };
-
-        if ((game.HomeScore + game.PointSpreadHome) > game.AwayScore) {
-          finalObj.homeSpreadResult = "win";
-          finalObj.homeSpreadBinary = 1;
-          finalObj.awaySpreadResult = "loss";
-          finalObj.awaySpreadBinary = 0;
-        } else {
-          finalObj.homeSpreadResult = "loss";
-          finalObj.homeSpreadBinary = 0;
-          finalObj.awaySpreadResult = "win";
-          finalObj.awaySpreadBinary = 1;
-        };
-
-        if ((game.HomeScore + game.AwayScore) > game.TotalNumber) {
-          finalObj.totalOverResult = "win";
-          finalObj.totalOverBinary = 1;
-          finalObj.totalUnderResult = "loss";
-          finalObj.totalUnderBinary = 0;
-        } else {
-          finalObj.totalOverResult = "loss";
-          finalObj.totalOverBinary = 0;
-          finalObj.totalUnderResult = "win";
-          finalObj.totalUnderBinary = 1;
-        }
+        // var finalObj = {};
+        // finalObj.EventID = game.EventID;
+        // finalObj.HomeTeam = game.HomeTeam;
+        // finalObj.AwayTeam = game.AwayTeam;
+        //
+        // if (game.HomeScore > game.AwayScore) {
+        //   finalObj.homeMLResult = "win";
+        //   finalObj.homeMLBinary = 1;
+        //   finalObj.awayMLResult = "loss";
+        //   finalObj.awayMLBinary = 0;
+        // } else {
+        //   finalObj.homeMLResult = "loss";
+        //   finalObj.homeMLBinary = 0;
+        //   finalObj.awayMLResult = "win";
+        //   finalObj.awayMLBinary = 1;
+        // };
+        //
+        // if ((game.HomeScore + game.PointSpreadHome) > game.AwayScore) {
+        //   finalObj.homeSpreadResult = "win";
+        //   finalObj.homeSpreadBinary = 1;
+        //   finalObj.awaySpreadResult = "loss";
+        //   finalObj.awaySpreadBinary = 0;
+        // } else {
+        //   finalObj.homeSpreadResult = "loss";
+        //   finalObj.homeSpreadBinary = 0;
+        //   finalObj.awaySpreadResult = "win";
+        //   finalObj.awaySpreadBinary = 1;
+        // };
+        //
+        // if ((game.HomeScore + game.AwayScore) > game.TotalNumber) {
+        //   finalObj.totalOverResult = "win";
+        //   finalObj.totalOverBinary = 1;
+        //   finalObj.totalUnderResult = "loss";
+        //   finalObj.totalUnderBinary = 0;
+        // } else {
+        //   finalObj.totalOverResult = "loss";
+        //   finalObj.totalOverBinary = 0;
+        //   finalObj.totalUnderResult = "win";
+        //   finalObj.totalUnderBinary = 1;
+        // }
 
         // console.log(finalObj);
-
+        //
         // picksService.updateAwayML(finalObj);
         // picksService.updateHomeML(finalObj);
         // picksService.updateAwaySpread(finalObj);
         // picksService.updateHomeSpread(finalObj);
         // picksService.updateTotalOver(finalObj);
         // picksService.updateTotalUnder(finalObj);
-        // oddsService.updateStatus(result);
+        oddsService.updateStatus(result);
       }
     })
   }
