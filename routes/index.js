@@ -132,7 +132,7 @@ router.get('/updateOdds', function(req, res, next) {
 });
 
 
-// This route below looks for picks that have a finalPayout of ZERO (e.g., they have not been 'settled' yet) then checks to see if the Result of the related game is final. If the result IS final, it updates the picks with the HomeScore and AwayScore and sets 'Final' to true for that pick. THEN, it runs through each potential outcome based on PickType and updates the result variables accordingly.
+// This route below looks for picks that have a finalPayout of ZERO (e.g., they have not been 'settled' yet) then checks to see if the Result of that pick's game is final. If the result IS final, it updates the picks with the HomeScore and AwayScore and sets 'Final' to true for that pick. THEN, it runs through each potential outcome based on PickType and updates the result variables accordingly.
 
 router.get('/updatePicks', function (req, res, next) {
   Pick.find({finalPayout: 0}, function (err, picks){
@@ -158,52 +158,56 @@ router.get('/updatePicks', function (req, res, next) {
           })
         }
       }).then(function(result){
-        Pick.find({EventID: result.EventID}, function(err, pick){
+        Pick.find({EventID: result.EventID}, function(err, picks){
           if (err) {console.log(err)}
 
-        }).then(function(pick){
-          var activePayout = pick.activePayout;
+        }).then(function(picks){
+          picks.forEach(function(pick){
+            var activePayout = pick.activePayout;
 
-          console.log("this is the pick " + pick);
-          if (pick.Final === true) {
-            console.log("hello");
-            if (
-              ((pick.pickType === "Away Moneyline") && (pick.AwayScore > pick.HomeScore))
-              ||
-              ((pick.pickType === "Home Moneyline") && (pick.HomeScore > pick.AwayScore))
-              ||
-              ((pick.pickType === "Away Spread") && ((pick.activeSpread + pick.AwayScore) > pick.HomeScore))
-              ||
-              ((pick.pickType === "Home Spread") && ((pick.activeSpread + pick.HomeScore) > pick.AwayScore))
-              ||
-              ((pick.pickType === "Total Over") && ((pick.HomeScore + pick.AwayScore) > pick.activeTotal))
-              ||
-              ((pick.pickType === "Total Under") && ((pick.HomeScore + pick.AwayScore) < pick.activeTotal))
-            ) {
-                Pick.update({"_id": pick._id}, {
-                  pickResult: "win",
-                  resultBinary: 1,
-                  finalPayout: activePayout,
-                }, function(err, result){
-                  if (err) {console.log(err)}
-                  console.log("this is the win update: " + result)
+            console.log("this is the pick " + pick);
+            if (pick.Final === true) {
 
-                })
+              console.log("hello");
+              if (
+                ((pick.pickType === "Away Moneyline") && (pick.AwayScore > pick.HomeScore))
+                ||
+                ((pick.pickType === "Home Moneyline") && (pick.HomeScore > pick.AwayScore))
+                ||
+                ((pick.pickType === "Away Spread") && ((pick.activeSpread + pick.AwayScore) > pick.HomeScore))
+                ||
+                ((pick.pickType === "Home Spread") && ((pick.activeSpread + pick.HomeScore) > pick.AwayScore))
+                ||
+                ((pick.pickType === "Total Over") && ((pick.HomeScore + pick.AwayScore) > pick.activeTotal))
+                ||
+                ((pick.pickType === "Total Under") && ((pick.HomeScore + pick.AwayScore) < pick.activeTotal))
+              ) {
+                  Pick.update({"_id": pick._id}, {
+                    pickResult: "win",
+                    resultBinary: 1,
+                    finalPayout: activePayout,
+                  }, function(err, result){
+                    if (err) {console.log(err)}
+                    console.log("this is the win update: " + result)
+
+                  })
+                }
+                 else
+                {
+                  Pick.update({"_id": pick._id}, {
+                    pickResult: "loss",
+                    resultBinary: 0,
+                    finalPayout: -100,
+                  }, function(err, result){
+                    if (err) {console.log(err)}
+                    console.log("this is the loss update: " + result)
+
+                  })
+                }
               }
-               else
-              {
-                Pick.update({"_id": pick._id}, {
-                  pickResult: "loss",
-                  resultBinary: 0,
-                  finalPayout: -100,
-                }, function(err, result){
-                  if (err) {console.log(err)}
-                  console.log("this is the loss update: " + result)
+            // console.log("these are the second promise's picks: " + pick)
+          })
 
-                })
-              }
-            }
-          // console.log("these are the second promise's picks: " + pick)
           })
         })
       })
@@ -404,14 +408,14 @@ router.put('/picks/totalUnder', function(req, res, next) {
 })
 
 // Adding auth as middleware here will ensure that the JWTToken is valid in order for a user to be accessing this route
-// !!!TEMPORARILY REMOVED AUTH AS MIDDLEWARE!!!
 router.post('/picks/addTemp', auth, function (req, res, next){
   var pick = Pick({
     username: req.payload.username,
     EventID: req.body.EventID,
     MatchDay: req.body.MatchDay,
     MatchTime: req.body.MatchTime,
-    DateNumb: req.body.DateNumb
+    DateNumb: req.body.DateNumb,
+    finalPayout: 0
   });
 
   pick.save(function(err, pick){
@@ -480,6 +484,18 @@ router.put('/picks', auth, function(req, res, next){
   // })
 })
 
+// END PICK ROUTES
+// BEGIN USER ROUTES
+
+router.get('/users', function (req, res, next){
+  User.find(function(err, users){
+    if (err) {console.log(err)}
+
+    res.json(users)
+  })
+})
+
+// END USER ROUTES
 // BEGIN AUTH ROUTES
 
 router.post('/register', function(req, res, next){

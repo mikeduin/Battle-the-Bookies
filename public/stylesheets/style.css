@@ -161,9 +161,9 @@ picksTable {
   margin-left: 10px;
 }
 
-table tbody tr:nth-child(4n-1), table tbody tr:nth-child(4n)  {
+/*table tbody tr:nth-child(4n-1), table tbody tr:nth-child(4n)  {
     background: #ccc;
-}
+}*/
 
 .btn-spread {
   background-color: #B71C1C;
@@ -219,6 +219,10 @@ pickLocked {
   color: red;
   font-weight: 600;
   font-size: 12px;
+}
+
+.forcewide {
+  width: 60px;
 }
 
 /*END RESULT STYLES*/

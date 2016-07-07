@@ -35,7 +35,7 @@ function picksService ($http, authService) {
       console.log('datenumb is ' + datenumb)
       return $http.get('/picks/' + username + '/' + datenumb).then(function(result){
         var dayPicks = result.data;
-        console.log(dayPicks);
+        // console.log(dayPicks);
         var total = 0;
         for (i=0; i<dayPicks.length; i++) {
           var pickPayout = dayPicks[i].finalPayout;
@@ -46,7 +46,6 @@ function picksService ($http, authService) {
     },
     sumAllPicks: function(username, date) {
       return $http.get('/picks/' + username + '/all').then(function(result){
-        console.log(result);
         var ytdPicks = result.data;
         var totalDollars = 0;
         var totalW = 0;

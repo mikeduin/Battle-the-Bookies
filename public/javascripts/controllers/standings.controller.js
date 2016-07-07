@@ -1,8 +1,8 @@
 angular
   .module('battleBookies')
-  .controller('StandingsController', ['picksService', 'oddsService', StandingsController])
+  .controller('StandingsController', ['picksService', 'oddsService', 'usersService', StandingsController])
 
-function StandingsController (picksService, oddsService) {
+function StandingsController (picksService, oddsService, usersService) {
   var vm = this;
   vm.getDates = getDates;
   vm.daysOfGames = [];
@@ -10,16 +10,13 @@ function StandingsController (picksService, oddsService) {
   vm.pageArray = [1];
   vm.activePage = 1;
   vm.pageView;
-  vm.users = [
-    {
-      username: "mikeduin",
-      buyin: 200
-    },
-    {
-      username: "seanstokke",
-      buyin: 200
-    }
-  ];
+  vm.users = [];
+
+  vm.getAllUsers = function(){
+    usersService.getAllUsers().then(function(result){
+      vm.users = result
+    })
+  }
 
   vm.sumDayPicks = function(user) {
     username = user.username;

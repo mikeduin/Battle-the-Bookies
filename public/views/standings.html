@@ -1,4 +1,4 @@
-<standingsHead class="row" ng-init="vm.getDates()">
+<standingsHead class="row" ng-init="vm.getDates(); vm.getAllUsers()">
   <div class="col m12 center-align">
     Standings
   </div>
@@ -20,7 +20,7 @@
 </pagination>
 
 <standings>
-  <table>
+  <table class="striped boredered">
     <thead>
       <tr>
         <th rowspan="2"> Entrant</th>
