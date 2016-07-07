@@ -221,8 +221,8 @@ pickLocked {
   font-size: 12px;
 }
 
-.forcewide {
-  width: 60px;
+.nobr  {
+  white-space:nowrap;
 }
 
 /*END RESULT STYLES*/

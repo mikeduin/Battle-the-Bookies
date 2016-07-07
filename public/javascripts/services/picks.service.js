@@ -6,17 +6,17 @@ function picksService ($http, authService) {
   return {
     submitPick: function(pick) {
       return $http.put('/picks', pick, {
-        headers: {Authorization: 'Bearer '+authService.getToken()}
+        headers: {Authorization: 'Bearer ' + authService.getToken()}
       })
     },
     addTemplate: function(game) {
       return $http.post('/picks/addTemp', game, {
-        headers: {Authorization: 'Bearer '+authService.getToken()}
+        headers: {Authorization: 'Bearer ' + authService.getToken()}
       })
     },
     checkSubmission: function(game){
       return $http.get('/picks/checkSubmission/' + game.EventID, {
-        headers: {Authorization: 'Bearer '+authService.getToken()}
+        headers: {Authorization: 'Bearer ' + authService.getToken()}
       }).then(function(result){
         return result.data
       })
@@ -65,24 +65,6 @@ function picksService ($http, authService) {
           totalG: totalG
         }
       })
-    },
-    updateAwayML: function(resultObj) {
-      return $http.put('/picks/awayML', resultObj)
-    },
-    updateHomeML: function(resultObj) {
-      return $http.put('/picks/homeML', resultObj)
-    },
-    updateHomeSpread: function(resultObj) {
-      return $http.put('/picks/homeSpread', resultObj)
-    },
-    updateAwaySpread: function(resultObj) {
-      return $http.put('/picks/awaySpread', resultObj)
-    },
-    updateTotalOver: function(resultObj) {
-      return $http.put('/picks/totalOver', resultObj)
-    },
-    updateTotalUnder: function(resultObj) {
-      return $http.put('/picks/totalUnder', resultObj)
     }
   }
 }

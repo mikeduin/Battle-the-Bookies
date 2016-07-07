@@ -24,11 +24,6 @@ function oddsService ($http) {
         return picks.data
       })
     },
-    // settlePicks: function(){
-    //   return $http.put('/picks/' + eventToSettle).then(function(){
-    //     console.log('picks settled')
-    //   })
-    // },
     getDates: function() {
       return $http.get('/lines')
       .then(function(lines) {
@@ -42,6 +37,21 @@ function oddsService ($http) {
           }
         }
         return dates;
+      })
+    },
+    getDateNumbs: function() {
+      return $http.get('/lines')
+      .then(function(lines) {
+        var dateNumbs = [];
+        var games = lines.data;
+        for (var i in games) {
+          for (var j in games[i].DateNumb) {
+            if (dateNumbs.indexOf(games[i].DateNumb) === -1) {
+              dateNumbs.push(games[i].DateNumb)
+            }
+          }
+        }
+        return dateNumbs;
       })
     }
   }

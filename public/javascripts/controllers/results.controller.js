@@ -9,8 +9,10 @@ function ResultController (oddsService, picksService, resultsService, usersServi
   vm.daysOfGames = [];
   vm.mlbLines = [];
   vm.getMlbLines = getMlbLines;
-  vm.sortOrder = "MatchTime";
-  vm.sortOrderTwo = "EventID"
+  vm.updatePicks = updatePicks;
+  vm.gameSort = "MatchTime";
+  vm.gameSortTwo = "EventID";
+  vm.userSort = "-sumYtd";
   vm.updateResults = updateResults;
   vm.getPicks = getPicks;
   vm.getResult = getResult;
@@ -36,7 +38,7 @@ function ResultController (oddsService, picksService, resultsService, usersServi
     picksService.sumToday(username, vm.matchTimeFilter).then(function(result){
       console.log("total returned is " + result);
       user.sumToday = result
-  })
+    })
 
   }
 
@@ -68,6 +70,10 @@ function ResultController (oddsService, picksService, resultsService, usersServi
       console.log(games)
       vm.mlbLines = games;
     })
+  }
+
+  function updatePicks() {
+    picksService.updatePicks();
   }
 
   function updateResults () {

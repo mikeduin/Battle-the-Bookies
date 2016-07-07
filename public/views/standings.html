@@ -1,4 +1,4 @@
-<standingsHead class="row" ng-init="vm.getDates(); vm.getAllUsers()">
+<standingsHead class="row" ng-init="vm.getDates(); vm.getAllUsers(); vm.getDateNumbs()">
   <div class="col m12 center-align">
     Standings
   </div>
@@ -35,21 +35,30 @@
         <th> L </th>
         <th> Win% </th>
         <th> $ </th>
-        <span ng-repeat="day in vm.daysOfGames">
-          <th> W </th>
-          <th> L </th>
-          <th> $ </th>
-        </span>
+        <th colspan="4" ng-repeat="day in vm.daysOfGames | limitTo: 4: vm.pageView">
+          <table><tr>
+            <th> W </th>
+            <th> L </th>
+            <th colspan="2"> $ </th>
+          </tr></table>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="user in vm.users" ng-init="vm.sumAllPicks(user)">
+      <tr ng-repeat="user in vm.users | orderBy: vm.sortOrder" ng-init="vm.sumAllPicks(user)">
         <td> {{user.username}} </td>
         <td> {{user.buyin}} </td>
         <td> {{user.ytdW}} </td>
         <td> {{user.ytdL}} </td>
         <td> {{user.ytdPct | percentage:2}} </td>
         <td> {{user.sumYtd | currency:$:2}} </td>
+        <td colspan="4" ng-repeat="day in vm.dateNumbs | limitTo: 4: vm.pageView" ng-init="vm.sumDayPicks(user, day)">
+          <table><tr>
+            <td colspan="1"> 12 </td>
+            <td colspan="1"> 6 </td>
+            <td colspan="2"> {{user.sumDay}} </td>
+          </tr></table>
+        </td>
       </tr>
     </tbody>
   </table>

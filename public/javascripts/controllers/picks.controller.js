@@ -17,7 +17,6 @@ function PickController (oddsService, picksService, resultsService, authService)
   vm.pick.activePayout = {};
   vm.pick.username = vm.currentUser();
   vm.sortOrder = "MatchTime";
-  vm.updatePicks = updatePicks;
   vm.getMlbLines = getMlbLines;
   vm.getMlbResults = getMlbResults;
   vm.getDates = getDates;
@@ -41,14 +40,9 @@ function PickController (oddsService, picksService, resultsService, authService)
     return authService.currentUser();
   }
 
-  function updatePicks() {
-    picksService.updatePicks();
-  }
-
   function getMlbLines() {
     oddsService.getMlbLines().then(function(lines){
       vm.mlbLines = lines;
-      console.log(vm.mlbLines)
     })
   };
 

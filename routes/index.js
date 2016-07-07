@@ -35,18 +35,6 @@ router.get('/updateResults', function(req, res, next) {
     var counter = 0;
 
     for (i = 0; i < results.length; i++) {
-      // Line.find({EventID: results[i].ID}).upsert().updateOne({
-      //   $set: {
-      //     FinalType: results[i].FinalType,
-      //     Final: results[i].Final,
-      //     HomeScore: results[i].HomeScore,
-      //     AwayScore:results[i].AwayScore
-      //   }
-      // }, function(err, line){
-      //   if(err) {console.log(err)}
-      //   console.log(line)
-      // });
-
       bulk.find({EventID: results[i].ID}).upsert().updateOne({
         $set: {
           EventID: results[i].ID,
@@ -99,7 +87,7 @@ router.get('/updateOdds', function(req, res, next) {
           AwayAbbrev: abbrevs.teamAbbrev(odds[i].AwayTeam),
           MatchTime: new Date(odds[i].MatchTime),
           MatchDay: moment(odds[i].MatchTime).format('MMMM Do, YYYY'),
-          DateNumb: moment(odds[i].MatchTime).format('YYYYMMDD'),
+          DateNumb: parseInt(moment(odds[i].MatchTime).format('YYYYMMDD')),
           Week: setWeek.weekSetter(odds[i].MatchTime),
           MoneyLineHome: odds[i].Odds[0].MoneyLineHome,
           MoneyLineAway: odds[i].Odds[0].MoneyLineAway,
@@ -154,7 +142,6 @@ router.get('/updatePicks', function (req, res, next) {
           }, function (err, pick) {
             if (err) {console.log(err)}
 
-            // console.log(pick + " has been updated")
           })
         }
       }).then(function(result){
@@ -165,10 +152,10 @@ router.get('/updatePicks', function (req, res, next) {
           picks.forEach(function(pick){
             var activePayout = pick.activePayout;
 
-            console.log("this is the pick " + pick);
+            // console.log("this is the pick " + pick);
             if (pick.Final === true) {
 
-              console.log("hello");
+              // console.log("hello");
               if (
                 ((pick.pickType === "Away Moneyline") && (pick.AwayScore > pick.HomeScore))
                 ||
@@ -188,7 +175,7 @@ router.get('/updatePicks', function (req, res, next) {
                     finalPayout: activePayout,
                   }, function(err, result){
                     if (err) {console.log(err)}
-                    console.log("this is the win update: " + result)
+                    // console.log("this is the win update: " + result)
 
                   })
                 }
@@ -200,7 +187,7 @@ router.get('/updatePicks', function (req, res, next) {
                     finalPayout: -100,
                   }, function(err, result){
                     if (err) {console.log(err)}
-                    console.log("this is the loss update: " + result)
+                    // console.log("this is the loss update: " + result)
 
                   })
                 }
@@ -461,27 +448,6 @@ router.put('/picks', auth, function(req, res, next){
     console.log(pick + ' has been updated with pick submission info!');
     res.json(pick);
   })
-
-// Username is currently hard-coded, will need to be updated to req.payload once auth is nailed down.
-  // var pick = Pick({
-  //   username: "mikeduin",
-  //   EventID: req.body.activeGame,
-  //   activePick: req.body.activePick,
-  //   activeSpread: req.body.activeSpread,
-  //   activeTotal: req.body.activeTotal,
-  //   activeLine: req.body.activeLine,
-  //   activePayout: req.body.activePayout,
-  //   pickType: req.body.pickType,
-  //   MatchDay: req.body.MatchDay,
-  //   MatchTime: new Date(req.body.MatchTime)
-  // });
-
-  // pick.save(function(err, pick){
-  //   if (err) { next(err) }
-  //
-  //   res.json(pick);
-  //   console.log(pick + 'has been added to db!');
-  // })
 })
 
 // END PICK ROUTES

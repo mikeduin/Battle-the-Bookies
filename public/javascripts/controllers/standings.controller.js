@@ -5,11 +5,14 @@ angular
 function StandingsController (picksService, oddsService, usersService) {
   var vm = this;
   vm.getDates = getDates;
+  vm.getDateNumbs = getDateNumbs;
   vm.daysOfGames = [];
+  vm.dateNumbs = [];
   vm.dayArrayLength;
   vm.pageArray = [1];
   vm.activePage = 1;
   vm.pageView;
+  vm.sortOrder = "-sumYtd";
   vm.users = [];
 
   vm.getAllUsers = function(){
@@ -18,13 +21,12 @@ function StandingsController (picksService, oddsService, usersService) {
     })
   }
 
-  vm.sumDayPicks = function(user) {
+  vm.sumDayPicks = function(user, datenumb) {
     username = user.username;
-    // console.log(user);
-    console.log(vm.matchTimeFilter);
-    picksService.sumToday(username, vm.matchTimeFilter).then(function(result){
+    console.log('datenumb in controller is ' + datenumb);
+    picksService.sumToday(username, datenumb).then(function(result){
       console.log("total returned is " + result);
-      user.sumToday = result
+      user.sumDay = result
     })
 
   }
@@ -66,6 +68,13 @@ function StandingsController (picksService, oddsService, usersService) {
       vm.dayArrayLength = dates.length;
     }).then(function(){
       getPageArray(vm.daysOfGames)
+    })
+  };
+
+  function getDateNumbs () {
+    oddsService.getDateNumbs().then(function(dates){
+      // console.log(dates);
+      vm.dateNumbs = dates;
     })
   };
 
