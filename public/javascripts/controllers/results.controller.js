@@ -32,12 +32,12 @@ function ResultController (oddsService, picksService, resultsService, usersServi
     vm.dateNumbFilter = moment(time).format('YYYYMMDD')
   }
 
-  vm.sumToday = function(user, datenumb) {
+  vm.sumDay = function(user, datenumb) {
     username = user.username;
     console.log('datenumb in controller is ' + datenumb);
-    picksService.sumToday(username, vm.matchTimeFilter).then(function(result){
+    picksService.sumToday(username, datenumb).then(function(result){
       console.log("total returned is " + result);
-      user.sumToday = result
+      user.sumDay = result
     })
 
   }

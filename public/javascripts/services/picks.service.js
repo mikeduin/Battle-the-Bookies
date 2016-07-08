@@ -28,7 +28,6 @@ function picksService ($http, authService) {
     },
     updatePicks: function() {
       return $http.get('/updatePicks').then(function(){
-        console.log('hello')
       })
     },
     sumToday: function(username, datenumb) {

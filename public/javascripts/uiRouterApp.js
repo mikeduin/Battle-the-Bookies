@@ -74,4 +74,14 @@ function siteConfig ($stateProvider, $urlRouterProvider) {
         }
       }
     })
+    .state('home.user', {
+      url: 'user/:username',
+      views: {
+        'content@': {
+          templateUrl: 'views/user.html',
+          controller: 'UserController',
+          controllerAs: 'vm'
+        }
+      }
+    })
 }

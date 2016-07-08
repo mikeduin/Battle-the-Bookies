@@ -46,17 +46,17 @@
     </thead>
     <tbody>
       <tr ng-repeat="user in vm.users | orderBy: vm.sortOrder" ng-init="vm.sumAllPicks(user)">
-        <td> {{user.username}} </td>
+        <td> <a ui-sref="home.user({username: user.username})">{{user.username}}</a></td>
         <td> {{user.buyin}} </td>
         <td> {{user.ytdW}} </td>
         <td> {{user.ytdL}} </td>
         <td> {{user.ytdPct | percentage:2}} </td>
         <td> {{user.sumYtd | currency:$:2}} </td>
-        <td colspan="4" ng-repeat="day in vm.dateNumbs | limitTo: 4: vm.pageView" ng-init="vm.sumDayPicks(user, day)">
-          <table><tr>
+        <td colspan="4" ng-repeat="day in vm.dateNumbs | limitTo: 4: vm.pageView">
+          <table ng-init="vm.sumDayPicks(user, day)"><tr>
             <td colspan="1"> 12 </td>
             <td colspan="1"> 6 </td>
-            <td colspan="2"> {{user.sumDay}} </td>
+            <td colspan="2"> {{user.sumDay | currency:$:2}} </td>
           </tr></table>
         </td>
       </tr>

@@ -9,6 +9,11 @@ function usersService ($http, picksService) {
         console.log(users);
         return users.data
       })
+    },
+    getUser: function(username) {
+      return $http.get('/users/' + username).then(function(user){
+        return user.data
+      })
     }
   }
 

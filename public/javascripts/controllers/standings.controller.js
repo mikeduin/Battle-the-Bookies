@@ -73,7 +73,7 @@ function StandingsController (picksService, oddsService, usersService) {
 
   function getDateNumbs () {
     oddsService.getDateNumbs().then(function(dates){
-      // console.log(dates);
+      console.log("datenumbs are: " + dates);
       vm.dateNumbs = dates;
     })
   };

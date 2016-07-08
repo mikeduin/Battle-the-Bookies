@@ -25,7 +25,7 @@ router.get('/updateResults', function(req, res, next) {
   fetch('https://jsonodds.com/api/results/mlb', {
     method: 'GET',
     headers: {
-      'JsonOdds-API-Key': 'f6e556e5-0092-49d9-9e4f-c7aa591eaecb'
+      'JsonOdds-API-Key': '26f594b0-3f1f-42ae-b2c9-c1607625a905'
     }
   }).then(function(res){
     return res.json()
@@ -67,7 +67,7 @@ router.get('/updateOdds', function(req, res, next) {
   fetch('https://jsonodds.com/api/odds/mlb', {
     method: 'GET',
     headers: {
-      'JsonOdds-API-Key': 'f6e556e5-0092-49d9-9e4f-c7aa591eaecb'
+      'JsonOdds-API-Key': '26f594b0-3f1f-42ae-b2c9-c1607625a905'
     }
   }).then(function(res){
     return res.json()
@@ -152,10 +152,8 @@ router.get('/updatePicks', function (req, res, next) {
           picks.forEach(function(pick){
             var activePayout = pick.activePayout;
 
-            // console.log("this is the pick " + pick);
             if (pick.Final === true) {
 
-              // console.log("hello");
               if (
                 ((pick.pickType === "Away Moneyline") && (pick.AwayScore > pick.HomeScore))
                 ||
@@ -175,8 +173,6 @@ router.get('/updatePicks', function (req, res, next) {
                     finalPayout: activePayout,
                   }, function(err, result){
                     if (err) {console.log(err)}
-                    // console.log("this is the win update: " + result)
-
                   })
                 }
                  else
@@ -187,19 +183,17 @@ router.get('/updatePicks', function (req, res, next) {
                     finalPayout: -100,
                   }, function(err, result){
                     if (err) {console.log(err)}
-                    // console.log("this is the loss update: " + result)
-
                   })
                 }
               }
-            // console.log("these are the second promise's picks: " + pick)
-          })
-
+            })
           })
         })
       })
     })
   })
+
+
 
 // END ROUTES TO AUTO-UPDATE ODDS + RESULTS FROM API
 // BEGIN LINE ROUTES
@@ -324,76 +318,6 @@ router.get('/picks/:username/:datenumb', function (req, res, next) {
   })
 })
 
-router.put('/picks/awayML', function(req, res, next) {
-  console.log(req.body);
-  Pick.update({
-    EventID: req.body.EventID,
-    pickType: "Away Moneyline"
-  }, {
-      pickResult: req.body.awayMLResult,
-      resultBinary: req.body.awayMLBinary
-    }, {multi: true}, function(err){
-      if (err) { console.log(err) };
-
-      console.log('away ML picks supposedly updated')
-    })
-})
-
-router.put('/picks/homeML', function(req, res, next) {
-  Pick.update({EventID: req.body.EventID, pickType: "Home Moneyline"}, {
-      pickResult: req.body.homeMLResult,
-      resultBinary: req.body.homeMLBinary
-    }, {multi: true}, function(err){
-      if (err) { console.log(err) };
-
-      console.log('home ML picks supposedly updated')
-    })
-})
-
-router.put('/picks/awaySpread', function(req, res, next) {
-  Pick.update({EventID: req.body.EventID, pickType: "Away Spread"}, {
-      pickResult: req.body.awaySpreadResult,
-      resultBinary: req.body.awaySpreadBinary
-    }, {multi: true}, function(err){
-      if (err) { console.log(err) };
-
-      console.log('away spread picks supposedly updated')
-    })
-})
-
-router.put('/picks/homeSpread', function(req, res, next) {
-  Pick.update({EventID: req.body.EventID, pickType: "Home Spread"}, {
-      pickResult: req.body.homeSpreadResult,
-      resultBinary: req.body.homeSpreadBinary
-    }, {multi: true}, function(err){
-      if (err) { console.log(err) };
-
-      console.log('home spread picks supposedly updated')
-    })
-})
-
-router.put('/picks/totalOver', function(req, res, next) {
-  Pick.update({EventID: req.body.EventID, pickType: "Total Over"}, {
-      pickResult: req.body.totalOverResult,
-      resultBinary: req.body.totalOverBinary
-    }, {multi: true}, function(err){
-      if (err) { console.log(err) };
-
-      console.log('total over picks supposedly updated')
-    })
-})
-
-router.put('/picks/totalUnder', function(req, res, next) {
-  Pick.update({EventID: req.body.EventID, pickType: "Total Under"}, {
-      pickResult: req.body.totalUnderResult,
-      resultBinary: req.body.totalUnderBinary
-    }, {multi: true}, function(err){
-      if (err) { console.log(err) };
-
-      console.log('total under picks supposedly updated')
-    })
-})
-
 // Adding auth as middleware here will ensure that the JWTToken is valid in order for a user to be accessing this route
 router.post('/picks/addTemp', auth, function (req, res, next){
   var pick = Pick({
@@ -418,17 +342,13 @@ router.put('/picks', auth, function(req, res, next){
   var activeSpread;
   var activeTotal;
   if (req.body.activeSpread) {
-    console.log ('active spread found!')
     activeSpread = req.body.activeSpread
   } else {
-    console.log('active spread not found!')
     activeSpread = 0;
   };
   if (req.body.activeTotal) {
-    console.log ('active total found!')
     activeTotal = req.body.activeTotal
   } else {
-    console.log('active total not found!')
     activeTotal = 0;
   };
 
@@ -458,6 +378,16 @@ router.get('/users', function (req, res, next){
     if (err) {console.log(err)}
 
     res.json(users)
+  })
+})
+
+router.get('/users/:username', function (req, res, next){
+  User.find({
+    username: req.params.username
+  }, function(err, user){
+    if (err) {console.log(err)}
+
+    res.json(user)
   })
 })
 

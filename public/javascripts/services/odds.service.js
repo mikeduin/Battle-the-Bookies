@@ -30,27 +30,26 @@ function oddsService ($http) {
         var dates = [];
         var games = lines.data;
         for (var i in games) {
-          for (var j in games[i].MatchDay) {
-            if (dates.indexOf(games[i].MatchDay) === -1) {
-              dates.push(games[i].MatchDay)
-            }
+          if (dates.indexOf(games[i].MatchDay) === -1) {
+            dates.push(games[i].MatchDay)
           }
         }
+        console.log("dates are: " + dates);
         return dates;
       })
     },
     getDateNumbs: function() {
       return $http.get('/lines')
       .then(function(lines) {
+        console.log(lines.data)
         var dateNumbs = [];
         var games = lines.data;
         for (var i in games) {
-          for (var j in games[i].DateNumb) {
-            if (dateNumbs.indexOf(games[i].DateNumb) === -1) {
-              dateNumbs.push(games[i].DateNumb)
-            }
+          if (dateNumbs.indexOf(games[i].DateNumb) === -1) {
+            dateNumbs.push(games[i].DateNumb)
           }
         }
+        console.log("datenumbs are: " + dateNumbs);
         return dateNumbs;
       })
     }
