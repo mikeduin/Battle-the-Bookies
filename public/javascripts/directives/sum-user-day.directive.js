@@ -4,24 +4,20 @@ angular
 
 function sumUserDay () {
 
-  // function getDailyTotal (scope, element, attrs, controller) {
-  //   scope.$watch(attrs.matchDay, function(){
-  //     console.log(controller.matchDayFilter);
-  //     // controller.sumDay(scope.user, value)
-  //   })
-  // }
-
   function getDailyTotal (scope, element, attrs, controller) {
-    scope.$watch(attrs.matchDay, function(value){
-      console.log(value);
-
+    scope.$watch('datenumb', function(newValue, oldValue){
+      controller.sumDay(scope.user, scope.datenumb).then(function(userDayTotal){
+        console.log("userDayTotal is " + userDayTotal);
+        scope.user.sumDay = userDayTotal;
+      })
     })
   }
 
   return {
-    // controller: 'ResultController',
-    // controllerAs: 'vm',
-    link: getDailyTotal
-    // scope: {user: "=?"}
+    controller: 'ResultController',
+    controllerAs: 'vm',
+    link: getDailyTotal,
+    scope: {user: "=?", datenumb: "=?"},
+    template: "{{user.sumDay | currency:$:0}}"
   }
 }

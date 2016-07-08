@@ -34,10 +34,10 @@ function ResultController (oddsService, picksService, resultsService, usersServi
 
   vm.sumDay = function(user, datenumb) {
     username = user.username;
-    console.log('datenumb in controller is ' + datenumb);
-    picksService.sumToday(username, datenumb).then(function(result){
-      console.log("total returned is " + result);
-      user.sumDay = result
+    return picksService.sumToday(username, datenumb).then(function(result){
+      console.log("total returned in controller is " + result);
+      // user.sumDay = result
+      return result;
     })
 
   }

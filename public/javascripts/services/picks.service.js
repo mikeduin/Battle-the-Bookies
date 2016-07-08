@@ -31,7 +31,9 @@ function picksService ($http, authService) {
       })
     },
     sumToday: function(username, datenumb) {
-      console.log('datenumb is ' + datenumb)
+      // console.log('datenumb is ' + datenumb)
+      console.log("username in picks service is: " + username);
+      console.log("datenumb in picks service is: " + datenumb);
       return $http.get('/picks/' + username + '/' + datenumb).then(function(result){
         var dayPicks = result.data;
         // console.log(dayPicks);

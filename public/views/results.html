@@ -53,7 +53,7 @@
       <tr ng-repeat="user in vm.users | orderBy: vm.userSort" ng-init="vm.getPicks(); vm.sumAllPicks(user)">
         <td ng-init="vm.sumDay(user, vm.dateNumbFilter)"> <a ui-sref="home.user({username: user.username})">{{user.username}}</a> </td>
         <td class="nobr"> <b> {{user.sumYtd | currency:$:0}} </b> </td>
-        <td class="nobr"> <b> <sum-user-day match-day="vm.dateNumbFilter"> <sum-user-day>
+        <td class="nobr"> <b> <sum-user-day user="user" datenumb="vm.dateNumbFilter"> </sum-user-day>
           <!-- {{user.sumDay | currency:$:0}}  -->
         </b> </td>
         <td ng-repeat="pick in vm.picks | orderBy: [vm.gameSort, vm.gameSortTwo] | filter: {MatchDay: vm.matchDayFilter} | filter: {username: user.username}" ng-class="{pickWin: pick.pickResult === 'win', pickLoss: pick.pickResult === 'loss'}" ng-init="vm.pickSettle(pick)"> {{pick.activePick}} <br><span> {{pick.dollars | currency:$:0}} </span> </td>

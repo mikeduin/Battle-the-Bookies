@@ -22,13 +22,17 @@ function StandingsController (picksService, oddsService, usersService) {
   }
 
   vm.sumDayPicks = function(user, datenumb) {
+    user.results = {};
+    // var userResults = user.results;
     username = user.username;
-    console.log('datenumb in controller is ' + datenumb);
+    // console.log('datenumb in controller is ' + datenumb);
     picksService.sumToday(username, datenumb).then(function(result){
+      console.log("datenumb is " + datenumb);
       console.log("total returned is " + result);
-      user.sumDay = result
+      user.results.datenumb = result;
+      // user.results = userResults;
+      console.log(user.results);
     })
-
   }
 
   vm.sumAllPicks = function(user) {
