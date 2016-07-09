@@ -5,7 +5,8 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #01579B;
+  font-weight: 600;
 }
 
 /*BEGIN NAVBAR STYLES*/
@@ -137,13 +138,7 @@ buyInLevel span {
 }
 
 /*END LOGIN/REG STYLES*/
-
 /*BEGIN MAKE PICK STYLES*/
-
-makePicksHead div {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
 
 .juice {
   font-size: 10px
@@ -159,6 +154,46 @@ makePicksHead div {
 
 picksTable {
   margin-left: 10px;
+}
+
+select:focus {
+  outline: none
+}
+
+howto p {
+  padding: 0px;
+  margin: 0px;
+}
+
+.spread {
+  color: #B71C1C;
+}
+
+.spreadMoney {
+  color: #B71C1C;
+  font-weight: 600;
+}
+
+.ml {
+  color: #311B92;
+}
+
+.mlMoney {
+  color: #311B92;
+  font-weight: 600;
+}
+
+.total {
+  color: #BF360C;
+}
+
+.totalMoney {
+  color: #BF360C;
+  font-weight: 600;
+}
+
+.push-r {
+  margin-left: 20px
 }
 
 /*table tbody tr:nth-child(4n-1), table tbody tr:nth-child(4n)  {
@@ -221,8 +256,25 @@ pickLocked {
   font-size: 12px;
 }
 
+.pickPush {
+  font-weight: 600;
+  font-size: 12px;
+}
+
 .nobr  {
   white-space:nowrap;
+}
+
+leadDiv {
+  margin-top: 20px;
+  margin-bottom: -10px;
+}
+
+.resHead {
+  font-size: 32px;
+  font-weight: 800;
+  margin-top: 10px;
+  color: #01579B;
 }
 
 /*END RESULT STYLES*/

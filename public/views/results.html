@@ -1,63 +1,48 @@
 <resultsHead class="row" ng-init="vm.updateResults(); vm.getMlbLines(); vm.getDates(); vm.getAllUsers(); vm.updatePicks()">
-  <div class="col m12 center-align">
-    Results
-  </div>
+  <leadDiv class="col m12">
+    <div class="col m8 left-align">
+      <p class="resHead"> Daily Results </p>
+    </div>
+    <selectDiv class="col m2">
+        <label> Select a Day </label>
+        <select class="browser-default" ng-model="vm.matchDayFilter">
+          <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
+        </select>
+    </selectDiv>
+    <selectDiv class="col m2">
+        <label> Sort by </label>
+        <select class="browser-default" ng-model="vm.userSort">
+          <option value="-sumYtd"> YTD $ </option>
+          <option value="-sumDay"> Daily $ </option>
+        </select>
+    </selectDiv>
+  </leadDiv>
 </resultsHead>
 
-<div class="row">
-  <button class="btn blue" ng-click="vm.updateResults()"> Update Results</button>
-  <button class="btn blue" ng-click="vm.updateDollars()"> Update Dollars</button>
-  <button class="btn blue" ng-click="vm.sumDay('mikeduin', vm.dateNumbFilter)"> Run SumDay</button>
-
-  <div>
-    UserSumDay: {{vm.userSumDay}}
-  </div>
-  <div>
-    dateNumbFilter: {{vm.dateNumbFilter}}
-  </div>
-
-<!--
-  <update-results get-mlb-lines="vm.getMlbLines()" update-results="vm.updateResults()"> </update-results> -->
-</div>
-
-
-<div class="row">
-  <div class="col m2">
-      <select class="browser-default" ng-model="vm.matchDayFilter">
-        <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
-      </select>
-  </div>
-</div>
-
-<div class="row">
-<divider class="divider col m6 offset-m3"></divider>
-</div>
-
-<Results>
+<results>
   <table class="bordered striped">
     <thead>
       <tr>
         <th>
-          Player
+          Entrant
         </th>
         <th>
           YTD $
         </th>
         <th>
-          Day
+          Daily $
         </th>
         <th ng-repeat="game in vm.mlbLines | orderBy: [vm.gameSort, vm.gameSortTwo] | filter: { MatchDay: vm.matchDayFilter }" ng-init="vm.resultChecker(game); vm.matchTimePull(game.MatchTime)"> <span class="nobr">{{game.AwayAbbrev}} {{game.AwayScore}} </span> <br> <span class="nobr"> {{game.HomeAbbrev}} {{game.HomeScore}} </span> <br> {{game.GameStatus}} </th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="user in vm.users | orderBy: vm.userSort" ng-init="vm.getPicks(); vm.sumAllPicks(user)">
-        <td ng-init="vm.sumDay(user, vm.dateNumbFilter)"> <a ui-sref="home.user({username: user.username})">{{user.username}}</a> </td>
+        <td> <a ui-sref="home.user({username: user.username})">{{user.username}}</a> </td>
         <td class="nobr"> <b> {{user.sumYtd | currency:$:0}} </b> </td>
         <td class="nobr"> <b> <sum-user-day user="user" datenumb="vm.dateNumbFilter"> </sum-user-day>
-          <!-- {{user.sumDay | currency:$:0}}  -->
         </b> </td>
-        <td ng-repeat="pick in vm.picks | orderBy: [vm.gameSort, vm.gameSortTwo] | filter: {MatchDay: vm.matchDayFilter} | filter: {username: user.username}" ng-class="{pickWin: pick.pickResult === 'win', pickLoss: pick.pickResult === 'loss'}" ng-init="vm.pickSettle(pick)"> {{pick.activePick}} <br><span> {{pick.dollars | currency:$:0}} </span> </td>
+        <td ng-repeat="pick in vm.picks | orderBy: [vm.gameSort, vm.gameSortTwo] | filter: {MatchDay: vm.matchDayFilter} | filter: {username: user.username}" ng-class="{pickWin: pick.pickResult === 'win', pickLoss: pick.pickResult === 'loss', pickPush: pick.pickResult === 'push'}" ng-init="vm.pickSettle(pick)"> {{pick.activePick}} <br><span> {{pick.dollars | currency:$:0}} </span> </td>
       </tr>
     </tbody>
   </table>
-</Results>
+</results>

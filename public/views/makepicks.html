@@ -1,69 +1,72 @@
 <makePicksHead class="row" ng-init="vm.getMlbLines()">
-  <div class="col m12 center-align">
-    Make Your Picks
-  </div>
+  <update-lines get-mlb-lines="vm.getMlbLines()" update-odds="vm.updateOdds()"> </update-lines>
+  <leadDiv class="col m12">
+    <div class="col m10 left-align">
+      <p class="resHead"> Daily Lines </p>
+    </div>
+    <selectDiv class="col m2">
+        <label> Select a Day </label>
+        <select class="browser-default" ng-model="vm.gameDayFilter" ng-init="vm.getDates()">
+          <option value="" > (all Days) </option>
+          <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
+        </select>
+    </selectDiv>
+  </leadDiv>
+  <howTo class="col m12">
+    <b> HOW TO MAKE YOUR PICKS </b>
+    <p>
+      - Queue up a pick by clicking its button, then click the green checkmark to confirm your pick. A pick is not submitted unless it's confirmed.
+    </p>
+    <p>
+      - Submit one pick at a time. To change your pick before it's confirmed, just click a different pick button.
+    </p>
+    <p>
+      - A submitted pick locks in the odds and price of the pick at time of submission, even if they then change prior to the game's start time.
+    </p>
+    <p>
+      - Once a pick is submitted, it will show up in the <b> YOUR PICK </b> column. From that point forward it cannot be changed.
+    </p>
+    <p>
+      - Make sure to get each pick in before each game begins! A game locks at its scheduled start time; per the game rules, a missed/unsubmitted pick is an automatic loss.
+    </p>
+  </howTo>
 </makePicksHead>
 
-<div class="row">
-  <update-lines get-mlb-lines="vm.getMlbLines()" update-odds="vm.updateOdds()"> </update-lines>
-</div>
-
-<div class="row">
-  <div class="col m2">
-      <select class="browser-default" ng-model="vm.gameDayFilter" ng-init="vm.getDates()">
-        <option value="" > (all Days) </option>
-        <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
-      </select>
-  </div>
-</div>
-
-<div class="row">
-  <input class="col m2" ng-model="search">
-</div>
-
-<div class="row">
-  <divider class="divider col m6 offset-m3"></divider>
-</div>
-
 <picksTable class="row">
-  <table class="bordered col m11">
+  <table class="bordered col m12">
     <thead>
       <tr>
-        <th colspan="2"> Current Time: <time-keeper> </time-keeper> </th>
-        <th class="center-align" colspan="2"> SPREAD </th>
-        <th class="center-align" colspan="2"> MONEYLINE </th>
-        <th class="center-align" colspan="2"> TOTAL </th>
-        <th class="center-align" colspan="2"> </th>
+        <th colspan="10"> <i>Current Time:</i> <time-keeper> </time-keeper> </th>
       </tr>
       <tr class="center-align">
-        <th class="center-align"> Date + Time </th>
-        <th class="center-align"> Teams </th>
-        <th class="center-align"> Run Line </th>
-        <th class="center-align"> Payout </th>
-        <th class="center-align"> ML </th>
-        <th class="center-align"> Payout </th>
-        <th class="center-align"> Total </th>
-        <th class="center-align"> Payout </th>
-        <th class="center-align" colspan="2"> YOUR PICK </th>
+        <th> Date + Time </th>
+        <th> Teams </th>
+        <th class="spread"> SPREAD </th>
+        <th> Payout </th>
+        <th class="ml"> MONEYLINE </th>
+        <th> Payout </th>
+        <th class="total"> TOTAL </th>
+        <th> Payout </th>
+        <th colspan="2"> YOUR PICK </th>
       </tr>
     </thead>
-    <tbody ng-repeat="game in vm.mlbLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter } | filter: search">
+    <tbody ng-repeat="game in vm.mlbLines | orderBy: vm.sortOrder | filter: { MatchDay: vm.gameDayFilter }">
       <tr ng-init="vm.timeCheck(game); vm.checkSubmission(game, vm.currentUser())">
         <td rowspan="2"> {{game.MatchDay}} <br> {{game.MatchTime | date:'h:mm a'}} </td>
         <td> <b>(A)</b> {{game.AwayTeam}}
           <!-- <away-score get-result="vm.getResult(game)" game="game"> </away-score> -->
         </td>
         <td> <button ng-class="{disabled: game.locked}" class="btn btn-spread" ng-click="game.locked || vm.awaySpread(game)"> {{game.PointSpreadAway | mlFormat}} ({{game.PointSpreadAwayLine | mlFormat}})</button> </td>
-        <td> {{game.PointSpreadAwayLine | payoutFilter}} </td>
+        <td class="spreadMoney"> {{game.PointSpreadAwayLine | payoutFilter}} </td>
         <td> <button ng-class="{disabled: game.locked}" class="btn btn-ml" ng-click="game.locked || vm.awayML(game)"> {{game.MoneyLineAway | mlFormat}} </button> </td>
-        <td> {{game.MoneyLineAway | payoutFilter}} </td>
+        <td class="mlMoney"> {{game.MoneyLineAway | payoutFilter}} </td>
         <td> <button ng-class="{disabled: game.locked}" class="btn btn-total" ng-click="game.locked || vm.totalOver(game)"> O {{game.TotalNumber}} ({{game.OverLine | mlFormat}}) </button> </td>
-        <td> {{game.OverLine | payoutFilter}} </td>
+        <td class="totalMoney"> {{game.OverLine | payoutFilter}} </td>
         <td rowspan="2" class="center-align" ng-class="{submitted: game.locked}"> {{game.pick}} <br> {{game.displayPayout}} </td>
         <td rowspan="2">
           <submitPick ng-show="vm.pick.activeGame === game.EventID">
             <button class="btn-floating green" ng-click="vm.submitPick(vm.pick); game.locked = true"><i class="fa fa-check" aria-hidden="true"></i></button>
-            <p class="text-center"> CLICK TO <br> SUBMIT </p>
+            <p class="text-center"> CLICK TO <br> CONFIRM </p>
           </submitPick>
           <pickLocked ng-show="game.locked" class="text-center"> <p>
             PICK <br> LOCKED
@@ -74,11 +77,11 @@
       <tr>
         <td> <b>(H)</b> {{game.HomeTeam}} </td>
         <td> <button ng-class="{disabled: game.locked}" class="btn btn-spread" ng-click="game.locked || vm.homeSpread(game)"> {{game.PointSpreadHome | mlFormat}} ({{game.PointSpreadHomeLine | mlFormat}})</button> </td>
-        <td> {{game.PointSpreadHomeLine | payoutFilter}} </td>
+        <td class="spreadMoney"> {{game.PointSpreadHomeLine | payoutFilter}} </td>
         <td> <button ng-class="{disabled: game.locked}" class="btn btn-ml" ng-click="game.locked || vm.homeML(game)"> {{game.MoneyLineHome | mlFormat}} </button> </td>
-        <td> {{game.MoneyLineHome | payoutFilter}} </td>
+        <td class="mlMoney"> {{game.MoneyLineHome | payoutFilter}} </td>
         <td> <button ng-class="{disabled: game.locked}" class="btn btn-total" ng-click="game.locked || vm.totalUnder(game)"> U {{game.TotalNumber}} ({{game.UnderLine | mlFormat}}) </button> </td>
-        <td>  {{game.UnderLine | payoutFilter}}  </td>
+        <td class="totalMoney">  {{game.UnderLine | payoutFilter}}  </td>
       </tr>
     </tbody>
   </table>

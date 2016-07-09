@@ -16,6 +16,7 @@ var PickSchema = new mongoose.Schema({
   HomeScore: Number,
   AwayScore: Number,
   Final: Boolean,
+  submittedAt: Date,
   activePick: String,
   activeSpread: Number,
   activeTotal: Number,

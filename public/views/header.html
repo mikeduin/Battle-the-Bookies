@@ -1,7 +1,7 @@
 
 <nav class="light-blue darken-4 z-depth-2">
   <div class="nav-wrapper">
-    <a href="#" class="brand-logo">Battle the Bookies</a>
+    <a class="brand-logo">Battle the Bookies</a>
     <ul id="nav-mobile" class="right hide-on-med-and-down">
       <li ng-show="vm.isLoggedIn() !== false"><a ui-sref="home.user({username: vm.currentUser()})">{{ vm.currentUser() }}</a></li>
       <li ng-hide="vm.isLoggedIn() !== false"><a ui-sref='home.login'>Login</a></li>
@@ -9,7 +9,7 @@
       <li><a>How to Play</a></li>
       <li><a ui-sref="home.makepicks">Make Picks</a></li>
       <li><a ui-sref='home.results'>Results</a></li>
-      <li><a ui-sref='home.standings'>YTD Standings</a></li>
+      <li><a ui-sref='home.standings'>Standings</a></li>
     </ul>
   </div>
 </nav>

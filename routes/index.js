@@ -174,7 +174,27 @@ router.get('/updatePicks', function (req, res, next) {
                   }, function(err, result){
                     if (err) {console.log(err)}
                   })
-                }
+                } else if (
+                  ((pick.pickType === "Away Moneyline") && (pick.AwayScore === pick.HomeScore))
+                  ||
+                  ((pick.pickType === "Home Moneyline") && (pick.HomeScore === pick.AwayScore))
+                  ||
+                  ((pick.pickType === "Away Spread") && ((pick.activeSpread + pick.AwayScore) === pick.HomeScore))
+                  ||
+                  ((pick.pickType === "Home Spread") && ((pick.activeSpread + pick.HomeScore) === pick.AwayScore))
+                  ||
+                  ((pick.pickType === "Total Over") && ((pick.HomeScore + pick.AwayScore) === pick.activeTotal))
+                  ||
+                  ((pick.pickType === "Total Under") && ((pick.HomeScore + pick.AwayScore) === pick.activeTotal))
+                ) {
+                    Pick.update({"_id": pick._id}, {
+                      pickResult: "push",
+                      resultBinary: 0.5,
+                      finalPayout: 0.00001,
+                    }, function(err, result){
+                      if (err) {console.log(err)}
+                    })
+                  }
                  else
                 {
                   Pick.update({"_id": pick._id}, {
@@ -192,7 +212,6 @@ router.get('/updatePicks', function (req, res, next) {
       })
     })
   })
-
 
 
 // END ROUTES TO AUTO-UPDATE ODDS + RESULTS FROM API
@@ -362,6 +381,7 @@ router.put('/picks', auth, function(req, res, next){
     activeLine: req.body.activeLine,
     activePayout: req.body.activePayout,
     pickType: req.body.pickType,
+    submittedAt: new Date()
   }, function(err, pick) {
     if (err) {console.log(err)}
 

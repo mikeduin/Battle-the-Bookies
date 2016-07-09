@@ -36,10 +36,8 @@ function ResultController (oddsService, picksService, resultsService, usersServi
     username = user.username;
     return picksService.sumToday(username, datenumb).then(function(result){
       console.log("total returned in controller is " + result);
-      // user.sumDay = result
       return result;
     })
-
   }
 
   vm.sumAllPicks = function(user) {
@@ -54,6 +52,8 @@ function ResultController (oddsService, picksService, resultsService, usersServi
       pick.dollars = pick.activePayout
     } else if (pick.pickResult === "loss") {
       pick.dollars = -100
+    } else if (pick.pickResult === "push"){
+      pick.dollars = 0
     } else {
       null
     }
