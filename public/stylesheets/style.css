@@ -167,6 +167,7 @@ howto p {
 
 .spread {
   color: #B71C1C;
+  padding-left: 40px;
 }
 
 .spreadMoney {
@@ -176,6 +177,7 @@ howto p {
 
 .ml {
   color: #311B92;
+  padding-left: 10px
 }
 
 .mlMoney {
@@ -185,6 +187,7 @@ howto p {
 
 .total {
   color: #BF360C;
+  padding-left: 40px;
 }
 
 .totalMoney {
@@ -194,6 +197,15 @@ howto p {
 
 .push-r {
   margin-left: 20px
+}
+
+button:focus {
+  background-color: #4CAF50
+}
+
+.howTo {
+  font-weight: 700;
+  font-size: 18px
 }
 
 /*table tbody tr:nth-child(4n-1), table tbody tr:nth-child(4n)  {
@@ -291,4 +303,33 @@ standings th, standings td {
 
 .nopad {
   padding: 0px;
+}
+
+/*END STANDINGS STYLES*/
+/*BEGIN USER STYLES*/
+
+userDiv {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.username {
+  font-size: 48px;
+  font-weight: 800;
+  color: #01579B;
+}
+
+gameBox {
+  border: solid 3px #CCCDCD;
+  border-radius: 5px;
+}
+
+gameTitle {
+  color: #5E5E5E;
+  font-size: 36px;
+  font-weight: 800
+}
+
+profits {
+  font-size: 20px
 }

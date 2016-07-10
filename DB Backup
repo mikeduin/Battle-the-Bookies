@@ -1,3 +1,12 @@
+-- users pre results arrays 7.9.16
+
+{ "_id" : ObjectId("577cdc950bc8fee2246070d6"), "hash" : "a0120ebaab7bd5ee08d732a80791667e08503a8641478d3db12d1fa879b6913b3cc640fdec13f1ee9996072178e04ee69524e4dcecffcc3a4bcf71bca646ec6f", "salt" : "88414b8fe80f8e6e4b68995d1c7d7743", "buyin" : "50", "email" : "trev@severeid.com", "nameLast" : "Severeid", "nameFirst" : "Trevor", "username" : "trevsev", "__v" : 0 }
+{ "_id" : ObjectId("577d6a9c87cecb5728e9d8a9"), "hash" : "84b5eb28e737d9ba75cb1b72b632d8f2a22149eee379ffad2e44b83cb4ec2700c7fb1098de98e9653001a401b05af600b7658edfd9b4a825d08810826188fab9", "salt" : "6ccbc6db27f915ed32a89bc340010da1", "buyin" : "200", "email" : "michael.s.duin@gmail.com", "nameLast" : "Duin", "nameFirst" : "Mike", "username" : "mikeduin", "__v" : 0 }
+{ "_id" : ObjectId("577de9e3bc0ef1ef37a7a776"), "hash" : "5f6c9cb37eb719c8e8461ae9b70b2266ac9da387a394ef86b413b90dcf15e5e353b6c250de2627bf7d49214edbc2b0561c1f4251b9767ae117ed74ab352ee087", "salt" : "468e9999d5b65d23a506da9805249ef1", "buyin" : "200", "email" : "sean@stokke.com", "nameLast" : "Stokke", "nameFirst" : "Sean", "username" : "seanstokke", "__v" : 0 }
+{ "_id" : ObjectId("577e0e59228f78443e026f70"), "hash" : "60102743e1dda18181b84507e06b3660e4d2ca35dbfbc5966a16be691b2fb4edf7034d95442e221153351b9813d54003d1b49e19b0d99aabd0cf0382e7db625b", "salt" : "9b5ca4900d362be21644966c610948b7", "buyin" : "100", "email" : "tim@hokit.com", "nameLast" : "Hokit", "nameFirst" : "Tim", "username" : "timhokit", "__v" : 0 }
+{ "_id" : ObjectId("577e0ea3228f78443e026f7c"), "hash" : "187fdd7562276f0178f3c37fbbe45eb259e28295b093b03127a40d92b4fe4b9608b4cc701b064ce3f7da78932b1b7f5f152f38a2356bf51861cf7e5702a236f2", "salt" : "b7fe3c05d6237f25bf79b554081b355d", "buyin" : "50", "email" : "brad@holschen.com", "nameLast" : "Holschen", "nameFirst" : "Brad", "username" : "jorts598", "__v" : 0 }
+{ "_id" : ObjectId("577e0f08228f78443e026f88"), "hash" : "4c828c886eeaa6ea18451fe1541bbae46ad7625bc3d85a18fee4505f911dfd8d80cfe0a43a6a43528d308dbeb37663c598ca48b5bc2cd6e915318a23e2e560ff", "salt" : "bc8c07489a4cb545b0cbe5685a6c71bf", "buyin" : "50", "email" : "edwin@jer.com", "nameLast" : "Litteneker", "nameFirst" : "Edwin", "username" : "edwinJer", "__v" : 0 }
+
 -- weird gametime discrep
 
 Weird Twins game

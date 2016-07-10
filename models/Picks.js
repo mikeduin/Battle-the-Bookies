@@ -23,6 +23,7 @@ var PickSchema = new mongoose.Schema({
   activeLine: Number,
   activePayout: Number,
   pickType: String,
+  favType: String,
   pickResult: String,
   resultBinary: Number,
   finalPayout: Number

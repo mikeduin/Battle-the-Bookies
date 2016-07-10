@@ -1,14 +1,31 @@
 <userHead class="row" ng-init="vm.getUser()">
-  <div class="col m12 center-align">
-    User: {{vm.user.username}}
-  </div>
+  <userDiv class="col m12">
+
+      <div class="username"> {{vm.user.username}} </div>
+      <div> {{vm.user.nameFirst}} {{vm.user.nameLast}} </div>
+
+  </userDiv>
 </userHead>
 
-<userStats>
-  <h4>MLB 2016</h4>
-  <p> Profits: {{vm.user.sumYtd | currency:$:0}} </p>
-  <p> Wins: {{vm.user.ytdW}} </p>
-  <p> Losses: {{vm.user.ytdL}} </p>
-  <p> Win %: {{vm.user.ytdPct | percentage:2}} </p>
+<div class="row">
+  <gameBox class="col m5 z-depth-2">
+    <div>
+      <gameTitle> MLB 2016 </gameTitle>
+    </div>
+    <div>
+      <profits>
+        <b>TOTAL PROFITS:</b> {{vm.user.sumYtd | currency:$:0}}
+      </profits>
+    </div>
+    <div>
+      <b>Wins</b>: {{vm.user.ytdW}}
+    </div>
+    <div>
+      <b>Losses</b>: {{vm.user.ytdL}}
+    </div>
+    <div>
+      <b>Win %</b>: {{vm.user.ytdPct | percentage:2}}
+    </div>
 
-</userStats>
+  </gameBox>
+</div>

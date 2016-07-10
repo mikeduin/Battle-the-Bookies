@@ -15,6 +15,10 @@ function StandingsController (picksService, oddsService, usersService) {
   vm.sortOrder = "-sumYtd";
   vm.users = [];
 
+  vm.updateDailys = function(){
+    picksService.updateDailys();
+  }
+
   vm.getAllUsers = function(){
     usersService.getAllUsers().then(function(result){
       vm.users = result

@@ -213,6 +213,95 @@ router.get('/updatePicks', function (req, res, next) {
     })
   })
 
+router.get('/updateDailys', function (req, res, next){
+  var dateNumbArray = [];
+  Pick.find().distinct('DateNumb',function(err, datenumbs){
+    if (err) {console.log(err)}
+
+    dateNumbArray = datenumbs;
+    console.log(dateNumbArray);
+  }).then(function(){
+    User.find(function(err, users){
+      if (err) {console.log(err)}
+
+    }).then(function(users){
+        users.forEach(function(user){
+          var username = user.username;
+          for (i=0; i<dateNumbArray.length; i++){
+
+            Pick.find({username: username, DateNumb: dateNumbArray[i]}, function(err, results){
+              if (err) {console.log(err)}
+
+              // these results logged below are ALL of a users picks for a day
+              // console.log('a top-level result is: ' + results)
+            }).then(function(results){
+              var totalDollars = 0;
+              var totalGames = 0;
+              var totalWins = 0;
+              var dateNumb;
+              var username;
+
+              results.forEach(function(result){
+                // these results logged below are divided into EACH PICK
+                // console.log('a pick-level result is: ' + result)
+                  if (result.finalPayout !== 0) {
+                    username = result.username;
+                    dateNumb = result.DateNumb;
+                    totalDollars += result.finalPayout;
+                    totalGames += 1;
+                    totalWins += result.resultBinary;
+                  }
+              })
+
+              console.log('total dollars for ' + username + ' on ' + dateNumb + ' is ' + totalDollars + ' from ' + totalWins + ' wins out of ' + totalGames + ' games.');
+
+              User.findOneAndUpdate({username: username, 'results.dateNumb': dateNumb}, {$set: {
+                  'results.$.dateNumb': dateNumb,
+                  'results.$.totalDollars': totalDollars,
+                  'results.$.totalGames': totalGames,
+                  'results.$.totalWins': totalWins
+                }
+              }, {upsert: true}, function(err, result){
+                if (err) {console.log(err)}
+
+                console.log('user result should be updated: ' + result)
+              })
+
+              // for (j=0; j<results.length; j++) {
+              //   username = results[j].username;
+              //   dateNumb = results[j].DateNumb;
+              //   totalDollars += results[j].finalPayout;
+              //   totalGames += 1;
+              //   totalWins += results[j].resultBinary;
+              // }
+              //
+              // var dateNumbResults = {
+              //   dateNumb: dateNumb,
+              //   totalDollars: totalDollars,
+              //   totalWins: totalWins,
+              //   totalGames: totalGames
+              // }
+              //
+              // console.log('total dollars for ' + username + ' on ' + dateNumb + ' is ' + totalDollars + ' from ' + totalWins + ' wins out of ' + totalGames + ' games.');
+              //
+              // User.findOneAndUpdate({username: username, 'results.dateNumb': dateNumb}, {$set: {
+              //     'results.$.dateNumb': dateNumb,
+              //     'results.$.totalDollars': totalDollars,
+              //     'results.$.totalGames': totalGames,
+              //     'results.$.totalWins': totalWins
+              //   }
+              // }, {upsert: true}, function(err, result){
+              //   if (err) {console.log(err)}
+              //
+              //   console.log('user result should be updated: ' + result)
+              // })
+            })
+          }
+      })
+    })
+  })
+})
+
 
 // END ROUTES TO AUTO-UPDATE ODDS + RESULTS FROM API
 // BEGIN LINE ROUTES
@@ -325,6 +414,60 @@ router.get('/picks/:username/all', function (req, res, next) {
   })
 })
 
+router.get('/picks/:username/stats', function (req, res, next){
+  Pick.find({
+    username: req.params.username
+  }, function(err, picks){
+    if (err) {console.log(err)}
+
+    var awaySpreadPicks = 0;
+    var homeSpreadPicks = 0;
+    var awayMlPicks = 0;
+    var homeMlPicks = 0;
+    var totalOverPicks = 0;
+    var totalUnderPicks = 0;
+    var favPicks = 0;
+    var dogPicks = 0;
+
+    for (i=0; i<picks.length; i++) {
+      if (picks[i].pickType === "Away Moneyline"){
+        awayMlPicks += 1;
+      } else if (picks[i].pickType === "Home Moneyline"){
+        homeMlPicks += 1;
+      } else if (picks[i].pickType === "Away Spread"){
+        awaySpreadPicks += 1;
+      } else if (picks[i].pickType === "Home Spread"){
+        homeSpreadPicks += 1;
+      } else if (picks[i].pickType === "Total Over"){
+        totalOverPicks += 1;
+      } else if (picks[i].pickType === "Total Under"){
+        totalUnderPicks += 1;
+      } else {
+        null
+      };
+
+      if (picks[i].favType === "Favorite") {
+        favPicks += 1
+      } else if (picks[i].favType === "Underdog") {
+        dogPicks += 1
+      } else {
+        null
+      };
+    }
+
+    res.json({
+      awayMlPicks: awayMlPicks,
+      homeMlPicks: homeMlPicks,
+      awaySpreadPicks: awaySpreadPicks,
+      homeSpreadPicks: homeSpreadPicks,
+      totalOverPicks: totalOverPicks,
+      totalUnderPicks: totalUnderPicks,
+      favPicks: favPicks,
+      dogPicks: dogPicks
+    })
+  })
+})
+
 router.get('/picks/:username/:datenumb', function (req, res, next) {
   console.log(req.params.datenumb);
   Pick.find({
@@ -381,6 +524,7 @@ router.put('/picks', auth, function(req, res, next){
     activeLine: req.body.activeLine,
     activePayout: req.body.activePayout,
     pickType: req.body.pickType,
+    favType: req.body.favType,
     submittedAt: new Date()
   }, function(err, pick) {
     if (err) {console.log(err)}

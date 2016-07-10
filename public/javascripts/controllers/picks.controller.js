@@ -15,6 +15,7 @@ function PickController (oddsService, picksService, resultsService, authService)
   vm.pick.activePick = {};
   vm.pick.activeLine = {};
   vm.pick.activePayout = {};
+  vm.pick.favType = {};
   vm.pick.username = vm.currentUser();
   vm.sortOrder = "MatchTime";
   vm.getMlbLines = getMlbLines;
@@ -76,6 +77,7 @@ function PickController (oddsService, picksService, resultsService, authService)
   function updateOdds () {
     oddsService.updateOdds().then(function(){
       console.log("odds updated")
+      vm.pick.activeGame = {};
     })
   };
 
@@ -100,6 +102,15 @@ function PickController (oddsService, picksService, resultsService, authService)
   }
 
   function awaySpread (game) {
+    vm.pick.favType;
+    if (game.PointSpreadAway > 0) {
+      vm.pick.favType = "Underdog"
+    } else if (game.PointSpreadAway < 0) {
+      vm.pick.favType = "Favorite"
+    } else {
+      vm.pick.favType = "Neither"
+    }
+
     vm.pick.activeGame = game.EventID;
     vm.pick.activeSpread = game.PointSpreadAway;
     vm.pick.activeLine = game.PointSpreadAwayLine;
@@ -113,6 +124,15 @@ function PickController (oddsService, picksService, resultsService, authService)
   }
 
   function homeSpread (game) {
+    vm.pick.favType;
+    if (game.PointSpreadHome > 0) {
+      vm.pick.favType = "Underdog"
+    } else if (game.PointSpreadHome < 0) {
+      vm.pick.favType = "Favorite"
+    } else {
+      vm.pick.favType = "Neither"
+    }
+
     vm.pick.activeGame = game.EventID;
     vm.pick.activeSpread = game.PointSpreadHome;
     vm.pick.activeLine = game.PointSpreadHomeLine;
@@ -126,6 +146,15 @@ function PickController (oddsService, picksService, resultsService, authService)
   }
 
   function awayML (game) {
+    vm.pick.favType;
+    if (game.MoneyLineAway > game.MoneyLineHome) {
+      vm.pick.favType = "Underdog"
+    } else if (game.MoneyLineAway < game.MoneyLineHome) {
+      vm.pick.favType = "Favorite"
+    } else {
+      vm.pick.favType = "Neither"
+    }
+
     vm.pick.activeGame = game.EventID;
     vm.pick.activeLine = game.MoneyLineAway;
     vm.pick.activePick = (game.AwayAbbrev + ' ' + vm.mlFormat(game.MoneyLineAway));
@@ -138,6 +167,15 @@ function PickController (oddsService, picksService, resultsService, authService)
   }
 
   function homeML (game) {
+    vm.pick.favType;
+    if (game.MoneyLineHome > game.MoneyLineAway) {
+      vm.pick.favType = "Underdog"
+    } else if (game.MoneyLineHome < game.MoneyLineAway) {
+      vm.pick.favType = "Favorite"
+    } else {
+      vm.pick.favType = "Neither"
+    }
+
     vm.pick.activeGame = game.EventID;
     vm.pick.activeLine = game.MoneyLineHome;
     vm.pick.activePick = (game.HomeAbbrev + ' ' + vm.mlFormat(game.MoneyLineHome));
@@ -156,6 +194,7 @@ function PickController (oddsService, picksService, resultsService, authService)
     vm.pick.activeLine = game.OverLine;
     vm.pick.activePayout = vm.activePayCalc(game.OverLine);
     vm.pick.pickType = "Total Over";
+    vm.pick.favType = "Neither";
     vm.pick.MatchDay = game.MatchDay;
     vm.pick.MatchTime = game.MatchTime;
     game.pick = vm.pick.activePick;
@@ -169,6 +208,7 @@ function PickController (oddsService, picksService, resultsService, authService)
     vm.pick.activeLine = game.UnderLine;
     vm.pick.activePayout = vm.activePayCalc(game.UnderLine);
     vm.pick.pickType = "Total Under";
+    vm.pick.favType = "Neither";
     vm.pick.MatchDay = game.MatchDay;
     vm.pick.MatchTime = game.MatchTime;
     game.pick = vm.pick.activePick;

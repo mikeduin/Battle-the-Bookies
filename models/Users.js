@@ -25,6 +25,12 @@ var UserSchema = new mongoose.Schema({
     type: String
     // required: true
   },
+  results: [{
+    dateNumb: Number,
+    totalDollars: Number,
+    totalGames: Number,
+    totalWins: Number
+  }],
   hash: String,
   salt: String
 })

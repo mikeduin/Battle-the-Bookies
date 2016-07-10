@@ -66,6 +66,17 @@ function picksService ($http, authService) {
           totalG: totalG
         }
       })
+    },
+    getPickStats: function(username){
+      return $http.get('/picks/' + username + '/stats').then(function(stats){
+        console.log('stats in controller are: ' + stats);
+        return stats
+      })
+    },
+    updateDailys: function(){
+      return $http.get('/updateDailys').then(function(result){
+        console.log("response from updateDailys is: " + result)
+      })
     }
   }
 }
