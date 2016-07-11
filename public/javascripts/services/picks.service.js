@@ -75,7 +75,12 @@ function picksService ($http, authService) {
     },
     updateDailys: function(){
       return $http.get('/updateDailys').then(function(result){
-        console.log("response from updateDailys is: " + result)
+        console.log(result)
+      })
+    },
+    dailyUserStats: function(username){
+      return $http.get('/dailyStats/' + username).then(function(result){
+        console.log(result)
       })
     }
   }

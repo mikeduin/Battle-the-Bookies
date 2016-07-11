@@ -217,11 +217,13 @@ router.get('/updatePicks', function (req, res, next) {
 
 router.get('/updateDailys', function (req, res, next){
   var dateNumbArray = [];
+  var userArray = [];
   Pick.find().distinct('DateNumb',function(err, datenumbs){
     if (err) {console.log(err)}
 
     dateNumbArray = datenumbs;
-    console.log(dateNumbArray);
+    sortedDateNumbs = dateNumbArray.sort();
+    // console.log(sortedDateNumbs);
   }).then(function(){
     User.find(function(err, users){
       if (err) {console.log(err)}
@@ -229,9 +231,9 @@ router.get('/updateDailys', function (req, res, next){
     }).then(function(users){
         users.forEach(function(user){
           var username = user.username;
-          for (i=0; i<dateNumbArray.length; i++){
+          for (i=0; i<sortedDateNumbs.length; i++){
 
-            Pick.find({username: username, DateNumb: dateNumbArray[i]}, function(err, results){
+            Pick.find({username: username, DateNumb: sortedDateNumbs[i]}, function(err, results){
               if (err) {console.log(err)}
 
               // these results logged below are ALL of a users picks for a day
@@ -257,49 +259,83 @@ router.get('/updateDailys', function (req, res, next){
 
               console.log('total dollars for ' + username + ' on ' + dateNumb + ' is ' + totalDollars + ' from ' + totalWins + ' wins out of ' + totalGames + ' games.');
 
-              User.findOneAndUpdate({username: username, 'results.dateNumb': dateNumb}, {$set: {
-                  'results.$.dateNumb': dateNumb,
-                  'results.$.totalDollars': totalDollars,
-                  'results.$.totalGames': totalGames,
-                  'results.$.totalWins': totalWins
-                }
+              userArray.push({username: username, dateNumb: dateNumb, totalDollars: totalDollars, totalWins: totalWins, totalGames: totalGames})
+
+              var query = {
+                username: username,
+              }
+
+              query['results.'+dateNumb]=dateNumb;
+
+              var queryTwo = {
+              };
+
+              queryTwo['results.'+dateNumb+'.dateNumb']=dateNumb;
+              queryTwo['results.'+dateNumb+'.totalDollars']=totalDollars;
+              queryTwo['results.'+dateNumb+'.totalGames']=totalGames;
+              queryTwo['results.'+dateNumb+'.totalWins']=totalWins
+
+              User.findOneAndUpdate(query, {$set: queryTwo
               }, {upsert: true}, function(err, result){
                 if (err) {console.log(err)}
 
                 console.log('user result should be updated: ' + result)
               })
-
-              // for (j=0; j<results.length; j++) {
-              //   username = results[j].username;
-              //   dateNumb = results[j].DateNumb;
-              //   totalDollars += results[j].finalPayout;
-              //   totalGames += 1;
-              //   totalWins += results[j].resultBinary;
-              // }
-              //
-              // var dateNumbResults = {
-              //   dateNumb: dateNumb,
-              //   totalDollars: totalDollars,
-              //   totalWins: totalWins,
-              //   totalGames: totalGames
-              // }
-              //
-              // console.log('total dollars for ' + username + ' on ' + dateNumb + ' is ' + totalDollars + ' from ' + totalWins + ' wins out of ' + totalGames + ' games.');
-              //
-              // User.findOneAndUpdate({username: username, 'results.dateNumb': dateNumb}, {$set: {
-              //     'results.$.dateNumb': dateNumb,
-              //     'results.$.totalDollars': totalDollars,
-              //     'results.$.totalGames': totalGames,
-              //     'results.$.totalWins': totalWins
-              //   }
-              // }, {upsert: true}, function(err, result){
-              //   if (err) {console.log(err)}
-              //
-              //   console.log('user result should be updated: ' + result)
-              // })
             })
+            // .then(function(){
+            //   console.log(userArray)
+            //   res.json(userArray)
+            // })
           }
       })
+    })
+  })
+})
+
+router.get('/dailyStats/:username', function(req, res, next){
+  var username = req.params.username;
+  var dateNumbArray = [];
+  Pick.find().distinct('DateNumb',function(err, datenumbs){
+    if (err) {console.log(err)}
+
+    dateNumbArray = datenumbs;
+    sortedDateNumbs = dateNumbArray.sort();
+    return sortedDateNumbs
+  }).then(function(sortedDateNumbs){
+    console.log("second: " , sortedDateNumbs)
+
+    Promise.all(sortedDateNumbs.sort().map(function(date){
+      return Pick.find({username: username, DateNumb: date}).then(function(results){
+        // console.log(results)
+
+        var totalDollars = 0;
+        var totalGames = 0;
+        var totalWins = 0;
+        var dateNumb;
+        var username;
+
+        results.forEach(function(result){
+          // these results logged below are divided into EACH PICK
+          // console.log('a pick-level result is: ' + result)
+            if (result.finalPayout !== 0) {
+              username = result.username;
+              dateNumb = result.DateNumb;
+              totalDollars += result.finalPayout;
+              totalGames += 1;
+              totalWins += result.resultBinary;
+            }
+        })
+
+        console.log('total dollars for ' + username + ' on ' + dateNumb + ' is ' + totalDollars + ' from ' + totalWins + ' wins out of ' + totalGames + ' games.');
+
+        return {username: username, dateNumb: dateNumb, totalDollars: totalDollars, totalWins: totalWins, totalGames: totalGames}
+
+        console.log(userArray)
+      })
+
+    })).then(function(userArray){
+      console.log(userArray)
+      res.json(userArray)
     })
   })
 })

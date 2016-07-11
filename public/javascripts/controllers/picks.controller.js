@@ -110,7 +110,6 @@ function PickController (oddsService, picksService, resultsService, authService)
     } else {
       vm.pick.favType = "Neither"
     }
-
     vm.pick.activeGame = game.EventID;
     vm.pick.activeSpread = game.PointSpreadAway;
     vm.pick.activeLine = game.PointSpreadAwayLine;
@@ -132,7 +131,6 @@ function PickController (oddsService, picksService, resultsService, authService)
     } else {
       vm.pick.favType = "Neither"
     }
-
     vm.pick.activeGame = game.EventID;
     vm.pick.activeSpread = game.PointSpreadHome;
     vm.pick.activeLine = game.PointSpreadHomeLine;
@@ -154,7 +152,6 @@ function PickController (oddsService, picksService, resultsService, authService)
     } else {
       vm.pick.favType = "Neither"
     }
-
     vm.pick.activeGame = game.EventID;
     vm.pick.activeLine = game.MoneyLineAway;
     vm.pick.activePick = (game.AwayAbbrev + ' ' + vm.mlFormat(game.MoneyLineAway));
@@ -175,7 +172,6 @@ function PickController (oddsService, picksService, resultsService, authService)
     } else {
       vm.pick.favType = "Neither"
     }
-
     vm.pick.activeGame = game.EventID;
     vm.pick.activeLine = game.MoneyLineHome;
     vm.pick.activePick = (game.HomeAbbrev + ' ' + vm.mlFormat(game.MoneyLineHome));
@@ -230,9 +226,6 @@ function PickController (oddsService, picksService, resultsService, authService)
           console.log('pick not found')
         }
       }
-      // console.log(foundPick[0]);
-
-      // foundPick[0].activePick = game.activePick;
     })
   }
 

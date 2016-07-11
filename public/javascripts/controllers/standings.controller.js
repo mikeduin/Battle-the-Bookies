@@ -14,6 +14,11 @@ function StandingsController (picksService, oddsService, usersService) {
   vm.pageView;
   vm.sortOrder = "-sumYtd";
   vm.users = [];
+  vm.username = "mikeduin";
+
+  vm.dailyUserStats = function(username){
+    picksService.dailyUserStats(username);
+  }
 
   vm.updateDailys = function(){
     picksService.updateDailys();
@@ -31,18 +36,18 @@ function StandingsController (picksService, oddsService, usersService) {
     username = user.username;
     // console.log('datenumb in controller is ' + datenumb);
     picksService.sumToday(username, datenumb).then(function(result){
-      console.log("datenumb is " + datenumb);
-      console.log("total returned is " + result);
+      // console.log("datenumb is " + datenumb);
+      // console.log("total returned is " + result);
       user.results.datenumb = result;
       // user.results = userResults;
-      console.log(user.results);
+      // console.log(user.results);
     })
   }
 
   vm.sumAllPicks = function(user) {
     username = user.username;
     picksService.sumAllPicks(username).then(function(result){
-      console.log(result);
+      // console.log(result);
       user.sumYtd = result.totalDollars;
       user.ytdW = result.totalW;
       user.ytdL = result.totalG - result.totalW;

@@ -19,7 +19,6 @@ function resultsService ($http){
       return $http.get('/results/' + EventID).then(function(result){
         return result.data
       })
-    },
+    }
   }
-
 }
