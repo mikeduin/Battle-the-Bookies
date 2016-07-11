@@ -78,9 +78,9 @@ function picksService ($http, authService) {
         console.log(result)
       })
     },
-    dailyUserStats: function(username){
+    getDailyStats: function(username){
       return $http.get('/dailyStats/' + username).then(function(result){
-        console.log(result)
+        return result
       })
     }
   }

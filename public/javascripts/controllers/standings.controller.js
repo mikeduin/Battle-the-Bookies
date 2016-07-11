@@ -15,9 +15,15 @@ function StandingsController (picksService, oddsService, usersService) {
   vm.sortOrder = "-sumYtd";
   vm.users = [];
   vm.username = "mikeduin";
+  vm.user = {};
+  vm.dailyStats = [];
 
-  vm.dailyUserStats = function(username){
-    picksService.dailyUserStats(username);
+  vm.getDailyStats = function(user){
+    username = user.username;
+    picksService.getDailyStats(username).then(function(result){
+      console.log(result.data);
+      vm.dailyStats = result.data
+    })
   }
 
   vm.updateDailys = function(){
@@ -30,19 +36,19 @@ function StandingsController (picksService, oddsService, usersService) {
     })
   }
 
-  vm.sumDayPicks = function(user, datenumb) {
-    user.results = {};
-    // var userResults = user.results;
-    username = user.username;
-    // console.log('datenumb in controller is ' + datenumb);
-    picksService.sumToday(username, datenumb).then(function(result){
-      // console.log("datenumb is " + datenumb);
-      // console.log("total returned is " + result);
-      user.results.datenumb = result;
-      // user.results = userResults;
-      // console.log(user.results);
-    })
-  }
+  // vm.sumDayPicks = function(user, datenumb) {
+  //   user.results = {};
+  //   // var userResults = user.results;
+  //   username = user.username;
+  //   // console.log('datenumb in controller is ' + datenumb);
+  //   picksService.sumToday(username, datenumb).then(function(result){
+  //     // console.log("datenumb is " + datenumb);
+  //     // console.log("total returned is " + result);
+  //     user.results.datenumb = result;
+  //     // user.results = userResults;
+  //     // console.log(user.results);
+  //   })
+  // }
 
   vm.sumAllPicks = function(user) {
     username = user.username;
@@ -52,6 +58,12 @@ function StandingsController (picksService, oddsService, usersService) {
       user.ytdW = result.totalW;
       user.ytdL = result.totalG - result.totalW;
       user.ytdPct = result.totalW / result.totalG;
+    }).then(function(){
+      console.log(user);
+      username = user.username;
+      picksService.getDailyStats(username).then(function(result){
+        user.dailyStats = result.data
+      })
     })
   }
 

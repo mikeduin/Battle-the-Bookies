@@ -11,7 +11,7 @@
     <button ng-click="vm.updateDailys()">Update Dailys</button>
   </div>
   <div class="col m4">
-    <button ng-click="vm.dailyUserStats(vm.username)">Get Daily User Stats</button>
+    <button ng-click="vm.getDailyStats(vm.username)">Get Daily User Stats</button>
   </div>
 </div>
 
@@ -51,18 +51,18 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="user in vm.users | orderBy: vm.sortOrder" ng-init="vm.sumAllPicks(user)">
+      <tr ng-repeat="user in vm.users | orderBy: vm.sortOrder" ng-init="vm.sumAllPicks(user); vm.getDailyStats(user)">
         <td> <a ui-sref="home.user({username: user.username})">{{user.username}}</a></td>
         <td> {{user.buyin}} </td>
         <td> {{user.ytdW}} </td>
         <td> {{user.ytdL}} </td>
         <td> {{user.ytdPct | percentage:2}} </td>
         <td> {{user.sumYtd | currency:$:2}} </td>
-        <td colspan="4" ng-repeat="day in vm.dateNumbs | limitTo: 4: vm.pageView">
-          <table ng-init="vm.sumDayPicks(user, day)"><tr>
-            <td colspan="1"> 12 </td>
-            <td colspan="1"> 6 </td>
-            <td colspan="2"> {{user.sumDay | currency:$:2}} </td>
+        <td colspan="4" ng-repeat="day in user.dailyStats | limitTo: 4: vm.pageView">
+          <table><tr>
+            <td colspan="1"> {{day.totalWins}} </td>
+            <td colspan="1"> {{day.totalLosses}} </td>
+            <td colspan="2"> {{day.totalDollars | currency:$:2}} </td>
           </tr></table>
         </td>
       </tr>

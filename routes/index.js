@@ -242,6 +242,7 @@ router.get('/updateDailys', function (req, res, next){
               var totalDollars = 0;
               var totalGames = 0;
               var totalWins = 0;
+              var totalLosses = 0;
               var dateNumb;
               var username;
 
@@ -254,12 +255,14 @@ router.get('/updateDailys', function (req, res, next){
                     totalDollars += result.finalPayout;
                     totalGames += 1;
                     totalWins += result.resultBinary;
+                    totalLosses += (1-result.resulBinary);
+
                   }
               })
 
               console.log('total dollars for ' + username + ' on ' + dateNumb + ' is ' + totalDollars + ' from ' + totalWins + ' wins out of ' + totalGames + ' games.');
 
-              userArray.push({username: username, dateNumb: dateNumb, totalDollars: totalDollars, totalWins: totalWins, totalGames: totalGames})
+              userArray.push({username: username, dateNumb: dateNumb, totalDollars: totalDollars, totalWins: totalWins, totalLosses: totalLosses, totalGames: totalGames})
 
               var query = {
                 username: username,
@@ -302,7 +305,6 @@ router.get('/dailyStats/:username', function(req, res, next){
     sortedDateNumbs = dateNumbArray.sort();
     return sortedDateNumbs
   }).then(function(sortedDateNumbs){
-    console.log("second: " , sortedDateNumbs)
 
     Promise.all(sortedDateNumbs.sort().map(function(date){
       return Pick.find({username: username, DateNumb: date}).then(function(results){
@@ -311,6 +313,7 @@ router.get('/dailyStats/:username', function(req, res, next){
         var totalDollars = 0;
         var totalGames = 0;
         var totalWins = 0;
+        var totalLosses = 0;
         var dateNumb;
         var username;
 
@@ -323,12 +326,13 @@ router.get('/dailyStats/:username', function(req, res, next){
               totalDollars += result.finalPayout;
               totalGames += 1;
               totalWins += result.resultBinary;
+              totalLosses += (1-result.resultBinary);
             }
         })
 
         console.log('total dollars for ' + username + ' on ' + dateNumb + ' is ' + totalDollars + ' from ' + totalWins + ' wins out of ' + totalGames + ' games.');
 
-        return {username: username, dateNumb: dateNumb, totalDollars: totalDollars, totalWins: totalWins, totalGames: totalGames}
+        return {username: username, dateNumb: dateNumb, totalDollars: totalDollars, totalWins: totalWins, totalLosses: totalLosses, totalGames: totalGames}
 
         console.log(userArray)
       })
