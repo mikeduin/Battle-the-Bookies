@@ -1,31 +1,40 @@
 <userHead class="row" ng-init="vm.getUser()">
-  <userDiv class="col m12">
+  <userInfo class="col m6">
 
       <div class="username"> {{vm.user.username}} </div>
       <div> {{vm.user.nameFirst}} {{vm.user.nameLast}} </div>
+      <div>
+        <gameTitle> MLB 2016 </gameTitle>
+      </div>
+      <div>
+        <profits>
+          <b>TOTAL PROFITS:</b> {{vm.user.sumYtd | currency:$:0}}
+        </profits>
+      </div>
+      <div>
+        <b>Wins</b>: {{vm.user.ytdW}}
+      </div>
+      <div>
+        <b>Losses</b>: {{vm.user.ytdL}}
+      </div>
+      <div>
+        <b>Win %</b>: {{vm.user.ytdPct | percentage:2}}
+      </div>
 
-  </userDiv>
+  </userInfo>
+  <lineChart class="col m6">
+    This is where line charts will go
+  </lineChart>
 </userHead>
 
-<div class="row">
-  <gameBox class="col m5 z-depth-2">
-    <div>
-      <gameTitle> MLB 2016 </gameTitle>
-    </div>
-    <div>
-      <profits>
-        <b>TOTAL PROFITS:</b> {{vm.user.sumYtd | currency:$:0}}
-      </profits>
-    </div>
-    <div>
-      <b>Wins</b>: {{vm.user.ytdW}}
-    </div>
-    <div>
-      <b>Losses</b>: {{vm.user.ytdL}}
-    </div>
-    <div>
-      <b>Win %</b>: {{vm.user.ytdPct | percentage:2}}
-    </div>
-
-  </gameBox>
-</div>
+<pieCharts class="row">
+  <div class="col m4 pieGrid">
+    <div zingchart id="fav-chart" zc-json="vm.favData" zc-width="100%" zc-height="350px"></div>
+  </div>
+  <div class="col m4 pieGrid">
+    <div zingchart id="pick-type-chart" zc-json="vm.pickTypeData" zc-width="100%" zc-height="350px"></div>
+  </div>
+  <div class="col m4 pieGrid">
+    <div zingchart id="tendency-chart" zc-json="vm.tendencyData" zc-width="100%" zc-height="350px"></div>
+  </div>
+</pieCharts>

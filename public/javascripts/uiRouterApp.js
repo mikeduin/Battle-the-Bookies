@@ -1,7 +1,8 @@
 angular
   .module('battleBookies', [
     'ui.router',
-    'ngAnimate'
+    'ngAnimate',
+    'zingchart-angularjs'
   ])
   .config(['$stateProvider', '$urlRouterProvider', siteConfig])
 

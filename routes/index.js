@@ -131,6 +131,8 @@ router.get('/updatePicks', function (req, res, next) {
       var HomeScore;
       var AwayScore;
       Result.findOne({EventID: pick.EventID}, function (err, result){
+        if (err) {next(err)}
+
         if(result.Final === true) {
           var HomeScore = result.HomeScore;
           var AwayScore = result.AwayScore;

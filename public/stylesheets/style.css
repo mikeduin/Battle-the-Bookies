@@ -308,9 +308,17 @@ standings th, standings td {
 /*END STANDINGS STYLES*/
 /*BEGIN USER STYLES*/
 
-userDiv {
-  margin-top: 20px;
+userInfo {
   margin-bottom: 20px;
+  border: solid 1px black;
+}
+
+userHead {
+  height: 200px;
+}
+
+.pieGrid {
+  border: solid 1px black
 }
 
 .username {
