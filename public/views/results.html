@@ -1,4 +1,4 @@
-<resultsHead class="row" ng-init="vm.updateResults(); vm.getMlbLines(); vm.getDates(); vm.getAllUsers(); vm.updatePicks()">
+<resultsHead class="row" ng-init="vm.getMlbLines(); vm.getDates(); vm.getAllUsers()">
   <leadDiv class="col m12">
     <div class="col m8 left-align">
       <p class="resHead"> Daily Results </p>
@@ -26,10 +26,10 @@
         <th>
           Entrant
         </th>
-        <th>
+        <th class="center-align">
           YTD $
         </th>
-        <th>
+        <th class="center-align">
           Daily $
         </th>
         <th ng-repeat="game in vm.mlbLines | orderBy: [vm.gameSort, vm.gameSortTwo] | filter: { MatchDay: vm.matchDayFilter }" ng-init="vm.resultChecker(game); vm.matchTimePull(game.MatchTime)"> <span class="nobr">{{game.AwayAbbrev}} {{game.AwayScore}} </span> <br> <span class="nobr"> {{game.HomeAbbrev}} {{game.HomeScore}} </span> <br> {{game.GameStatus}} </th>

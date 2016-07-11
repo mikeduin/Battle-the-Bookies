@@ -19,9 +19,11 @@ var Pick = mongoose.model('Pick');
 var abbrevs = require('../modules/abbrevs.js');
 var setWeek = require('../modules/weekSetter.js')
 
-// BEGIN ROUTES TO AUTO-UPDATE ODDS + RESULTS FROM API
+// BEGIN ROUTES TO AUTO-UPDATE ODDS + RESULTS (FROM API) AND USER PICKS (FROM DB)
 
-router.get('/updateResults', function(req, res, next) {
+// This first function updates game results.
+
+setInterval(function(){
   fetch('https://jsonodds.com/api/results/mlb', {
     method: 'GET',
     headers: {
@@ -58,71 +60,14 @@ router.get('/updateResults', function(req, res, next) {
         bulk.execute(function(err,res) {
            console.log('results bulk update completed at ' + new Date());
         });
-    res.json(odds);
-
+    // res.json(odds);
   })
-});
-
-router.get('/updateOdds', function(req, res, next) {
-  fetch('https://jsonodds.com/api/odds/mlb', {
-    method: 'GET',
-    headers: {
-      'JsonOdds-API-Key': '26f594b0-3f1f-42ae-b2c9-c1607625a905'
-    }
-  }).then(function(res){
-    return res.json()
-  }).then(function(odds){
-
-    var bulk = Line.collection.initializeOrderedBulkOp();
-    var counter = 0;
-
-    for (i = 0; i < odds.length; i++) {
-
-      bulk.find({EventID: odds[i].ID}).upsert().updateOne({
-        $set : {
-          EventID: odds[i].ID,
-          HomeTeam: odds[i].HomeTeam,
-          AwayTeam: odds[i].AwayTeam,
-          HomeAbbrev: abbrevs.teamAbbrev(odds[i].HomeTeam),
-          AwayAbbrev: abbrevs.teamAbbrev(odds[i].AwayTeam),
-          MatchTime: new Date(odds[i].MatchTime),
-          MatchDay: moment(odds[i].MatchTime).format('MMMM Do, YYYY'),
-          DateNumb: parseInt(moment(odds[i].MatchTime).format('YYYYMMDD')),
-          Week: setWeek.weekSetter(odds[i].MatchTime),
-          MoneyLineHome: odds[i].Odds[0].MoneyLineHome,
-          MoneyLineAway: odds[i].Odds[0].MoneyLineAway,
-          PointSpreadHome: odds[i].Odds[0].PointSpreadHome,
-          PointSpreadAway: odds[i].Odds[0].PointSpreadAway,
-          PointSpreadAwayLine: odds[i].Odds[0].PointSpreadAwayLine,
-          PointSpreadHomeLine: odds[i].Odds[0].PointSpreadHomeLine,
-          TotalNumber: odds[i].Odds[0].TotalNumber,
-          OverLine: odds[i].Odds[0].OverLine,
-          UnderLine: odds[i].Odds[0].UnderLine
-        }
-      });
-      counter++;
-
-      if (counter % 1000 == 0) {
-        bulk.execute(function(err, result){
-          bulk = Line.collection.initializeOrderedBulkOp();
-        });
-      }
-    };
-
-    if (counter % 1000 != 0)
-        bulk.execute(function(err,result) {
-           console.log('odds bulk update completed at ' + new Date());
-        });
-
-    res.json(odds);
-    }
-  )
-});
+}, 30000)
 
 
-// This route below looks for picks that have a finalPayout of ZERO (e.g., they have not been 'settled' yet) then checks to see if the Result of that pick's game is final. If the result IS final, it updates the picks with the HomeScore and AwayScore and sets 'Final' to true for that pick. THEN, it runs through each potential outcome based on PickType and updates the result variables accordingly.
+// The next function below looks for picks that have a finalPayout of ZERO (e.g., they have not been 'settled' yet) then checks to see if the Result of that pick's game is final. If the result IS final, it updates the picks with the HomeScore and AwayScore and sets 'Final' to true for that pick. THEN, it runs through each potential outcome based on PickType and updates the result variables accordingly.
 
-router.get('/updatePicks', function (req, res, next) {
+setInterval(function(){
   Pick.find({finalPayout: 0}, function (err, picks){
     if (err) {console.log(err)}
 
@@ -213,7 +158,176 @@ router.get('/updatePicks', function (req, res, next) {
         })
       })
     })
+  console.log('picks updated at ' + new Date())
+}, 30000)
+
+// This next function is that which updates game lines. It runs on every page refresh or every 30 seconds otherwise (via a custom directive) within the application.
+
+router.get('/updateOdds', function(req, res, next) {
+  fetch('https://jsonodds.com/api/odds/mlb', {
+    method: 'GET',
+    headers: {
+      'JsonOdds-API-Key': '26f594b0-3f1f-42ae-b2c9-c1607625a905'
+    }
+  }).then(function(res){
+    return res.json()
+  }).then(function(odds){
+
+    var bulk = Line.collection.initializeOrderedBulkOp();
+    var counter = 0;
+
+    for (i = 0; i < odds.length; i++) {
+
+      bulk.find({EventID: odds[i].ID}).upsert().updateOne({
+        $set : {
+          EventID: odds[i].ID,
+          HomeTeam: odds[i].HomeTeam,
+          AwayTeam: odds[i].AwayTeam,
+          HomeAbbrev: abbrevs.teamAbbrev(odds[i].HomeTeam),
+          AwayAbbrev: abbrevs.teamAbbrev(odds[i].AwayTeam),
+          MatchTime: new Date(odds[i].MatchTime),
+          MatchDay: moment(odds[i].MatchTime).format('MMMM Do, YYYY'),
+          DateNumb: parseInt(moment(odds[i].MatchTime).format('YYYYMMDD')),
+          Week: setWeek.weekSetter(odds[i].MatchTime),
+          MoneyLineHome: odds[i].Odds[0].MoneyLineHome,
+          MoneyLineAway: odds[i].Odds[0].MoneyLineAway,
+          PointSpreadHome: odds[i].Odds[0].PointSpreadHome,
+          PointSpreadAway: odds[i].Odds[0].PointSpreadAway,
+          PointSpreadAwayLine: odds[i].Odds[0].PointSpreadAwayLine,
+          PointSpreadHomeLine: odds[i].Odds[0].PointSpreadHomeLine,
+          TotalNumber: odds[i].Odds[0].TotalNumber,
+          OverLine: odds[i].Odds[0].OverLine,
+          UnderLine: odds[i].Odds[0].UnderLine
+        }
+      });
+      counter++;
+
+      if (counter % 1000 == 0) {
+        bulk.execute(function(err, result){
+          bulk = Line.collection.initializeOrderedBulkOp();
+        });
+      }
+    };
+
+    if (counter % 1000 != 0)
+        bulk.execute(function(err,result) {
+           console.log('odds bulk update completed at ' + new Date());
+        });
+
+    res.json(odds);
+    }
+  )
+});
+
+// The function below checks un-settled picks to see if its related game has completed. If so, it updates the finalPayout variable for that pick.
+
+setInterval(function(){Pick.find(function(err, picks){
+  if(err) { console.log(err) }
+
+  picks.forEach(function(doc){
+    var finalPayout;
+    if (doc.pickResult === "win") {
+      finalPayout = doc.activePayout
+    } else if (doc.pickResult === "loss") {
+      finalPayout = -100
+    } else {
+      finalPayout = 0
+    }
+
+    Pick.update({"_id": doc._id}, {finalPayout: finalPayout}, function(err){
+      if(err) {console.log(err)}
+
+      // console.log('final payouts updated')
+    })
   })
+
+  console.log('pick payouts updated at ' + new Date())
+})}, 30000)
+
+// END ROUTES TO AUTO-UPDATE ODDS + RESULTS FROM API
+// BEGIN LINE ROUTES
+
+router.get('/lines', function(req, res, next){
+  Line.find(function(err, games) {
+    if (err) { next(err) };
+
+    res.json(games);
+  })
+})
+
+router.put('/lines/updateStatus', function (req, res, next){
+  console.log(req.body)
+  Line.update({EventID: req.body[0].EventID},
+    {
+      GameStatus: "Final",
+      HomeScore: req.body[0].HomeScore,
+      AwayScore: req.body[0].AwayScore,
+    },
+    function(err, game){
+    if (err) { console.log(err) };
+
+    console.log('game status updated to final')
+  })
+})
+
+// END LINE ROUTES
+// BEGIN RESULTS ROUTES
+
+router.get('/results', function(req, res, next){
+  Result.find(function(err, games) {
+    if (err) { next(err) };
+
+    res.json(games);
+  })
+})
+
+router.param('EventID', function(req, res, next, EventID) {
+  var query = Result.find({ EventID: EventID });
+
+  query.exec(function (err, result) {
+    if (err) { next(err) }
+    if (!result) {return next(new Error("can't find game")); }
+
+    req.result = result;
+    return next();
+  })
+})
+
+router.get('/results/:EventID', function(req, res) {
+    res.json(req.result);
+})
+
+// END RESULTS ROUTES
+// BEGIN PICK ROUTES
+
+router.get('/picks', function (req, res, next){
+  Pick.find(function(err, picks){
+    if(err) { next(err) }
+
+    res.json(picks)
+  })
+})
+
+router.get('/picks/checkSubmission/:EventID', auth, function(req, res, next){
+  Pick.find({
+    username: req.payload.username,
+    EventID: req.params.EventID
+  }, function(err, pick){
+    if (err) {console.log(err)}
+
+    res.json(pick)
+  })
+})
+
+router.get('/picks/:username/all', function (req, res, next) {
+  Pick.find({
+    username: req.params.username
+  }, function(err, result){
+    if(err) {console.log(err)}
+
+    res.json(result)
+  })
+})
 
 router.get('/dailyStats/:username', function(req, res, next){
   var username = req.params.username;
@@ -251,129 +365,12 @@ router.get('/dailyStats/:username', function(req, res, next){
             }
         })
 
-        console.log('total dollars for ' + username + ' on ' + dateNumb + ' is ' + totalDollars + ' from ' + totalWins + ' wins out of ' + totalGames + ' games.');
-
         return {username: username, dateNumb: dateNumb, MatchDay: MatchDay, totalDollars: totalDollars, totalWins: totalWins, totalLosses: totalLosses, totalGames: totalGames}
-
-        console.log(userArray)
       })
 
     })).then(function(userArray){
-      console.log(userArray)
       res.json(userArray)
     })
-  })
-})
-
-
-// END ROUTES TO AUTO-UPDATE ODDS + RESULTS FROM API
-// BEGIN LINE ROUTES
-
-router.get('/lines', function(req, res, next){
-  Line.find(function(err, games) {
-    if (err) { next(err) };
-
-    res.json(games);
-  })
-})
-
-router.put('/lines/updateStatus', function (req, res, next){
-  console.log(req.body)
-  Line.update({EventID: req.body[0].EventID},
-    {
-      GameStatus: "Final",
-      HomeScore: req.body[0].HomeScore,
-      AwayScore: req.body[0].AwayScore,
-    },
-    function(err, game){
-    console.log("this is what returns from update status "+ game);
-    if (err) { console.log(err) };
-
-    console.log('game status updated to final')
-  })
-})
-
-// END LINE ROUTES
-// BEGIN RESULTS ROUTES
-
-router.get('/results', function(req, res, next){
-  Result.find(function(err, games) {
-    if (err) { next(err) };
-
-    res.json(games);
-  })
-})
-
-router.param('EventID', function(req, res, next, EventID) {
-  var query = Result.find({ EventID: EventID });
-
-  query.exec(function (err, result) {
-    if (err) { next(err) }
-    if (!result) {return next(new Error("can't find game")); }
-
-    req.result = result;
-    return next();
-  })
-})
-
-router.get('/results/:EventID', function(req, res) {
-    res.json(req.result);
-})
-
-// END RESULTS ROUTES
-// BEGIN PICK ROUTES
-
-router.put('/updateDollars', function(req, res, next){
-  Pick.find(function(err, picks){
-    if(err) { console.log(err) }
-
-    picks.forEach(function(doc){
-      var finalPayout;
-      if (doc.pickResult === "win") {
-        finalPayout = doc.activePayout
-      } else if (doc.pickResult === "loss") {
-        finalPayout = -100
-      } else {
-        finalPayout = 0
-      }
-
-      Pick.update({"_id": doc._id}, {finalPayout: finalPayout}, function(err){
-        if(err) {console.log(err)}
-
-        console.log('final payouts updated')
-      })
-    })
-
-    res.json({message: "payouts updated"})
-  })
-})
-
-router.get('/picks', function (req, res, next){
-  Pick.find(function(err, picks){
-    if(err) { next(err) }
-
-    res.json(picks)
-  })
-})
-
-router.get('/picks/checkSubmission/:EventID', auth, function(req, res, next){
-  Pick.find({
-    username: req.payload.username,
-    EventID: req.params.EventID
-  }, function(err, pick){
-    if (err) {console.log(err)}
-
-    res.json(pick)
-  })
-})
-
-router.get('/picks/:username/all', function (req, res, next) {
-  Pick.find({
-    username: req.params.username
-  }, function(err, result){
-    if(err) {console.log(err)}
-
-    res.json(result)
   })
 })
 

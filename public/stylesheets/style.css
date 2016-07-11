@@ -305,24 +305,32 @@ standings th, standings td {
   padding: 0px;
 }
 
+standDiv {
+  margin-top: 20px;
+  margin-bottom: -80px;
+}
+
 /*END STANDINGS STYLES*/
 /*BEGIN USER STYLES*/
 
-userInfo {
-  margin-bottom: 20px;
-  border: solid 1px black;
+userInfo, linechart {
+  margin-top: 20px;
 }
 
 userHead {
   height: 200px;
 }
 
-
-
 .username {
   font-size: 48px;
   font-weight: 800;
   color: #01579B;
+}
+
+.realname {
+  margin-top: -10px;
+  padding-top: -10px;
+  margin-bottom: 20px;
 }
 
 gameBox {
@@ -332,7 +340,7 @@ gameBox {
 
 gameTitle {
   color: #5E5E5E;
-  font-size: 36px;
+  font-size: 28px;
   font-weight: 800
 }
 
