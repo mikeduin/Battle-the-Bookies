@@ -1,36 +1,38 @@
 <div class="row">
-  <loginBox class="col m6 offset-m3 z-depth-2">
-    <div class="row">
-      <div class="col m3">
-        <loginTitle> Login </loginTitle>
+  <loginBack class="col m12">
+    <loginBox class="col m6 offset-m3 z-depth-2">
+      <div class="row">
+        <div class="col m3">
+          <loginTitle> Login </loginTitle>
+        </div>
+        <regLink class="col m7 offset-m2">
+          First time here?
+          <a ui-sref="home.register">Click to create account.</a>
+        </regLink>
       </div>
-      <regLink class="col m7 offset-m2">
-        First time here?
-        <a ui-sref="home.register">Click to create account.</a>
-      </regLink>
-    </div>
-    <div class="row">
-      <form class="col s12" ng-submit="vm.logIn(user)">
-        <div class="row">
-          <div class="input-field col s8 offset-s2">
-            <i class="fa fa-user prefix" aria-hidden="true"></i>
-            <input type="text" class="validate" ng-model="user.username">
-            <label for="username">Username</label>
+      <div class="row">
+        <form class="col s12" ng-submit="vm.logIn(user)">
+          <div class="row">
+            <div class="input-field col s8 offset-s2">
+              <i class="fa fa-user prefix" aria-hidden="true"></i>
+              <input type="text" class="validate" ng-model="user.username">
+              <label for="username">Username</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="input-field col s8 offset-s2">
-            <i class="fa fa-lock prefix" aria-hidden="true"></i>
-            <input type="password" class="validate" ng-model="user.password">
-            <label for="password">Password</label>
+          <div class="row">
+            <div class="input-field col s8 offset-s2">
+              <i class="fa fa-lock prefix" aria-hidden="true"></i>
+              <input type="password" class="validate" ng-model="user.password">
+              <label for="password">Password</label>
+            </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col m3 offset-m9">
-            <button type="submit" class="btn btn-large waves-effect waves-light login-button"> LOGIN </button>
+          <div class="row">
+            <div class="col m3 offset-m9">
+              <button type="submit" class="btn btn-large waves-effect waves-light login-button"> LOGIN </button>
+            </div>
           </div>
-        </div>
-      </form>
-    </div>
-  </loginBox>
+        </form>
+      </div>
+    </loginBox>
+  </loginBack>
 </div>

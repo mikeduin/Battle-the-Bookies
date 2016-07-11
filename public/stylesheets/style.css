@@ -79,6 +79,12 @@ subLead {
 /*END SPLASH STYLES*/
 /*BEGIN LOGIN + REG STYLES*/
 
+loginBack {
+  height: 550px;
+  background: url('../images/bet_board2.png') no-repeat center center;
+  background-size: cover;
+}
+
 loginBox {
   margin-top: 80px;
   display: inline-block;
@@ -103,6 +109,12 @@ loginTitle {
 
 loginBox i {
   padding-top: 10px
+}
+
+regBack {
+  height: 550px;
+  background: url('../images/bet_board2.png') no-repeat center center;
+  background-size: cover;
 }
 
 regBox i {
@@ -275,6 +287,11 @@ button:focus {
 .howTo {
   font-weight: 700;
   font-size: 18px;
+  margin-top: -15px;
+}
+
+.howToBott {
+  margin-bottom: 15px;
 }
 
 .btn-spread {
@@ -383,7 +400,14 @@ standings th, standings td {
 
 standDiv {
   margin-top: 20px;
-  margin-bottom: -80px;
+}
+
+pagination {
+  margin-top: 50px;
+}
+
+standings table {
+  margin-top: 20px
 }
 
 /*END STANDINGS STYLES*/

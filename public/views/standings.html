@@ -1,22 +1,21 @@
 <standingsHead class="row" ng-init="vm.getDates(); vm.getAllUsers(); vm.getDateNumbs()">
-  <standDiv class="col m12">
-    <div class="col m10 left-align">
+  <standDiv class="col m12 result-head">
+    <div class="col m4 left-align">
       <p class="resHead"> Standings </p>
     </div>
+    <pagination class="col m8 right-align">
+      <div>
+        <ul class="pagination">
+          <li class="waves-effect" ng-class="{disabled: vm.activePage === 1}" ng-click="vm.activePage !== 1? vm.pageDown() : null"><a><i class="fa fa-chevron-left"></i></a></li>
+          <li ng-repeat="i in vm.pageArray" ng-class="{active: i === vm.activePage}" ng-click="vm.pageClick(i)" class="waves-effect"> {{i}}</li>
+          <li class="waves-effect" ng-class="{disabled: vm.activePage > (vm.dayArrayLength / 4)}" ng-click="vm.activePage < (vm.dayArrayLength / 4) ? vm.pageUp() : null"><a><i class="fa fa-chevron-right"></i></a></li>
+        </ul>
+      </div>
+    </pagination>
   </standDiv>
 </standingsHead>
 
-<pagination class="row">
-  <div class="col m3 push-m9">
-    <ul class="pagination">
-      <li class="waves-effect" ng-class="{disabled: vm.activePage === 1}" ng-click="vm.activePage !== 1? vm.pageDown() : null"><a><i class="fa fa-chevron-left"></i></a></li>
-      <li ng-repeat="i in vm.pageArray" ng-class="{active: i === vm.activePage}" ng-click="vm.pageClick(i)" class="waves-effect"> {{i}}</li>
-      <li class="waves-effect" ng-class="{disabled: vm.activePage > (vm.dayArrayLength / 4)}" ng-click="vm.activePage < (vm.dayArrayLength / 4) ? vm.pageUp() : null"><a><i class="fa fa-chevron-right"></i></a></li>
-    </ul>
-  </div>
-</pagination>
-
-<standings>
+<standings class="row">
   <table class="striped boredered">
     <thead>
       <tr>

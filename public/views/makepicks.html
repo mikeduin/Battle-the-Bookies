@@ -1,11 +1,11 @@
 <makePicksHead class="row" ng-init="vm.getMlbLines()">
   <div class="col m12 picks-head">
     <update-lines get-mlb-lines="vm.getMlbLines()" update-odds="vm.updateOdds()"> </update-lines>
-    <pickLeadDiv class="col m12">
+    <pickLeadDiv>
       <div class="col m10 left-align">
         <p class="pickHead"> Daily Lines </p>
       </div>
-      <selectDiv class="col m2">
+      <selectDiv class="col m2 res-select">
           <label> Select a Day </label>
           <select class="browser-default" ng-model="vm.gameDayFilter" ng-init="vm.getDates()">
             <option value="" > (all Days) </option>
@@ -32,7 +32,7 @@
       <p class="col m10">
         - Make sure to get each pick in before each game begins! A game locks at its scheduled start time; per the game rules, a missed/unsubmitted pick is an automatic loss.
       </p>
-      <p class="col m10">
+      <p class="col m10 howToBott">
         - If you have queued up a pick but have not confirmed it, it may disappear
         from the 'confirm' area in the event that odds refresh. This is expected behavior and is in place to ensure that an entrant is not able to select a stale line.
       </p>

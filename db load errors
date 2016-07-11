@@ -1,0 +1,107 @@
+battle-the-bookies git:(master) mongorestore -h ds021289.mlab.com:21289 -d heroku_g06snpv7 -u heroku_g06snpv7 -pmv875ai9mqgfpcu5olep8gfhk9 ~/Projects/dump/battleTheBookies
+2016-07-11T08:39:30.058-0700	building a list of collections to restore from /Users/michaelduin/Projects/dump/battleTheBookies dir
+2016-07-11T08:39:30.256-0700	reading metadata for heroku_g06snpv7.picks from /Users/michaelduin/Projects/dump/battleTheBookies/picks.metadata.json
+2016-07-11T08:39:30.256-0700	reading metadata for heroku_g06snpv7.results from /Users/michaelduin/Projects/dump/battleTheBookies/results.metadata.json
+2016-07-11T08:39:30.264-0700	reading metadata for heroku_g06snpv7.lines from /Users/michaelduin/Projects/dump/battleTheBookies/lines.metadata.json
+2016-07-11T08:39:30.265-0700	reading metadata for heroku_g06snpv7.users from /Users/michaelduin/Projects/dump/battleTheBookies/users.metadata.json
+2016-07-11T08:39:30.265-0700	restoring heroku_g06snpv7.lines from /Users/michaelduin/Projects/dump/battleTheBookies/lines.bson
+2016-07-11T08:39:30.266-0700	restoring heroku_g06snpv7.results from /Users/michaelduin/Projects/dump/battleTheBookies/results.bson
+2016-07-11T08:39:30.361-0700	restoring heroku_g06snpv7.picks from /Users/michaelduin/Projects/dump/battleTheBookies/picks.bson
+2016-07-11T08:39:30.788-0700	restoring heroku_g06snpv7.users from /Users/michaelduin/Projects/dump/battleTheBookies/users.bson
+2016-07-11T08:39:30.906-0700	restoring indexes for collection heroku_g06snpv7.users from metadata
+2016-07-11T08:39:30.997-0700	finished restoring heroku_g06snpv7.users (6 documents)
+2016-07-11T08:39:31.136-0700	error: multiple errors in bulk operation:
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "1ddc7105-48bc-4620-b5a2-0431f70a190e" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "235a21ba-a234-4068-b1a6-a246958212c5" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "67095423-6dff-4c1e-89bb-8656cc59b0bc" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "867e460f-377a-4754-9a53-694818aea20c" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "89b62bb8-ac9e-414f-9a3a-9cb7ecb9609f" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "a7c63898-ec7d-4836-a093-9f8aee97b97a" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "d81ad4dd-1729-4bc9-bdb4-92e6952b0ee2" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "e6687517-cbd1-47dd-ba24-4614b06619d9" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "e94cdab3-d312-4364-bf18-96287e947e76" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "1dc67599-ab62-4d75-8659-b6761d57296e" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "1e1d855c-e1da-466f-9581-ccb96f9a67bf" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "213f70ff-764b-42a0-a26d-ee7ce86e6afd" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "23d3ae49-b8dd-4a84-aa4a-91a44a156ef6" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "3a257aa6-974d-41a7-847c-3e2652482b4c" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "5b8f38c6d3421c338f527ea29536a0f2" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "745f9b8a-c6fe-46ca-99f2-0bf263b01cc6" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "7e28f057-0c2f-4a03-b4d7-8ce2bfde930f" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "8914d8ae-a23c-4b0d-8b86-e9cf79513e89" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "9303c548-e6de-4a50-9de7-9fa6d7cda516" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "9739f799-58b7-4116-8a7d-defd2ca512d8" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "9b319358-7245-48e4-977b-76d3db31a319" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "cb3a0d5a-804b-4d50-9196-12ad50d41122" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "dc51079a-b0c5-416c-84e7-c6f25fcf1975" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "faec0bfe-cd23-41db-96be-b76becb0677f" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "fbffeeb4-6374-4f91-ab73-604cd38d791a" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "e4fd265b-e2ce-44a1-a4e0-0638feb6be4d" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "0dfa95f9-27d2-4427-854a-eb66995de997" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "137c76f3-a9e9-479b-a1f9-ef237602f6dc" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "237747bf-c3ce-4b93-af51-28c11ddec84a" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "46cce5ba-ec65-49ca-a283-86a2975bfb28" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "6ef7ae0d-7d56-4c61-b7e1-4263faca8ece" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "73d5e957-1303-4062-8c2e-f1bff45aef9d" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "82da5c79-4cc8-4ec4-8d3d-4ba321fff568" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "a03a0a22-7567-41c4-991b-12d65b74eec9" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "d2ee69b3-340b-472b-baf5-28e2a62c2f9d" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "d8494d1b-8d78-4e00-b7f9-892dd72afcc0" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "da7b2e19-ce2b-4faa-b235-e68601436299" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "de952afc-c3e9-4db4-abdc-800d2583f4f0" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "f7c2749d-e3b1-4ba2-87c4-995673d3ce7f" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "06490c5f-c77b-42f7-9002-adfcecfad742" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "06beae24-0931-4faf-b3cf-23f7672478e3" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "30702c65-1d92-49cc-bd8b-b9ed9e7d3c94" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "30e6dc9f-4007-478c-9d18-f60f7fe64bde" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "41a06c41-4b6a-49a8-be53-9e1dc1a314df" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "742cc983-0128-4e8a-80a4-f39e066e691d" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "83a3b6ed-2848-4e32-8c27-668bf841d32b" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "850e6c1d-4574-4a81-b6cf-bd482343a0e1" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "8ccad104-30be-47d4-9f8c-e13a8d8f23d0" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "9c4e9c5e-9e68-4b96-b3f7-bcc337b8ac7b" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "b1185efd-c375-43af-b9b5-070274bebc53" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "c7ccc606-a7b1-4dca-8b89-8342ecf5bcd5" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "d4ab4694-2be2-46a1-8c68-6dd97d5383eb" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "db956273-ddc1-449a-a14e-d2fed3a787de" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "0a2403b2-5b42-4380-a967-8770ca94b54c" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "134fa334-2c4c-4f91-b6df-154b3e38ab87" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "2715bafe-be86-4629-be5b-db0c931bde32" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "2e8962f6-acee-4217-9d87-0b00d5790ee4" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "57cdcdeb-0e6a-41c5-9561-6c8662d35d34" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "5b2f55c1-b114-4561-a308-d9f4a5fada25" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "5d27f1a4-7c4d-4f34-b4a5-adb3df500b0c" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "69cf91d2-89cc-40d7-82f9-eecac13875ab" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "6df7ce15-1b30-4193-91a1-81fff80fc17b" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "6fcb3c4f-ef11-4151-bfe3-609cd25f5c10" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "77857caa-f69a-4f36-a38a-275d4b91cb87" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "8633b9a2-c885-407b-90f8-031f88f10f8d" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "8ab45468-32e9-4951-9e64-d9c998aeec2b" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "9dae4c12-4d0d-4406-b9fd-7df8fc358643" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "d5c23fe8-c0ff-4e00-a490-31ea69adbdf2" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "e8cbce74-dc68-4dd4-a6eb-fe2d6e01368b" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "030cf4eb-5b6e-4e05-b4a6-ee18ce55d682" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "09ed8b5e-77cf-4cd7-84f2-a85a47666876" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "17fda0b0-cee2-4484-9c70-b5ad2ebe240a" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "187c5ed3-2970-4f44-a24c-373f19e6d88b" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "2ba89342-694d-4fc2-80c5-262eb312bd24" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "61d24ebe-3831-43da-84b4-d8268e5a6c15" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "7c5d6725-9737-468d-88ec-8d19fec739cc" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "9cdbbfe0-ee58-4a50-8ab1-305087a15cd2" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "c8eff827-2dea-4226-a080-11b307e5fb37" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "d15f0127-c4e1-47e9-89ea-56d9c42839f6" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "d3d96d57-490d-4404-b5d0-4ba0352b66a7" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "dd627b1c-f8be-49fb-b6cc-1bd7fb2129ee" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "dfa0d87d-cf8f-4b9b-8296-4a21685e1fa9" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "ed85181d-3f82-4582-9e19-03d4b65c5389" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "feb09635-ff18-40aa-ae7d-91aaf5a108cc" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "cbc70623-f711-46e8-8862-bc1bca281592" }
+  - E11000 duplicate key error index: heroku_g06snpv7.results.$EventID_1 dup key: { : "f059445d-8813-455c-aa5e-50b6d35bd879" }
+
+2016-07-11T08:39:31.137-0700	restoring indexes for collection heroku_g06snpv7.results from metadata
+2016-07-11T08:39:31.241-0700	finished restoring heroku_g06snpv7.results (227 documents)
+2016-07-11T08:39:31.265-0700	restoring indexes for collection heroku_g06snpv7.lines from metadata
+2016-07-11T08:39:31.371-0700	finished restoring heroku_g06snpv7.lines (145 documents)
+2016-07-11T08:39:31.516-0700	restoring indexes for collection heroku_g06snpv7.picks from metadata
+2016-07-11T08:39:31.615-0700	finished restoring heroku_g06snpv7.picks (870 documents)
+2016-07-11T08:39:31.615-0700	done
