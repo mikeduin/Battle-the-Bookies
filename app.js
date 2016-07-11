@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var moment = require('moment-timezone');
 
-mongoose.connect('mongodb://localhost/battleTheBookies');
+mongoose.connect(process.env.MONGOLAB_AMBER_URI || 'mongodb://localhost/battleTheBookies');
 
 require('./models/Users');
 require('./models/Lines');
