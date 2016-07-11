@@ -37,7 +37,43 @@ nav {
 }
 
 .para-div {
-  height: 400px;
+  height: 480px;
+  background: url('../images/bet_board2.png') no-repeat center center;
+  background-size: cover;
+}
+
+.splash-lead {
+  color: #01579B;
+  font-weight: 800;
+  margin-bottom: 5px;
+}
+
+subLead {
+  margin-left: 5px;
+  font-size: 26px;
+  color: #5E5E5E;
+}
+
+.ionicons {
+  font-size: 100px;
+  color: #01579B;
+}
+
+.gameDesc {
+  margin-left: 5px;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+.homeLink {
+  font-weight: 800;
+  font-size: 30px;
+  color: #424242;
+}
+
+.homeLink:hover {
+  font-size: 40px;
+  color: #01579B
 }
 
 /*END SPLASH STYLES*/

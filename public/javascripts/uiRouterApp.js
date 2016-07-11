@@ -45,6 +45,16 @@ function siteConfig ($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('home.tutorial', {
+      url: 'tutorial',
+      views: {
+        'content@': {
+          templateUrl: 'views/tutorial.html',
+          controller: 'MainController',
+          controllerAs: 'vm'
+        }
+      }
+    })
     .state('home.makepicks', {
       url: 'makepicks',
       views: {
@@ -85,6 +95,6 @@ function siteConfig ($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     });
-    // 
+    //
     // $locationProvider.html5Mode(true);
 }

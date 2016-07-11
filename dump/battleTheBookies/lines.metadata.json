@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":1,"key":{"_id":1},"name":"_id_","ns":"battleTheBookies.lines"},{"v":1,"unique":true,"key":{"EventID":1},"name":"EventID_1","ns":"battleTheBookies.lines","background":true}]}
