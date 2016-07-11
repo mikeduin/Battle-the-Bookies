@@ -16,42 +16,42 @@
 </standingsHead>
 
 <standings class="row">
-  <table class="striped boredered">
+  <table  class="striped boredered">
     <thead>
       <tr>
-        <th rowspan="2"> Entrant</th>
-        <th colspan="1"> </th>
-        <th colspan="4" class="center-align"> YTD </th>
-        <th colspan="4" class="center-align" ng-repeat="day in vm.daysOfGames | limitTo: 4: vm.pageView"> {{day}} </th>
+        <th colspan="2"> </th>
+        <th colspan="4" class="center-align ytd-header"> Year to Date </th>
+        <th colspan="4" class="center-align day-header" ng-repeat="day in vm.daysOfGames | limitTo: 4: vm.pageView"> {{day}} </th>
       </tr>
-      <tr>
-        <th> Buy-in </th>
-        <th> W </th>
-        <th> L </th>
-        <th> Win% </th>
-        <th> $ </th>
-        <th colspan="4" ng-repeat="day in vm.daysOfGames | limitTo: 4: vm.pageView">
+      <tr class="bord-bottom">
+        <th class="pushdown"> Entrant </th>
+        <th class="pushdown bord-right"> Buy-in </th>
+        <th class="pushdown"> W </th>
+        <th class="pushdown"> L </th>
+        <th class="pushdown"> Win% </th>
+        <th class="pushdown bord-right"> $ </th>
+        <th colspan="4" ng-repeat="day in vm.daysOfGames | limitTo: 4: vm.pageView" class="bord-right">
           <table><tr>
-            <th> W </th>
-            <th> L </th>
-            <th colspan="2"> $ </th>
+            <th class="wBox"> W </th>
+            <th class="wBox"> L </th>
+            <th class="dollBox"> $ </th>
           </tr></table>
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="user in vm.users | orderBy: vm.sortOrder" ng-init="vm.sumAllPicks(user)">
-        <td> <a ui-sref="home.user({username: user.username})">{{user.username}}</a></td>
-        <td> {{user.buyin}} </td>
-        <td> {{user.ytdW}} </td>
-        <td> {{user.ytdL}} </td>
-        <td> {{user.ytdPct | percentage:2}} </td>
-        <td> {{user.sumYtd | currency:$:2}} </td>
-        <td colspan="4" ng-repeat="day in user.dailyStats | limitTo: 4: vm.pageView">
+      <tr class="bord-bottom" ng-repeat="user in vm.users | orderBy: vm.sortOrder" ng-init="vm.sumAllPicks(user)">
+        <td class="pushdown"> <a ui-sref="home.user({username: user.username})">{{user.username}}</a></td>
+        <td class="pushdown bord-right"> {{user.buyin | currency:$:0}} </td>
+        <td class="pushdown"> {{user.ytdW}} </td>
+        <td class="pushdown"> {{user.ytdL}} </td>
+        <td class="pushdown"> {{user.ytdPct | percentage:2}} </td>
+        <td class="pushdown bord-right sum-total" ng-class="{dayWin: user.sumYtd > 0, dayLoss: user.sumYtd < 0}"> {{user.sumYtd | currency:$:2}} </td>
+        <td colspan="4" ng-repeat="day in user.dailyStats | limitTo: 4: vm.pageView" class="bord-right">
           <table><tr>
-            <td colspan="1"> {{day.totalWins}} </td>
-            <td colspan="1"> {{day.totalLosses}} </td>
-            <td colspan="2"> {{day.totalDollars | currency:$:2}} </td>
+            <td class="wBox" > {{day.totalWins}} </td>
+            <td class="wBox" > {{day.totalLosses}} </td>
+            <td class="dollBox" ng-class="{dayWin: day.totalDollars > 0, dayLoss: day.totalDollars < 0}"> <b>{{day.totalDollars | currency:$:2}} </b> </td>
           </tr></table>
         </td>
       </tr>

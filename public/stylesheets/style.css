@@ -390,6 +390,52 @@ standings th, standings td {
   text-align: center;
 }
 
+.ytd-header {
+  font-size: 22px;
+  color: #01579B;
+}
+
+.day-header {
+  font-size: 22px;
+  color: #ABABAB;
+  font-style: italic;
+  font-weight: 600
+}
+
+.dayWin {
+  color: #1B5E20
+}
+
+.dayLoss {
+  color: #B71C1C
+}
+
+.sum-total {
+  font-size: 16px;
+  font-weight: 700
+}
+
+.pushdown {
+  padding-top: 20px;
+  border-bottom: solid 1px black
+}
+
+.bord-right {
+  border-right: solid 1px black
+}
+
+.bord-bottom {
+  border-bottom: solid 1px black
+}
+
+.wBox {
+  width: 30px;
+}
+
+.dollBox {
+  width: 100px;
+}
+
 .active {
   color: white;
 }
