@@ -15,7 +15,8 @@ function AuthController ($state, authService) {
 
   vm.logIn = function(user) {
     authService.logIn(user).error(function(error){
-      vm.error = error;
+      vm.error = error.message;
+      console.log(error)
     }).then(function(){
       $state.go('home.makepicks');
     })

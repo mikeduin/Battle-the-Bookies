@@ -89,15 +89,21 @@ loginBox {
   margin-top: 80px;
   display: inline-block;
   background-color: #eeeeee;
-  border: solid 3px #CCCDCD;
+  border: solid 3px #B4B4B4;
   border-radius: 5px;
+}
+
+error {
+  padding-top: 40px;
+  font-weight: 800;
+  color: #B71C1C;
 }
 
 regBox {
   margin-top: 30px;
   display: inline-block;
   background-color: #eeeeee;
-  border: solid 3px #CCCDCD;
+  border: solid 3px #B4B4B4;
   border-radius: 5px;
 }
 
@@ -402,12 +408,34 @@ standings th, standings td {
   font-weight: 600
 }
 
+.buyGold {
+  color: #B68708;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.buySilver {
+  color: #616161;
+  font-weight: 800;
+  font-size: 16px;
+}
+
+.buyBronze {
+  color: #6D4C41;
+  font-weight: 800;
+  font-size: 16px;
+}
+
 .dayWin {
   color: #1B5E20
 }
 
 .dayLoss {
   color: #B71C1C
+}
+
+.user-size {
+  font-size: 20px
 }
 
 .sum-total {
