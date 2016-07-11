@@ -1,41 +1,43 @@
 <makePicksHead class="row" ng-init="vm.getMlbLines()">
-  <update-lines get-mlb-lines="vm.getMlbLines()" update-odds="vm.updateOdds()"> </update-lines>
-  <leadDiv class="col m12">
-    <div class="col m10 left-align">
-      <p class="resHead"> Daily Lines </p>
-    </div>
-    <selectDiv class="col m2">
-        <label> Select a Day </label>
-        <select class="browser-default" ng-model="vm.gameDayFilter" ng-init="vm.getDates()">
-          <option value="" > (all Days) </option>
-          <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
-        </select>
-    </selectDiv>
-  </leadDiv>
-  <howTo class="col m12">
-    <p class="howTo">
-      HOW TO MAKE YOUR PICKS
-    </p>
-    <p class="col m10">
-      - Queue up a pick by clicking its button, then click the green checkmark to confirm your pick. A pick is not submitted until it's confirmed.
-    </p>
-    <p class="col m10">
-      - Submit one pick at a time. To change your pick before it's confirmed, just click a different pick button.
-    </p>
-    <p class="col m10">
-      - A submitted pick locks in the odds and price of the pick at time of submission, even if they then change prior to the game's start time.
-    </p>
-    <p class="col m10">
-      - Once a pick is submitted, it will show up in the <b> YOUR PICK </b> column. From that point forward it cannot be changed.
-    </p>
-    <p class="col m10">
-      - Make sure to get each pick in before each game begins! A game locks at its scheduled start time; per the game rules, a missed/unsubmitted pick is an automatic loss.
-    </p>
-    <p class="col m10">
-      - If you have queued up a pick but have not confirmed it, it may disappear
-      from the 'confirm' area in the event that odds refresh. This is expected behavior and is in place to ensure that an entrant is not able to select a stale line.
-    </p>
-  </howTo>
+  <div class="col m12 picks-head">
+    <update-lines get-mlb-lines="vm.getMlbLines()" update-odds="vm.updateOdds()"> </update-lines>
+    <pickLeadDiv class="col m12">
+      <div class="col m10 left-align">
+        <p class="pickHead"> Daily Lines </p>
+      </div>
+      <selectDiv class="col m2">
+          <label> Select a Day </label>
+          <select class="browser-default" ng-model="vm.gameDayFilter" ng-init="vm.getDates()">
+            <option value="" > (all Days) </option>
+            <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
+          </select>
+      </selectDiv>
+    </pickLeadDiv>
+    <howTo class="col m12">
+      <p class="howTo">
+        HOW TO MAKE YOUR PICKS
+      </p>
+      <p class="col m10">
+        - Queue up a pick by clicking its button, then click the green checkmark to confirm your pick. A pick is not submitted until it's confirmed.
+      </p>
+      <p class="col m10">
+        - Submit one pick at a time. To change your pick before it's confirmed, just click a different pick button.
+      </p>
+      <p class="col m10">
+        - A submitted pick locks in the odds and price of the pick at time of submission, even if they then change prior to the game's start time.
+      </p>
+      <p class="col m10">
+        - Once a pick is submitted, it will show up in the <b> YOUR PICK </b> column. From that point forward it cannot be changed.
+      </p>
+      <p class="col m10">
+        - Make sure to get each pick in before each game begins! A game locks at its scheduled start time; per the game rules, a missed/unsubmitted pick is an automatic loss.
+      </p>
+      <p class="col m10">
+        - If you have queued up a pick but have not confirmed it, it may disappear
+        from the 'confirm' area in the event that odds refresh. This is expected behavior and is in place to ensure that an entrant is not able to select a stale line.
+      </p>
+    </howTo>
+  </div>
 </makePicksHead>
 
 <picksTable class="row">

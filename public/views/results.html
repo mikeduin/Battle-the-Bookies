@@ -1,22 +1,22 @@
-<resultsHead class="row" ng-init="vm.getMlbLines(); vm.getDates(); vm.getAllUsers()">
-  <leadDiv class="col m12">
+<resultsHead class="row valign-wrapper" ng-init="vm.getMlbLines(); vm.getDates(); vm.getAllUsers()">
+  <leadDiv class="col m12 result-head valign">
     <div class="col m8 left-align">
       <p class="resHead"> Daily Results </p>
     </div>
-    <selectDiv class="col m2">
+    <selectDiv class="col m2 res-select">
         <label> Select a Day </label>
         <select class="browser-default" ng-model="vm.matchDayFilter">
           <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>
         </select>
     </selectDiv>
-    <selectDiv class="col m2">
+    <selectDiv class="col m2 res-select">
         <label> Sort by </label>
         <select class="browser-default" ng-model="vm.userSort">
           <option value="-sumYtd"> YTD $ </option>
           <option value="-sumDay"> Daily $ </option>
         </select>
     </selectDiv>
-  </leadDiv>
+  </eadDiv>
 </resultsHead>
 
 <results>
