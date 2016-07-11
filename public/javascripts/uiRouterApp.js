@@ -4,9 +4,9 @@ angular
     'ngAnimate',
     'zingchart-angularjs'
   ])
-  .config(['$stateProvider', '$urlRouterProvider', siteConfig])
+  .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', siteConfig])
 
-function siteConfig ($stateProvider, $urlRouterProvider) {
+function siteConfig ($stateProvider, $urlRouterProvider, $locationProvider) {
   $urlRouterProvider.otherwise('/');
 
   $stateProvider
@@ -84,5 +84,7 @@ function siteConfig ($stateProvider, $urlRouterProvider) {
           controllerAs: 'vm'
         }
       }
-    })
+    });
+    // 
+    // $locationProvider.html5Mode(true);
 }
