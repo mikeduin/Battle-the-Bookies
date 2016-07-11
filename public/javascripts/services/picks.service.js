@@ -73,11 +73,6 @@ function picksService ($http, authService) {
         return stats
       })
     },
-    updateDailys: function(){
-      return $http.get('/updateDailys').then(function(result){
-        console.log(result)
-      })
-    },
     getDailyStats: function(username){
       return $http.get('/dailyStats/' + username).then(function(result){
         return result

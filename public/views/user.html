@@ -1,5 +1,12 @@
 <userHead class="row" ng-init="vm.getUser()">
   <userInfo class="col m6">
+    <selectDiv class="col m4">
+        <label> Select a User </label>
+        <select class="browser-default" ng-model="vm.userFilter" ng-init="vm.getAllUsers()" ng-change="vm.userChange()">
+          <option ng-repeat = "user in vm.users" value="{{user.username}}"> {{user.username}} </option>
+        </select>
+    </selectDiv>
+    <userDiv class="col m12">
 
       <div class="username"> {{vm.user.username}} </div>
       <div> {{vm.user.nameFirst}} {{vm.user.nameLast}} </div>
@@ -20,7 +27,7 @@
       <div>
         <b>Win %</b>: {{vm.user.ytdPct | percentage:2}}
       </div>
-
+    </userDiv>
   </userInfo>
   <lineChart class="col m6">
     <div zingchart id="mixed-chart" zc-json="vm.dailyData" zc-width="100%" zc-height="350px"></div>

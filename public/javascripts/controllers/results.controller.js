@@ -4,7 +4,7 @@ angular
 
 function ResultController (oddsService, picksService, resultsService, usersService, $scope) {
   var vm = this;
-  vm.matchDayFilter = moment().format('MMMM Do, YYYY');
+  vm.matchDayFilter;
   vm.dateNumbFilter;
   vm.daysOfGames = [];
   vm.mlbLines = [];
@@ -109,6 +109,16 @@ function ResultController (oddsService, picksService, resultsService, usersServi
   function getDates () {
     oddsService.getDates().then(function(dates){
       vm.daysOfGames = dates;
+      var dateArray = vm.daysOfGames;
+      var lastDay = dateArray[dateArray.length - 1]
+      var currentDay = moment().format('MMMM Do, YYYY');
+      console.log("last day is ", lastDay);
+      console.log("current day is ", currentDay);
+      if (lastDay === currentDay) {
+        vm.matchDayFilter = currentDay
+      } else {
+        vm.matchDayFilter = lastDay
+      }
     })
   };
 

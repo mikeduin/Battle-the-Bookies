@@ -6,7 +6,7 @@ function PickController (oddsService, picksService, resultsService, authService)
   var vm = this;
   vm.currentUser = currentUser;
   vm.currentTime = moment().format('MMMM Do YYYY, h:mm:ss a');
-  vm.gameDayFilter = moment().format('MMMM Do, YYYY');
+  vm.gameDayFilter;
   vm.pick = {};
   vm.mlbLines = [];
   vm.mlbResults = [];
@@ -56,6 +56,17 @@ function PickController (oddsService, picksService, resultsService, authService)
   function getDates () {
     oddsService.getDates().then(function(dates){
       vm.daysOfGames = dates;
+      var dateArray = vm.daysOfGames;
+      var lastDay = dateArray[dateArray.length - 1]
+      var currentDay = moment().format('MMMM Do, YYYY');
+      console.log("last day is ", lastDay);
+      console.log("current day is ", currentDay);
+      if (lastDay === currentDay) {
+        vm.gameDayFilter = currentDay
+      } else {
+        vm.gameDayFilter = lastDay
+      }
+
     })
   };
 

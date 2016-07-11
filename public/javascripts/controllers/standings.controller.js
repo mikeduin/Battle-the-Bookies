@@ -18,17 +18,17 @@ function StandingsController (picksService, oddsService, usersService) {
   vm.user = {};
   vm.dailyStats = [];
 
-  vm.getDailyStats = function(user){
-    username = user.username;
-    picksService.getDailyStats(username).then(function(result){
-      console.log(result.data);
-      vm.dailyStats = result.data
-    })
-  }
+  // vm.getDailyStats = function(user){
+  //   username = user.username;
+  //   picksService.getDailyStats(username).then(function(result){
+  //     console.log(result.data);
+  //     vm.dailyStats = result.data
+  //   })
+  // }
 
-  vm.updateDailys = function(){
-    picksService.updateDailys();
-  }
+  // vm.updateDailys = function(){
+  //   picksService.updateDailys();
+  // }
 
   vm.getAllUsers = function(){
     usersService.getAllUsers().then(function(result){

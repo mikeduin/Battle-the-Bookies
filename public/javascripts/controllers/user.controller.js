@@ -1,15 +1,29 @@
 angular
   .module('battleBookies')
-  .controller('UserController', ['$stateParams', 'picksService', 'usersService',  UserController])
+  .controller('UserController', ['$stateParams', 'picksService', 'usersService', '$state',  UserController])
 
-function UserController ($stateParams, picksService, usersService) {
+function UserController ($stateParams, picksService, usersService, $state) {
   var vm = this;
   vm.user = {};
+  vm.userFilter;
+  vm.username;
+  vm.users = [];
+
+  vm.userChange = function(){
+    $state.go('home.user', {username: vm.userFilter});
+    vm.getUser();
+  }
+
+  vm.getAllUsers = function(){
+    usersService.getAllUsers().then(function(result){
+      vm.users = result
+    })
+  }
 
   vm.getUser = function(){
     usersService.getUser($stateParams.username).then(function(user){
       vm.user = user[0];
-      var username = vm.user.username;
+      vm.userFilter = user[0].username;
       vm.sumAllPicks(user[0].username);
       vm.getPickStats(user[0].username);
       vm.getDailyStats(user[0].username)
@@ -30,6 +44,15 @@ function UserController ($stateParams, picksService, usersService) {
     picksService.getDailyStats(username).then(function(result){
       console.log(result.data);
       stats = result.data;
+
+      var ytdDollars = 0
+
+      for (i=0; i<stats.length; i++) {
+        dayDollars = stats[i].totalDollars;
+        ytdDollars += dayDollars;
+        vm.dailyData.series[0].values.push(dayDollars);
+        vm.dailyData.series[1].values.push(ytdDollars);
+      }
 
     })
   }
@@ -67,56 +90,50 @@ function UserController ($stateParams, picksService, usersService) {
   vm.dailyData = {
     'type':'mixed',
     'title': {
-      'text':'Daily Progression',
+      'text':'Profit Progression',
       "fontFamily": "Raleway"
     },
     'plot':{
-      "animation":{
-          "effect":"2",
-          "delay":"1000",
-          "speed":"500",
-          "method":"5",
-          "sequence":"1"
-      },
-      "valueBox": {
- 	    "placement": 'in',
- 	    "text": '%t\n%npv%',
- 	    "fontFamily": "Raleway",
-      "font-size": 12,
-      "shadow": true,
-      "padding": "10%"
-      }
+      'aspect': 'spline',
+      'tooltip': '%scale-key-label'
+    },
+    'scale-x':{
+      'values': [],
+      'offset-y': 4,
+    },
+    'scale-y':{
+      'format': '$%v'
+    },
+    'tooltip':{
+      'text': '$%v',
+      'decimals': 2
+    },
+    'legend':{
     },
     'series':[
       {
         "values": [],
-        "text": 'Away ML',
-        "background-color": "#2196f3"
+        "type": 'bar',
+        "background-color": "#01579B",
+        'legend-text': 'Daily $',
+        "animation": {
+          "delay": 0,
+          "effect": 13,
+          "speed": "1000",
+          "method": 0,
+          "sequence": "0"
+        }
       },
       {
-        "values":[],
-        "text": "Home ML",
-        "background-color": "#90caf9"
-      },
-      {
-        "values":[],
-        "text": "Away Spread",
-        "background-color": "#4caf50"
-      },
-      {
-        "values":[],
-        "text": "Home Spread",
-        "background-color": "#a5d6a7"
-      },
-      {
-        "values":[],
-        "text": "Total Over",
-        "background-color": "#ff5722"
-      },
-      {
-        "values":[],
-        "text": "Total Under",
-        "background-color": "#ffab91"
+        "values": [],
+        "type": 'line',
+        "line-color": "#B71C1C",
+        'legend-text': 'YTD $',
+        "animation": {
+          "delay":10,
+          "effect":5,
+          "speed":"2000"
+        }
       }
     ]
   }
