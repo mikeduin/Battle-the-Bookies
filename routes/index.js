@@ -237,7 +237,6 @@ setInterval(function(){Pick.find(function(err, picks){
     Pick.update({"_id": doc._id}, {finalPayout: finalPayout}, function(err){
       if(err) {console.log(err)}
 
-      // console.log('final payouts updated')
     })
   })
 

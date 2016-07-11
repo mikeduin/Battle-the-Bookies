@@ -16,13 +16,31 @@ nav {
   font-weight: 700;
 }
 
+.splashColor {
+  background-color: #343338
+}
+
+.other-color {
+  background-color: #01579B
+}
+
 .brand-logo {
   margin-left: 10px;
   color: #EEEEEE;
 }
 
 /*END NAVBAR STYLES*/
+/*BEGIN SPLASH STYLES*/
 
+.parallax-container {
+  height: 440px;
+}
+
+.para-div {
+  height: 400px;
+}
+
+/*END SPLASH STYLES*/
 /*BEGIN LOGIN + REG STYLES*/
 
 loginBox {

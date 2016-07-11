@@ -1,10 +1,10 @@
 angular
   .module('battleBookies')
-  .controller('NavController', ['authService', NavController])
+  .controller('NavController', ['authService', '$state', NavController])
 
-function NavController (authService) {
+function NavController (authService, $state) {
   var vm = this;
-  
+
   vm.isLoggedIn = function(){
     return authService.isLoggedIn();
   }
