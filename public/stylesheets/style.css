@@ -290,6 +290,7 @@ section > div {
     background: url('../images/bet_board2.png') no-repeat center center;
     background-size: cover;
     height: 120px;
+    margin-top: 20px;
 }
 
 .fa-calculator {
