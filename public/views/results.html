@@ -37,7 +37,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="user in vm.users | orderBy: vm.userSort" ng-init="vm.getPicks(); vm.sumAllPicks(user)">
-        <td> <a ui-sref="home.user({username: user.username})">{{user.username}}</a> </td>
+        <td class="user-size"> <a ui-sref="home.user({username: user.username})">{{user.username}}</a> </td>
         <td class="nobr"> <b> {{user.sumYtd | currency:$:0}} </b> </td>
         <td class="nobr"> <b> <sum-user-day user="user" datenumb="vm.dateNumbFilter"> </sum-user-day>
         </b> </td>

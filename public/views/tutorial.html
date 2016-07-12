@@ -1,0 +1,113 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.materialboxed').materialbox();
+  });
+</script>
+
+<tutorialHead class="row">
+  <leadDiv class="col m12 result-head">
+    <div class="col m8 left-align">
+      <p class="resHead"> What's the idea here? </p>
+    </div>
+  </leadDiv>
+  <section class="col m12">
+    <div class="col m1 center-align">
+      <i class="ionicons base-grey ion-ios-baseball-outline"></i>
+    </div>
+    <header class="col m10">
+       <span class="btb">Battle the Bookies</span> allows you to test your baseball handicapping skills against both the oddsmakers in Vegas and your fellow game entrants by requiring you to make a single, <i>theoretical</i> $100 bet on every game of the MLB season. Again: that's a <i>fake</i> $100 bet, used just as a vehicle for scorekeeping ... no need for a $10k bankroll to play this game! Your $100 bet on each game can be made in one of three ways:
+    </header>
+  </section>
+  <section class="col m12">
+    <div class="col m1 offset-m1 center-align">
+      <i class="ionicons dollar-grey-drop intro-icons ion-cash"></i>
+    </div>
+    <div class="col m9">
+      On the <span class="ps">point spread</span> (or, the "run line"), which are the odds of a team covering a 1.5-run spread. If a team is <b>favored</b> by 1.5 runs, they must win the game by at least two runs to cover the spread. If a team is a 1.5-run <b>underdog</b>, they will cover the spread as long as they do not lose the game by two runs or more.
+    </div>
+  </section>
+  <section class="col m12">
+    <div class="col m1 offset-m1 center-align">
+      <i class="ionicons dollar-grey intro-icons ion-cash"></i>
+    </div>
+    <div class="col m9">
+      <div class="mline-drop">
+        On a team's <span class="mline"> moneyline</span>, which is a team's odds of winning the game outright.
+      </div>
+    </div>
+  </section>
+  <section class="col m12">
+    <div class="col m1 offset-m1 center-align">
+      <i class="ionicons dollar-grey intro-icons ion-cash"></i>
+    </div>
+    <div class="col m9">
+      On the number of <span class="ttl">total</span> combined runs scored by both teams, on which an entrant can bet either <b>over</b> or <b>under</b>.
+    </div>
+  </section>
+  <section class="col m12">
+    <div class="col m4 offset-m2 image-desc right-align">
+      Click this image for a detailed view of what it looks like to pick a game. <i class="fa fa-arrow-right" aria-hidden="true"></i>
+    </div>
+    <div class="col m5 center-align">
+      <img class="materialboxed ex-image" width="300" src="../images/btb.jpg" />
+    </div>
+  </section>
+  <section class="col m12">
+    <header class="col m10 offset-m1">
+       The odds for a game will be posted on the <a ui-sref="home.makepicks">Make Picks</a> page as soon as they are set by real-life oddsmakers, and they will change leading up to a game's start time anytime they change in real life. Rather than offering a static, rigid line at a random point prior to the game, <span class="btb">Battle the Bookies</span> simulates a real-life handicapping environment by allowing an entrant to "lock in" a pick at any time from when a line is first posted to when the game begins. Once a pick has been submitted, it cannot be changed (otherwise, an entrant would be able to switch their pick and obtain a better line any time the real-life odds moved in their favor).
+    </header>
+  </section>
+  <secDiv class="col m12 tut-mid">
+    <div class="col m12 left-align">
+      <p class="resHead"> Cool, so I make a lot of fake bets on baseball games. Then what? </p>
+    </div>
+  </secDiv>
+  <section class="col m12">
+    <div class="col m1 center-align">
+      <i class="ionicons ion-ios-calculator base-grey"></i>
+    </div>
+    <header class="col m10">
+       If you win your bet, your game score will be credited with the <i> payout </i> amount that was indicated at the time your bet was placed; if you lose your bet, your score will be a hit with a -$100 loss. Note that a missed or otherwise omitted pick will count as an automatic -$100 loss; if this were not the case, entrants who built up a lead could simply stop picking games until/unless they were caught by their opponents.
+    </header>
+    <header class="col m10 offset-m1">
+       From there, you can go in all kinds of fun directions:
+    </header>
+  </section>
+  <section class="col m12">
+    <div class="col m1 offset-m1 center-align">
+      <i class="fa fa-table base-grey" style="font-size: 50px"></i>
+    </div>
+    <div class="col m9">
+      The <a ui-sref="home.results">results page</a> shows complete daily picks and results for all entrants. Individual game results and entrants' scores will update on the completion of each major league game. The results table can be sorted both by year-to-date and daily scores, expressed in terms of profit.
+    </div>
+  </section>
+  <section class="col m12">
+    <div class="col m1 offset-m1 center-align">
+      <i class="fa fa-line-chart base-grey" style="font-size: 50px"></i>
+    </div>
+    <div class="col m9">
+      The <a ui-sref="home.standings">standings page</a> a year-to-date breakout of each entrant's performance, expressed as both total profit and wins vs. losses. You can also use the page buttons to scroll through each day's results on the right-hand side of the table.
+    </div>
+  </section>
+  <section class="col m12">
+    <div class="col m1 offset-m1 center-align">
+      <i class="fa fa-pie-chart pie" style="font-size: 50px"></i>
+    </div>
+    <div class="col m9">
+      The <a ui-sref="home.user">user profile pages</a> include detailed analytics of a user's pick tendencies and performance, including statistics for pick types, favorites vs. underdogs, and rolling YTD and daily profit charts.
+    </div>
+  </section>
+  <secDiv class="col m12 tut-mid">
+    <div class="col m12 left-align">
+      <p class="resHead"> This sounds awesome! How do I get started? </p>
+    </div>
+  </secDiv>
+  <section class="col m12">
+    <div class="col m1 center-align">
+      <i class="fa fa-pencil pencil" style="font-size: 50px"></i>
+    </div>
+    <header class="col m10">
+      <a ui-sref="home.register">Registering</a> takes all of thirty seconds -- then you're all set and ready to start picking. Good luck!
+    </header>
+  </section>
+</tutorialHead>

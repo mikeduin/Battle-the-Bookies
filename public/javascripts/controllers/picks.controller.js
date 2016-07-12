@@ -59,8 +59,6 @@ function PickController (oddsService, picksService, resultsService, authService)
       var dateArray = vm.daysOfGames;
       var lastDay = dateArray[dateArray.length - 1]
       var currentDay = moment().format('MMMM Do, YYYY');
-      console.log("last day is ", lastDay);
-      console.log("current day is ", currentDay);
       if (lastDay === currentDay) {
         vm.gameDayFilter = currentDay
       } else {

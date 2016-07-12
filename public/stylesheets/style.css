@@ -54,7 +54,7 @@ subLead {
   color: #5E5E5E;
 }
 
-.ionicons {
+.intro-icons {
   font-size: 100px;
   color: #01579B;
 }
@@ -78,12 +78,6 @@ subLead {
 
 /*END SPLASH STYLES*/
 /*BEGIN LOGIN + REG STYLES*/
-
-loginBack {
-  height: 550px;
-  background: url('../images/bet_board2.png') no-repeat center center;
-  background-size: cover;
-}
 
 loginBox {
   margin-top: 80px;
@@ -210,6 +204,102 @@ buyInLevel span {
 }
 
 /*END LOGIN/REG STYLES*/
+/*BEGIN TUTORIAL STYLES*/
+
+tutorialHead > section {
+  font-size: 18px
+}
+
+section > header {
+  margin-top: 15px
+}
+
+section > div {
+  margin-top: 15px;
+  margin-left: 10px;
+}
+
+.mline-drop {
+  padding-top: 10px
+}
+
+.base-grey {
+  font-size: 80px;
+  color: #ABABAB;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+.dollar-grey {
+  padding-left: 40px;
+  font-size: 50px;
+  color: #ABABAB;
+}
+
+.dollar-grey-drop {
+  padding-top: 15px;
+  padding-left: 40px;
+  font-size: 50px;
+  color: #ABABAB;
+}
+
+.pie {
+  font-size: 80px;
+  color: #ABABAB;
+  padding-top: 5px;
+  padding-left: 15px;
+}
+
+.pencil {
+  font-size: 80px;
+  color: #ABABAB;
+  margin-top: -10px;
+  padding-left: 15px;
+}
+
+.btb {
+  font-weight: 800;
+  font-size: 20px;
+  color: #01579B;
+}
+
+.ps {
+  font-weight: 800;
+  color: #B71C1C;
+}
+
+.mline {
+  font-weight: 800;
+  color: #4A148C;
+}
+
+.ttl {
+  font-weight: 800;
+  color: #BF360C;
+}
+
+.ex-image {
+  border: solid 2px #ABABAB;
+}
+
+.image-desc {
+  margin-top: 50px
+}
+
+.tut-mid {
+    background: url('../images/bet_board2.png') no-repeat center center;
+    background-size: cover;
+    height: 120px;
+}
+
+.fa-calculator {
+  font-size: 80px;
+  color: #ABABAB;
+  padding-top: 10px;
+  padding-left: 15px;
+}
+
+/*END TUTORIAL STYLES*/
 /*BEGIN MAKE PICK STYLES*/
 
 .picks-head {
@@ -438,8 +528,12 @@ standings th, standings td {
   font-size: 20px
 }
 
+.user-size a:hover {
+  color: #424242
+}
+
 .sum-total {
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700
 }
 

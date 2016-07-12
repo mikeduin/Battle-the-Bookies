@@ -240,7 +240,7 @@ function UserController ($stateParams, picksService, usersService, $state) {
   vm.favData = {
     'type':'ring',
     'title': {
-      'text':'David or Goliath?',
+      'text':'David ... or Goliath?',
       "fontFamily": "Raleway"
     },
     'plot':{

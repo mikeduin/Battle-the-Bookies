@@ -62,7 +62,6 @@
       <tr ng-init="vm.timeCheck(game); vm.checkSubmission(game, vm.currentUser())">
         <td rowspan="2"> {{game.MatchDay}} <br> {{game.MatchTime | date:'h:mm a'}} </td>
         <td> <b>(A)</b> {{game.AwayTeam}}
-          <!-- <away-score get-result="vm.getResult(game)" game="game"> </away-score> -->
         </td>
         <td> <button ng-class="{disabled: game.locked}" class="btn btn-spread" ng-click="game.locked || vm.awaySpread(game)"> {{game.PointSpreadAway | mlFormat}} ({{game.PointSpreadAwayLine | mlFormat}})</button> </td>
         <td class="spreadMoney"> {{game.PointSpreadAwayLine | payoutFilter}} </td>

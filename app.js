@@ -8,7 +8,9 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var moment = require('moment-timezone');
 
-mongoose.connect('mongodb://heroku_g06snpv7:mv875ai9mqgfpcu5olep8gfhk9@ds021289.mlab.com:21289/heroku_g06snpv7' || 'mongodb://localhost/battleTheBookies');
+mongoose.connect(
+  // 'mongodb://heroku_g06snpv7:mv875ai9mqgfpcu5olep8gfhk9@ds021289.mlab.com:21289/heroku_g06snpv7' || 
+  'mongodb://localhost/battleTheBookies');
 
 require('./models/Users');
 require('./models/Lines');
