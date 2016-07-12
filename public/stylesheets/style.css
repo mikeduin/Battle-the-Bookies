@@ -594,6 +594,10 @@ userHead {
   height: 200px;
 }
 
+userDiv {
+  margin-top: 20px
+}
+
 .username {
   font-size: 48px;
   font-weight: 800;
@@ -604,6 +608,11 @@ userHead {
   margin-top: -10px;
   padding-top: -10px;
   margin-bottom: 20px;
+}
+
+.user-chart {
+  color: #5E5E5E;
+  padding-top: 30px
 }
 
 gameBox {

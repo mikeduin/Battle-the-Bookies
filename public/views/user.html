@@ -2,34 +2,50 @@
   <userInfo class="col m4">
     <section class="col m12">
       <selectDiv class="col m8">
+        <div class="col m12">
           <label> Select a User </label>
           <select class="browser-default" ng-model="vm.userFilter" ng-init="vm.getAllUsers()" ng-change="vm.userChange()">
             <option ng-repeat = "user in vm.users" value="{{user.username}}"> {{user.username}} </option>
           </select>
+        </div>
       </selectDiv>
     </section>
     <userDiv class="col m12 left-align">
-      <section>
-        <div class="username"> {{vm.user.username}} </div>
-        <div class="realname"> {{vm.user.nameFirst}} {{vm.user.nameLast}} </div>
-        <div>
-          <gameTitle> MLB 2016 </gameTitle>
+      <stats>
+        <div class="col m12">
+          <div class="col m3">
+            <i class="ionicons intro-icons ion-ios-baseball-outline"></i>
+          </div>
+          <div class="col m9">
+            <div class="username"> {{vm.user.username}} </div>
+            <div class="realname"> {{vm.user.nameFirst}} {{vm.user.nameLast}} </div>
+          </div>
         </div>
-        <div>
-          <profits>
-            <b>TOTAL PROFITS:</b> <span class="nobr"> {{vm.user.sumYtd | currency:$:0}} </span>
-          </profits>
+        <div class="col m12">
+          <div class="col m3">
+            <i class="fa fa-line-chart user-chart" style="font-size: 70px"></i>
+          </div>
+          <div class="col m9">
+            <div>
+              <gameTitle> MLB 2016 </gameTitle>
+            </div>
+            <div>
+              <profits>
+                <b>TOTAL PROFITS:</b> <span class="nobr"> {{vm.user.sumYtd | currency:$:0}} </span>
+              </profits>
+            </div>
+            <div>
+              <b>Wins</b>: {{vm.user.ytdW}}
+            </div>
+            <div>
+              <b>Losses</b>: {{vm.user.ytdL}}
+            </div>
+            <div>
+              <b>Win %</b>: {{vm.user.ytdPct | percentage:2}}
+            </div>
+          </div>
         </div>
-        <div>
-          <b>Wins</b>: {{vm.user.ytdW}}
-        </div>
-        <div>
-          <b>Losses</b>: {{vm.user.ytdL}}
-        </div>
-        <div>
-          <b>Win %</b>: {{vm.user.ytdPct | percentage:2}}
-        </div>
-      </section>
+      </stats>
     </userDiv>
   </userInfo>
   <lineChart class="col m7">
