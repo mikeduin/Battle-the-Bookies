@@ -1,9 +1,12 @@
 <resultsHead class="row" ng-init="vm.getMlbLines(); vm.getDates(); vm.getAllUsers()">
   <leadDiv class="col m12 result-head">
-    <div class="col m8 left-align">
+    <div class="col m3 left-align">
       <p class="resHead"> Daily Results </p>
     </div>
-    <selectDiv class="col m2 res-select">
+    <notice class="col m4">
+      <b>NOTE</b>: <i>There are no baseball games from July 11th - 14th due to the MLB All-Star Break.</i>
+    </notice>
+    <selectDiv class="col m2 offset-m1 res-select">
         <label> Select a Day </label>
         <select class="browser-default" ng-model="vm.matchDayFilter">
           <option ng-repeat = "day in vm.daysOfGames" value="{{day}}"> {{day}} </option>

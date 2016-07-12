@@ -29,6 +29,10 @@ nav {
   color: #EEEEEE;
 }
 
+.fa-bars {
+  margin-left: 20px
+}
+
 /*END NAVBAR STYLES*/
 /*BEGIN SPLASH STYLES*/
 
@@ -552,12 +556,16 @@ standings th, standings td {
   border-bottom: solid 1px black
 }
 
+.ytdwBox {
+  width: 40px;
+}
+
 .wBox {
   width: 25px;
 }
 
 .dollBox {
-  width: 80px;
+  width: 70px;
 }
 
 .active {
@@ -578,6 +586,10 @@ pagination {
 
 standings table {
   margin-top: 20px
+}
+
+notice {
+  margin-top: 40px;
 }
 
 /*END STANDINGS STYLES*/

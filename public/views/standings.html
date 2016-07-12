@@ -1,9 +1,12 @@
 <standingsHead class="row" ng-init="vm.getDates(); vm.getAllUsers(); vm.getDateNumbs()">
   <standDiv class="col m12 result-head">
-    <div class="col m4 left-align">
+    <div class="col m3 left-align">
       <p class="resHead"> Standings </p>
     </div>
-    <pagination class="col m8 right-align">
+    <notice class="col m4">
+      <b>NOTE</b>: <i>There are no baseball games from July 11th - 14th due to the MLB All-Star Break.</i>
+    </notice>
+    <pagination class="col m4 offset-m1 right-align">
       <div>
         <ul class="pagination">
           <li class="waves-effect" ng-class="{disabled: vm.activePage === 1}" ng-click="vm.activePage !== 1? vm.pageDown() : null"><a><i class="fa fa-chevron-left"></i></a></li>
@@ -43,14 +46,14 @@
       <tr class="bord-bottom" ng-repeat="user in vm.users | orderBy: vm.sortOrder" ng-init="vm.sumAllPicks(user)">
         <td class="pushdown user-size"> <a ui-sref="home.user({username: user.username})">{{user.username}}</a></td>
         <td class="pushdown bord-right" ng-class="{buyGold: user.buyin === '200', buySilver: user.buyin === '100', buyBronze: user.buyin === '50'}"> {{user.buyin | currency:$:0}} </td>
-        <td class="pushdown"> <b> {{user.ytdW}} </b> </td>
-        <td class="pushdown"> <b> {{user.ytdL}} </b> </td>
+        <td class="pushdown ytdwBox"> <b> {{user.ytdW}} </b> </td>
+        <td class="pushdown ytdwBox"> <b> {{user.ytdL}} </b> </td>
         <td class="pushdown"> <i> {{user.ytdPct | percentage:2}} </i> </td>
         <td class="pushdown bord-right sum-total" ng-class="{dayWin: user.sumYtd > 0, dayLoss: user.sumYtd < 0}"> {{user.sumYtd | currency:$:2}} </td>
         <td colspan="4" ng-repeat="day in user.dailyStats | limitTo: 4: vm.pageView" class="bord-right">
           <table><tr>
-            <td class="wBox" > {{day.totalWins}} </td>
-            <td class="wBox" > {{day.totalLosses}} </td>
+            <td class="wBox"> {{day.totalWins}} </td>
+            <td class="wBox"> {{day.totalLosses}} </td>
             <td class="dollBox" ng-class="{dayWin: day.totalDollars > 0, dayLoss: day.totalDollars < 0}"> <b>{{day.totalDollars | currency:$:2}} </b> </td>
           </tr></table>
         </td>

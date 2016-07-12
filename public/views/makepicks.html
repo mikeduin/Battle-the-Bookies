@@ -2,10 +2,13 @@
   <div class="col m12 picks-head">
     <update-lines get-mlb-lines="vm.getMlbLines()" update-odds="vm.updateOdds()"> </update-lines>
     <pickLeadDiv>
-      <div class="col m10 left-align">
+      <div class="col m4 left-align">
         <p class="pickHead"> Daily Lines </p>
       </div>
-      <selectDiv class="col m2 res-select">
+      <notice class="col m4">
+        <b>NOTE</b>: <i>There are no baseball games from July 11th - 14th due to the MLB All-Star Break.</i>
+      </notice>
+      <selectDiv class="col m2 offset-m2 res-select">
           <label> Select a Day </label>
           <select class="browser-default" ng-model="vm.gameDayFilter" ng-init="vm.getDates()">
             <option value="" > (all Days) </option>
@@ -24,7 +27,7 @@
         - Submit one pick at a time. To change your pick before it's confirmed, just click a different pick button.
       </p>
       <p class="col m10">
-        - A submitted pick locks in the odds and price of the pick at time of submission, even if they then change prior to the game's start time.
+        - A submitted pick locks in the odds and price of the pick at time of submission, even if the odds change prior to the game's start time.
       </p>
       <p class="col m10">
         - Once a pick is submitted, it will show up in the <b> YOUR PICK </b> column. From that point forward it cannot be changed.
@@ -33,8 +36,7 @@
         - Make sure to get each pick in before each game begins! A game locks at its scheduled start time; per the game rules, a missed/unsubmitted pick is an automatic loss.
       </p>
       <p class="col m10 howToBott">
-        - If you have queued up a pick but have not confirmed it, it may disappear
-        from the 'confirm' area in the event that odds refresh. This is expected behavior and is in place to ensure that an entrant is not able to select a stale line.
+        - If you have queued up a pick but have not confirmed it, it may disappear from the 'confirm' area in the event that odds refresh. This is expected behavior and is in place to ensure that an entrant is not able to select a stale line.
       </p>
     </howTo>
   </div>
