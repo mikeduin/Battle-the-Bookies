@@ -231,18 +231,15 @@ section > div {
   font-size: 80px;
   color: #ABABAB;
   padding-top: 10px;
-  padding-left: 15px;
 }
 
 .dollar-grey {
-  padding-left: 40px;
   font-size: 50px;
   color: #ABABAB;
 }
 
 .dollar-grey-drop {
   padding-top: 15px;
-  padding-left: 40px;
   font-size: 50px;
   color: #ABABAB;
 }
@@ -251,14 +248,11 @@ section > div {
   font-size: 80px;
   color: #ABABAB;
   padding-top: 5px;
-  padding-left: 15px;
 }
 
 .pencil {
   font-size: 80px;
   color: #ABABAB;
-  margin-top: -10px;
-  padding-left: 15px;
 }
 
 .btb {
@@ -301,7 +295,10 @@ section > div {
   font-size: 80px;
   color: #ABABAB;
   padding-top: 10px;
-  padding-left: 15px;
+}
+
+.reg {
+  margin-top: 10px
 }
 
 /*END TUTORIAL STYLES*/
@@ -556,11 +553,11 @@ standings th, standings td {
 }
 
 .wBox {
-  width: 30px;
+  width: 25px;
 }
 
 .dollBox {
-  width: 100px;
+  width: 80px;
 }
 
 .active {
