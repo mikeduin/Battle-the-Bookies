@@ -48,12 +48,13 @@ function UserController ($stateParams, picksService, usersService, $state) {
       var ytdDollars = 0
 
       for (i=0; i<stats.length; i++) {
-        dayDollars = stats[i].totalDollars;
+        var dayDollars = stats[i].totalDollars;
+        var date = stats[i].MatchDay.substr(0, stats[i].MatchDay.indexOf(','));
         ytdDollars += dayDollars;
         vm.dailyData.series[0].values.push(dayDollars);
         vm.dailyData.series[1].values.push(ytdDollars);
+        vm.dailyData.scaleX.values.push(date)
       }
-
     })
   }
 
@@ -97,11 +98,11 @@ function UserController ($stateParams, picksService, usersService, $state) {
       'aspect': 'spline',
       'tooltip': '%scale-key-label'
     },
-    'scale-x':{
+    'scaleX':{
       'values': [],
       'offset-y': 4,
     },
-    'scale-y':{
+    'scaleY':{
       'format': '$%v'
     },
     'tooltip':{
@@ -153,7 +154,7 @@ function UserController ($stateParams, picksService, usersService, $state) {
           "sequence":"1"
       },
       "valueBox": {
- 	    "placement": 'in',
+ 	    "placement": 'out',
  	    "text": '%t\n%npv%',
  	    "fontFamily": "Raleway",
       "font-size": 12,

@@ -498,7 +498,7 @@ standings th, standings td {
 }
 
 .day-header {
-  font-size: 22px;
+  font-size: 18px;
   color: #ABABAB;
   font-style: italic;
   font-weight: 600
@@ -643,5 +643,5 @@ gameTitle {
 }
 
 profits {
-  font-size: 20px
+  font-size: 16px
 }
