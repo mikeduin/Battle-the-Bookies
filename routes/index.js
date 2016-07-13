@@ -75,8 +75,8 @@ setInterval(function(){
     picks.forEach(function(pick){
       var HomeScore;
       var AwayScore;
-      Result.findOne({EventID: pick.EventID}, function (err, result){
-        if (err) {next(err)}
+      Result.findOne({EventID: pick.EventID}, function (result){
+        if (!result) {return}
 
         if(result.Final === true) {
           var HomeScore = result.HomeScore;

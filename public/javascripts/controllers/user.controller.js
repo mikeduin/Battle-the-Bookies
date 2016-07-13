@@ -49,11 +49,14 @@ function UserController ($stateParams, picksService, usersService, $state) {
 
       for (i=0; i<stats.length; i++) {
         var dayDollars = stats[i].totalDollars;
+        var lastDate = vm.dailyData.scaleX.values[vm.dailyData.scaleX.values.length - 1]
         var date = stats[i].MatchDay.substr(0, stats[i].MatchDay.indexOf(','));
         ytdDollars += dayDollars;
-        vm.dailyData.series[0].values.push(dayDollars);
-        vm.dailyData.series[1].values.push(ytdDollars);
-        vm.dailyData.scaleX.values.push(date)
+        if (date !== lastDate){
+          vm.dailyData.scaleX.values.push(date);
+          vm.dailyData.series[0].values.push(dayDollars);
+          vm.dailyData.series[1].values.push(ytdDollars);
+        }
       }
     })
   }
@@ -149,7 +152,7 @@ function UserController ($stateParams, picksService, usersService, $state) {
       "animation":{
           "effect":"2",
           "delay":"1000",
-          "speed":"500",
+          "speed":"1000",
           "method":"5",
           "sequence":"1"
       },
