@@ -1,7 +1,7 @@
 # Battle-the-Bookies
 Think you can beat Vegas? Battle the Bookies is the first web application born out of A Level Above's famously high standards in office pools and bracket games, and is the ultimate test of MLB handicapping ability.
 
-Entrants compete against both the oddsmakers in Vegas and their fellow entrants by making a single, theoretical $100 bet on every game of the Major League Baseball season. That bet can be made on each game's spread, moneyline, or total. Depending on the outcome of those bets, dollars are then added to or subtracted from each entrant's game score.
+Users compete against both the oddsmakers in Vegas and their fellow entrants by making a single, theoretical $100 bet on every game of the Major League Baseball season. That bet can be made on each game's spread, moneyline, or total. Depending on the outcome of those bets, dollars are then added to or subtracted from each entrant's game score.
 
 Amongst Battle the Bookies' many features:
 
