@@ -5,7 +5,7 @@ Entrants compete against both the oddsmakers in Vegas and their fellow entrants 
 
 Amongst Battle the Bookies' many features:
 
-  Live odds updates that mimic games' real-life betting lines;
-  Daily and year-to-date Standings and Results pages, updated after the conclusion of every MLB game;
-  User analytics pages detailing an entrant's pick tendencies and score progression.
+- Live odds updates that mimic games' real-life betting lines;
+- Daily and year-to-date Standings and Results pages, updated after the conclusion of every MLB game;
+- User analytics pages detailing an entrant's pick tendencies and score progression.
 
