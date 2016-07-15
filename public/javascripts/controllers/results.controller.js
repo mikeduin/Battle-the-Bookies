@@ -110,15 +110,11 @@ function ResultController (oddsService, picksService, resultsService, usersServi
     oddsService.getDates().then(function(dates){
       vm.daysOfGames = dates;
       var dateArray = vm.daysOfGames;
-      var lastDay = dateArray[dateArray.length - 1]
+      var lastDay = dateArray[dateArray.length - 1];
       var currentDay = moment().format('MMMM Do, YYYY');
       console.log("last day is ", lastDay);
       console.log("current day is ", currentDay);
-      if (lastDay === currentDay) {
-        vm.matchDayFilter = currentDay
-      } else {
-        vm.matchDayFilter = lastDay
-      }
+      vm.matchDayFilter = currentDay;
     })
   };
 

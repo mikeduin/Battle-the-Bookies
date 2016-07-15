@@ -57,14 +57,9 @@ function PickController (oddsService, picksService, resultsService, authService)
     oddsService.getDates().then(function(dates){
       vm.daysOfGames = dates;
       var dateArray = vm.daysOfGames;
-      var lastDay = dateArray[dateArray.length - 1]
+      var lastDay = dateArray[dateArray.length - 1];
       var currentDay = moment().format('MMMM Do, YYYY');
-      if (lastDay === currentDay) {
-        vm.gameDayFilter = currentDay
-      } else {
-        vm.gameDayFilter = lastDay
-      }
-
+      vm.gameDayFilter = currentDay;
     })
   };
 
