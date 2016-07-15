@@ -31,12 +31,8 @@ function picksService ($http, authService) {
       })
     },
     sumToday: function(username, datenumb) {
-      // console.log('datenumb is ' + datenumb)
-      console.log("username in picks service is: " + username);
-      console.log("datenumb in picks service is: " + datenumb);
       return $http.get('/picks/' + username + '/' + datenumb).then(function(result){
         var dayPicks = result.data;
-        // console.log(dayPicks);
         var total = 0;
         for (i=0; i<dayPicks.length; i++) {
           var pickPayout = dayPicks[i].finalPayout;
@@ -69,7 +65,6 @@ function picksService ($http, authService) {
     },
     getPickStats: function(username){
       return $http.get('/picks/' + username + '/stats').then(function(stats){
-        console.log('stats in controller are: ' + stats);
         return stats
       })
     },

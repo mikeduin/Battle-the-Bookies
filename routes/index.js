@@ -186,7 +186,7 @@ router.get('/updateOdds', function(req, res, next) {
           HomeAbbrev: abbrevs.teamAbbrev(odds[i].HomeTeam),
           AwayAbbrev: abbrevs.teamAbbrev(odds[i].AwayTeam),
           MatchTime: new Date(odds[i].MatchTime),
-          MatchDay: moment(odds[i].MatchTime).format('MMMM Do, YYYY'),
+          MatchDay: moment(odds[i].MatchTime).utcOffset(-7).format('MMMM Do, YYYY'),
           DateNumb: parseInt(moment(odds[i].MatchTime).format('YYYYMMDD')),
           Week: setWeek.weekSetter(odds[i].MatchTime),
           MoneyLineHome: odds[i].Odds[0].MoneyLineHome,
@@ -341,7 +341,6 @@ router.get('/dailyStats/:username', function(req, res, next){
 
     Promise.all(sortedDateNumbs.sort().map(function(date){
       return Pick.find({username: username, DateNumb: date}).then(function(results){
-        // console.log(results)
 
         var totalDollars = 0;
         var totalGames = 0;
