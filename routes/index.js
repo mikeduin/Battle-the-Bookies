@@ -75,7 +75,10 @@ setInterval(function(){
     picks.forEach(function(pick){
       var HomeScore;
       var AwayScore;
-      Result.find({EventID: pick.EventID}, function (err, result){
+      Result.findOne({EventID: pick.EventID}, function (err, result){
+        if(err) {next(err)};
+
+        if(!result) {return};
 
         if(result.Final === true) {
           var HomeScore = result.HomeScore;
@@ -217,30 +220,6 @@ router.get('/updateOdds', function(req, res, next) {
     }
   )
 });
-
-// The function below checks un-settled picks to see if its related game has completed. If so, it updates the finalPayout variable for that pick.
-
-setInterval(function(){Pick.find(function(err, picks){
-  if(err) { console.log(err) }
-
-  picks.forEach(function(doc){
-    var finalPayout;
-    if (doc.pickResult === "win") {
-      finalPayout = doc.activePayout
-    } else if (doc.pickResult === "loss") {
-      finalPayout = -100
-    } else {
-      finalPayout = 0
-    }
-
-    Pick.update({"_id": doc._id}, {finalPayout: finalPayout}, function(err){
-      if(err) {console.log(err)}
-
-    })
-  })
-
-  console.log('pick payouts updated at ' + new Date())
-})}, 30000)
 
 // END ROUTES TO AUTO-UPDATE ODDS + RESULTS FROM API
 // BEGIN LINE ROUTES
