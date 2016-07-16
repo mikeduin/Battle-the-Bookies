@@ -189,7 +189,7 @@ router.get('/updateOdds', function(req, res, next) {
           AwayAbbrev: abbrevs.teamAbbrev(odds[i].AwayTeam),
           MatchTime: new Date(odds[i].MatchTime),
           MatchDay: moment(odds[i].MatchTime).utcOffset(-7).format('MMMM Do, YYYY'),
-          DateNumb: parseInt(moment(odds[i].MatchTime).format('YYYYMMDD')),
+          DateNumb: parseInt(moment(odds[i].MatchTime).utcOffset(-7).format('YYYYMMDD')),
           Week: setWeek.weekSetter(odds[i].MatchTime),
           MoneyLineHome: odds[i].Odds[0].MoneyLineHome,
           MoneyLineAway: odds[i].Odds[0].MoneyLineAway,
