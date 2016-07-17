@@ -1,6 +1,5 @@
 angular
   .module('battleBookies')
-  .controller('MainController', MainController)
   .filter('mlFormat', mlFormat)
   .filter('payoutFilter', payoutFilter)
   .filter('percentage', ['$filter', pctFilter])
@@ -31,9 +30,4 @@ function pctFilter ($filter) {
   return function (input, decimals) {
     return $filter('number')(input*100, decimals) + '%';
   }
-}
-
-function MainController () {
-  var vm = this;
-  vm.name = 'mike';
 }

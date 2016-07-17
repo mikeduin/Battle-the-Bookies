@@ -18,7 +18,7 @@ $(document).ready(function(){
     </p>
     <div class="col m12">
       <div class="col m4 offset-m2 center-align">
-        <a ui-sref="home.tutorial"><i class="ionicons intro-icons ion-ios-baseball-outline"></i></a>
+        <a ui-sref="home.tutorial" ng-click="vm.goToId('top')"><i class="ionicons intro-icons ion-ios-baseball-outline"></i></a>
       </div>
       <div class="col m4 center-align">
         <a ui-sref="home.register"><i class="ionicons intro-icons ion-cash"></i></a>
@@ -26,7 +26,7 @@ $(document).ready(function(){
     </div>
     <div class="col m12">
       <div class="col m4 offset-m2 center-align">
-        <a class="homeLink" ui-sref="home.tutorial">TUTORIAL</a>
+        <a class="homeLink" ui-sref="home.tutorial" ng-click="vm.goToId('top')">TUTORIAL</a>
       </div>
       <div class="col m4 center-align">
         <a class="homeLink" ui-sref="home.register">REGISTER</a>

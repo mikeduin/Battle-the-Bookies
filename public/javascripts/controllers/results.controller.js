@@ -89,8 +89,6 @@ function ResultController (oddsService, picksService, resultsService, usersServi
   }
 
   function resultChecker (game) {
-    // console.log(game);
-    // console.log(game.EventID + game.GameStatus);
     if (game.GameStatus !== "Final") {
       vm.getResult(game);
     }
