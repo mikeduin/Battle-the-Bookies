@@ -25,8 +25,21 @@ nav {
 }
 
 .brand-logo {
-  margin-left: 10px;
+  margin-left: 20px;
   color: #EEEEEE;
+  margin-top: 5px
+}
+
+.logo-lead {
+  margin-top: -20px;
+  margin-left: 10px;
+  color: #B4B4B4;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.weak {
+  font-weight: 300;
 }
 
 .fa-bars {
@@ -321,6 +334,10 @@ section > div {
 
 pickleadDiv {
   margin-bottom: -10px;
+}
+
+.login-error {
+  color: #C61B1F;
 }
 
 .juice {
