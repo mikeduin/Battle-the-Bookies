@@ -233,6 +233,12 @@ function PickController (oddsService, picksService, resultsService, authService)
     })
   }
 
+  vm.checkTemplates = function(){
+    picksService.checkTemplates().then(function(result){
+      console.log(result)
+    })
+  }
+
   function displayPayCalc (line) {
     var payout;
     if (line < 0) {

@@ -5,6 +5,7 @@ angular
 function sumUserDay () {
 
   function getDailyTotal (scope, element, attrs, controller) {
+
     scope.$watch('datenumb', function(newValue, oldValue){
       controller.sumDay(scope.user, scope.datenumb).then(function(userDayTotal){
         console.log("userDayTotal is " + userDayTotal);

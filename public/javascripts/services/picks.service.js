@@ -21,6 +21,11 @@ function picksService ($http, authService) {
         return result.data
       })
     },
+    checkTemplates: function(){
+      return $http.get('/checkTemplates').then(function(result){
+        return result
+      })
+    },
     updateDollars: function() {
       return $http.put('/updateDollars').then(function(){
         console.log ('dollars updated')

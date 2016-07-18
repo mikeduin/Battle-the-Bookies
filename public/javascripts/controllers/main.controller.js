@@ -5,10 +5,6 @@ angular
 
 function MainController($location, $anchorScroll) {
   var vm = this;
-  // vm.sayHello = function(){
-  //   console.log('hello')
-  // }
-  // vm.sayHello();
 
   vm.goToId = function(id) {
     console.log('working');
@@ -17,11 +13,5 @@ function MainController($location, $anchorScroll) {
     $anchorScroll();
     $location.hash(old);
   };
-
-  // vm.gotoTop = function() {
-  //   $location.hash('top');
-  //   $anchorScroll();
-  // }
-
 
 }

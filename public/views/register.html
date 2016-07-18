@@ -3,7 +3,7 @@
     <regBox class="col m8 offset-m2 z-depth-2">
       <loginTitle> Register </loginTitle>
       <div class="row">
-        <form class="col s12" ng-submit="vm.register(user)">
+        <form class="col s12" name="regForm" ng-submit="vm.register(user)">
             <div class="row">
               <div class="input-field col s5 offset-s1">
                 <i class="fa fa-user prefix" aria-hidden="true"></i>
@@ -24,8 +24,11 @@
               </div>
               <div class="input-field col s5">
                 <i class="material-icons prefix"></i>
-                <input type="password" class="validate" ng-model="user.confirmPassword">
+                <input type="password" class="validate" name="confirmPassword" ng-model="user.confirmPassword">
                 <label>Confirm Password</label>
+              </div>
+              <div class="offset-s2 col-s10 center-align form-error" >
+
               </div>
             </div>
             <div class="row">

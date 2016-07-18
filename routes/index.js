@@ -285,6 +285,50 @@ router.get('/picks', function (req, res, next){
   })
 })
 
+// This function below checks every five minutes to see if new lines have been added, and if so, adds user pick templates for those lines to ensure results are displayed correctly and in the proper order.
+
+setInterval(function(){
+  User.find(function(err, users){
+    if (err) {console.log(err)}
+
+  }).then(function(users){
+    users.forEach(function(user){
+      Line.find(function(err, lines){
+        if (err) {console.log(err)}
+
+      }).then(function(lines){
+        lines.forEach(function(line){
+          Pick.find({
+            username: user.username,
+            EventID: line.EventID
+          }, function (err, pick){
+            if (err) {console.log(err)}
+
+            if(!pick[0]) {
+
+              var template = Pick({
+                username: user.username,
+                EventID: line.EventID,
+                MatchDay: line.MatchDay,
+                MatchTime: line.MatchTime,
+                DateNumb: line.DateNumb,
+                finalPayout: 0
+              });
+
+              template.save(function(err, template){
+                if (err) {console.log(err)}
+
+                console.log(template + 'has been saved as a template!')
+              })
+            }
+          })
+        })
+      })
+    })
+  })
+  console.log("auto-templating complete")
+}, 300000)
+
 router.get('/picks/checkSubmission/:EventID', auth, function(req, res, next){
   Pick.find({
     username: req.payload.username,
