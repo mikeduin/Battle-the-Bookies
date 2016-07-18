@@ -44,7 +44,7 @@
         <td class="nobr center-align"> <b> {{user.sumYtd | currency:$:0}} </b> </td>
         <td class="nobr"> <b> <sum-user-day user="user" datenumb="vm.dateNumbFilter"> </sum-user-day>
         </b> </td>
-        <td ng-repeat="pick in vm.picks | orderBy: [vm.gameSort, vm.gameSortTwo] | filter: {MatchDay: vm.matchDayFilter} | filter: {username: user.username}" ng-class="{pickWin: pick.pickResult === 'win', pickLoss: pick.pickResult === 'loss', pickPush: pick.pickResult === 'push'}" ng-init="vm.pickSettle(pick)"> {{pick.activePick}} <br><span> {{pick.dollars | currency:$:0}} </span> </td>
+        <td ng-repeat="pick in vm.picks | orderBy: [vm.gameSort, vm.gameSortTwo] | filter: {MatchDay: vm.matchDayFilter} | filter: {username: user.username}" ng-class="{pickWin: pick.pickResult === 'win', pickLoss: pick.pickResult === 'loss', pickPush: pick.pickResult === 'push'}" ng-init="vm.pickSettle(pick); vm.matchTimePull(pick.MatchTime)"> {{pick.activePick}} <br><span> {{pick.dollars | currency:$:0}} </span> </td>
       </tr>
     </tbody>
   </table>

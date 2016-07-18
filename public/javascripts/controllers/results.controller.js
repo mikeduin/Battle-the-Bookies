@@ -28,9 +28,9 @@ function ResultController (oddsService, picksService, resultsService, usersServi
     })
   }
 
-  // vm.matchTimePull = function(time) {
-  //   vm.dateNumbFilter = moment(time).utcOffset(-7).format('YYYYMMDD')
-  // }
+  vm.matchTimePull = function(time) {
+    vm.dateNumbFilter = moment(time).format('YYYYMMDD')
+  }
 
   vm.sumDay = function(user, datenumb) {
     username = user.username;
@@ -114,7 +114,7 @@ function ResultController (oddsService, picksService, resultsService, usersServi
       console.log("last day is ", lastDay);
       console.log("current day is ", currentDay);
       vm.matchDayFilter = currentDay;
-      vm.dateNumbFilter = currentDateNumb
+      // vm.dateNumbFilter = currentDateNumb;
     })
   };
 
