@@ -301,14 +301,16 @@ setInterval(function(){
         EventID: line.EventID
       }, {
         MatchTime: line.MatchTime
-      }, function(err, result){
+      }, {
+        multi: true
+      },function(err, result){
         if (err) {console.log(err)}
 
       })
     })
   })
-  console.log("matchtimes have been update")
-}, 300000)
+  console.log("matchtimes have been updated")
+}, 30000)
 
 // This function below checks every five minutes to see if new lines have been added, and if so, adds user pick templates for those lines to ensure results are displayed correctly and in the proper order.
 
