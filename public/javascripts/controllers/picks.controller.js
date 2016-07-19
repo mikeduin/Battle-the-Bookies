@@ -37,6 +37,12 @@ function PickController (oddsService, picksService, resultsService, authService)
   vm.activePayCalc = activePayCalc;
   vm.mlFormat = mlFormat;
 
+  vm.checkGametimes = function() {
+    picksService.checkGametimes().then(function(result){
+      return result
+    })
+  }
+
   function currentUser() {
     return authService.currentUser();
   }

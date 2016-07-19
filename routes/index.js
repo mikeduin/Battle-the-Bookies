@@ -285,6 +285,31 @@ router.get('/picks', function (req, res, next){
   })
 })
 
+// The function below checks every 30 minutes to make sure that no game start times have been adjusted and then updates the associated picks with the new start times in order to show that games and picks are displayed in an identical order on the Results page.
+
+setInterval(function(){
+  Line.find({
+    GameStatus: {
+      $exists: false
+    }
+  }, function (err, lines){
+    if (err) {console.log(err)}
+
+  }).then(function(lines){
+    lines.forEach(function(line){
+      Pick.update({
+        EventID: line.EventID
+      }, {
+        MatchTime: line.MatchTime
+      }, function(err, result){
+        if (err) {console.log(err)}
+
+      })
+    })
+  })
+  console.log("matchtimes have been update")
+}, 1800000)
+
 // This function below checks every five minutes to see if new lines have been added, and if so, adds user pick templates for those lines to ensure results are displayed correctly and in the proper order.
 
 setInterval(function(){

@@ -26,6 +26,11 @@ function picksService ($http, authService) {
         return result
       })
     },
+    checkGametimes: function(){
+      return $http.get('/checkGametimes').then(function(result){
+        console.log(result)
+      })
+    },
     updateDollars: function() {
       return $http.put('/updateDollars').then(function(){
         console.log ('dollars updated')
