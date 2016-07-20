@@ -1,9 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var jwt = require('express-jwt');
-var auth = jwt({secret: 'SECRET', userProperty: 'payload'})
+var auth = jwt({secret: process.env.SESSION_SECRET, userProperty: 'payload'})
 var fetch = require('node-fetch');
-var moment = require ('moment');
+var moment = require('moment');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -310,7 +310,7 @@ setInterval(function(){
     })
   })
   console.log("matchtimes have been updated")
-}, 30000)
+}, 300000)
 
 // This function below checks every five minutes to see if new lines have been added, and if so, adds user pick templates for those lines to ensure results are displayed correctly and in the proper order.
 

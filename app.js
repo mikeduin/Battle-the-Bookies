@@ -5,11 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var nodemailer = require('nodemailer');
 var passport = require('passport');
 var moment = require('moment-timezone');
+require('dotenv').load();
 
 mongoose.connect(
-  'mongodb://heroku_g06snpv7:mv875ai9mqgfpcu5olep8gfhk9@ds021289.mlab.com:21289/heroku_g06snpv7'
+  process.env.MONGOLAB_URI
   // ||
   // 'mongodb://localhost/battleTheBookies'
 );

@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
+require('dotenv').load();
 
 var UserSchema = new mongoose.Schema({
   username: String,
@@ -9,7 +10,9 @@ var UserSchema = new mongoose.Schema({
   nameLast: String,
   buyin: String,
   hash: String,
-  salt: String
+  salt: String,
+  resetPasswordToken: String,
+  resetPasswordExpires: Date
 })
 
 UserSchema.methods.setPassword = function(password) {
@@ -32,7 +35,7 @@ UserSchema.methods.generateJWT = function () {
   var exp = new Date(today);
   exp.setDate(today.getDate()+ 60);
 
-  //this function below takes two arguments - the payload that will be signed by the JWT + the secret. Hard-coding 'SECRET' for now but need to come back and change that to an environment variable so the secret is kept out of our code. This 'SECRET' reference is also included in the auth variable at the top of index.js, so remember to change that too.
+  //this function below takes two arguments - the payload that will be signed by the JWT + the secret. Hard-coding 'SECRET' for now but need to come back and change that to an environment variable so the secret is kept out of our code. This 'SECRET' reference is also included in the auth variable in index.js, so remember to change that too.
   return jwt.sign({
     _id: this._id,
     username: this.username,
@@ -40,7 +43,7 @@ UserSchema.methods.generateJWT = function () {
     nameFirst: this.nameFirst,
     nameLast: this.nameLast,
     exp: parseInt(exp.getTime() / 1000),
-  }, 'SECRET')
+  }, process.env.SESSION_SECRET)
 };
 
 mongoose.model('User', UserSchema)
