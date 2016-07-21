@@ -45,6 +45,26 @@ function siteConfig ($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('home.forgotpw', {
+      url: 'forgot',
+      views: {
+        'content@': {
+          templateUrl: 'views/forgotpw.html',
+          controller: 'AuthController',
+          controllerAs: 'vm'
+        }
+      }
+    })
+    .state('home.resetpw', {
+      url: 'reset',
+      views: {
+        'content@': {
+          templateUrl: 'views/resetpw.html',
+          controller: 'AuthController',
+          controllerAs: 'vm'
+        }
+      }
+    })
     .state('home.tutorial', {
       url: 'tutorial',
       views: {

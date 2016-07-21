@@ -27,7 +27,7 @@ setInterval(function(){
   fetch('https://jsonodds.com/api/results/mlb', {
     method: 'GET',
     headers: {
-      'JsonOdds-API-Key': '26f594b0-3f1f-42ae-b2c9-c1607625a905'
+      'JsonOdds-API-Key': process.env.API_KEY
     }
   }).then(function(res){
     return res.json()
@@ -169,7 +169,7 @@ router.get('/updateOdds', function(req, res, next) {
   fetch('https://jsonodds.com/api/odds/mlb', {
     method: 'GET',
     headers: {
-      'JsonOdds-API-Key': '26f594b0-3f1f-42ae-b2c9-c1607625a905'
+      'JsonOdds-API-Key': process.env.API_KEY
     }
   }).then(function(res){
     return res.json()
@@ -232,20 +232,20 @@ router.get('/lines', function(req, res, next){
   })
 })
 
-router.put('/lines/updateStatus', function (req, res, next){
-  console.log(req.body)
-  Line.update({EventID: req.body[0].EventID},
-    {
-      GameStatus: "Final",
-      HomeScore: req.body[0].HomeScore,
-      AwayScore: req.body[0].AwayScore,
-    },
-    function(err, game){
-    if (err) { console.log(err) };
-
-    console.log('game status updated to final')
-  })
-})
+// router.put('/lines/updateStatus', function (req, res, next){
+//   console.log(req.body)
+//   Line.update({EventID: req.body[0].EventID},
+//     {
+//       GameStatus: "Final",
+//       HomeScore: req.body[0].HomeScore,
+//       AwayScore: req.body[0].AwayScore,
+//     },
+//     function(err, game){
+//     if (err) { console.log(err) };
+//
+//     console.log('game status updated to final')
+//   })
+// })
 
 // END LINE ROUTES
 // BEGIN RESULTS ROUTES
@@ -270,9 +270,9 @@ router.param('EventID', function(req, res, next, EventID) {
   })
 })
 
-router.get('/results/:EventID', function(req, res) {
-    res.json(req.result);
-})
+// router.get('/results/:EventID', function(req, res) {
+//     res.json(req.result);
+// })
 
 // END RESULTS ROUTES
 // BEGIN PICK ROUTES
@@ -290,7 +290,7 @@ router.get('/picks', function (req, res, next){
 setInterval(function(){
   Line.find({
     GameStatus: {
-      $exists: false
+      $ne: "final"
     }
   }, function (err, lines){
     if (err) {console.log(err)}
@@ -311,6 +311,70 @@ setInterval(function(){
   })
   console.log("matchtimes have been updated")
 }, 300000)
+
+
+setInterval(function(){
+  Line.find({
+    GameStatus: {
+      $ne: "Final"
+    }
+  }, function(err, lines){
+    if (err) {console.log(err)}
+  }).then(function(lines){
+    lines.forEach(function(line){
+      Result.find({EventID: line.EventID}, function(err, result){
+        if (err) {console.log(err)}
+
+      }).then(function(result){
+        if (result[0].Final === true) {
+          Line.update({EventID: result[0].EventID}, {
+            HomeScore: result[0].HomeScore,
+            AwayScore: result[0].AwayScore,
+            GameStatus: "Final"
+          }, function(err, message){
+            if(err) {console.log(err)}
+
+            console.log("game final has been updated")
+          })
+        } else {
+          console.log(result[0].EventID + " is not final")
+        }
+      })
+    })
+  })
+}, 30000)
+
+// router.get('/newResultCheck', function(req, res, next){
+//   Line.find({
+//     GameStatus: {
+//       $ne: "Final"
+//     }
+//   }, function(err, lines){
+//     if (err) {console.log(err)}
+//   }).then(function(lines){
+//     lines.forEach(function(line){
+//       Result.find({EventID: line.EventID}, function(err, result){
+//         if (err) {console.log(err)}
+//
+//       }).then(function(result){
+//         if (result[0].Final === true) {
+//           Line.update({EventID: result[0].EventID}, {
+//             HomeScore: result[0].HomeScore,
+//             AwayScore: result[0].AwayScore,
+//             GameStatus: "Final"
+//           }, function(err, message){
+//             if(err) {console.log(err)}
+//
+//             console.log("game final has been updated")
+//           })
+//         } else {
+//           console.log(result[0].EventID + " is not final")
+//         }
+//       })
+//     })
+//   })
+// })
+
 
 // This function below checks every five minutes to see if new lines have been added, and if so, adds user pick templates for those lines to ensure results are displayed correctly and in the proper order.
 
@@ -610,6 +674,72 @@ router.post('/login', function(req, res, next){
     }
   })(req, res, next);
 });
+
+// router.post('/forgot', function(req, res, next){
+//   async.waterfall([
+//     function(done) {
+//       crypto.randomBytes(20, function(err, buf){
+//         var token = buf.toString('hex');
+//         done(err, token)
+//       });
+//     },
+//     function(token, done){
+//       User.findOne({ email: req.body.email }, function(err, user){
+//         if (!user) {
+//           return res.status(400).json({message: 'No account with that email address exists'});
+//         }
+//
+//         user.resetPasswordToken = token;
+//         user.resetPasswordExpires = Date.now() + 3600000;
+//
+//         user.save(function(err){
+//           done(err, token, user);
+//         });
+//       });
+//     },
+//     function(token, user, done){
+//       var smtpTransport = nodemailer.createTransport('SMTP', {
+//         service: 'Mailgun',
+//         auth: {
+//           user: process.env.MAILGUN_USER,
+//           pass: process.env.MAILGUN_PW
+//         }
+//       });
+//       var mailOptions = {
+//         to: user.email,
+//         from: 'mike@mg.mikeduin.com',
+//         subject: 'Battle the Bookies Password Reset',
+//         text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+//           'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+//           'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+//           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+//       };
+//       smtpTransport.sendMail(mailOptions, function(err, info){
+//         console.log('Message sent: ' + info.response)
+//         done(err, 'done');
+//       })
+//     }
+//   ], function(err) {
+//     if (err) return next (err);
+//     // Need to change this below
+//     res.redirect('/forgot')
+//   });
+// })
+//
+// router.get('/reset/:token', function(req, res) {
+//   User.findOne({
+//     resetPasswordToken: req.params.token, resetPasswordExpires: {
+//       $gt: Date.now()
+//     }
+//   }, function(err, user) {
+//     if (!user) {
+//       return res.status(400).json({message: 'Password reset token is invalid or has expired'});
+//     }
+//     res.render('reset', {
+//       user: req.user
+//     });
+//   });
+// });
 
 // END AUTH ROUTES
 

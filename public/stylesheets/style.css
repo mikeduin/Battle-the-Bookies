@@ -124,6 +124,11 @@ loginTitle {
   font-weight: 700;
 }
 
+.forgot {
+  margin-top: 25px;
+  font-weight: 600;
+}
+
 loginBox i {
   padding-top: 10px
 }

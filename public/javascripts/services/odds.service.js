@@ -14,11 +14,11 @@ function oddsService ($http) {
         return lines.data
       })
     },
-    updateStatus: function(result){
-      return $http.put('/lines/updateStatus', result).then(function(){
-        console.log('status updated')
-      })
-    },
+    // updateStatus: function(result){
+    //   return $http.put('/lines/updateStatus', result).then(function(){
+    //     console.log('status updated')
+    //   })
+    // },
     getPicks: function(){
       return $http.get('/picks').then(function(picks){
         return picks.data

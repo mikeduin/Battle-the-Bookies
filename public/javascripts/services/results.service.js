@@ -14,11 +14,11 @@ function resultsService ($http){
         console.log(results.data);
         return results.data
       })
-    },
-    getResult: function(EventID){
-      return $http.get('/results/' + EventID).then(function(result){
-        return result.data
-      })
     }
+    // getResult: function(EventID){
+    //   return $http.get('/results/' + EventID).then(function(result){
+    //     return result.data
+    //   })
+    // }
   }
 }

@@ -4,7 +4,7 @@
       <p class="resHead"> Daily Results </p>
     </div>
     <notice class="col m4">
-      <b>NOTE</b>: <i>There are no baseball games from July 11th - 14th due to the MLB All-Star Break.</i>
+      <b>NOTE</b>: <i>There were no baseball games from July 11th - 14th due to the MLB All-Star Break.</i>
     </notice>
     <selectDiv class="col m2 offset-m1 res-select">
         <label> Select a Day </label>
@@ -14,7 +14,7 @@
     </selectDiv>
     <selectDiv class="col m2 res-select">
         <label> Sort by </label>
-        <select class="browser-default" ng-model="vm.userSort">
+        <select class="browser-default" ng-mode`l="vm.userSort">
           <option value="-sumYtd"> YTD $ </option>
           <option value="-sumDay"> Daily $ </option>
         </select>
@@ -35,7 +35,7 @@
         <th class="center-align">
           Daily $
         </th>
-        <th ng-repeat="game in vm.mlbLines | orderBy: [vm.gameSort, vm.gameSortTwo] | filter: { MatchDay: vm.matchDayFilter }" ng-init="vm.resultChecker(game)"> <span class="nobr">{{game.AwayAbbrev}} {{game.AwayScore}} </span> <br> <span class="nobr"> {{game.HomeAbbrev}} {{game.HomeScore}} </span> <br> {{game.GameStatus}} </th>
+        <th ng-repeat="game in vm.mlbLines | orderBy: [vm.gameSort, vm.gameSortTwo] | filter: { MatchDay: vm.matchDayFilter }"> <span class="nobr">{{game.AwayAbbrev}} {{game.AwayScore}} </span> <br> <span class="nobr"> {{game.HomeAbbrev}} {{game.HomeScore}} </span> <br> {{game.GameStatus}} </th>
       </tr>
     </thead>
     <tbody>
@@ -49,3 +49,5 @@
     </tbody>
   </table>
 </results>
+
+<button name="button" ng-click="vm.newResultCheck()">New Result Checker</button>

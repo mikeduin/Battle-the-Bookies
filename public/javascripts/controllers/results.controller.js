@@ -15,12 +15,18 @@ function ResultController (oddsService, picksService, resultsService, usersServi
   vm.userSort = "-sumYtd";
   vm.updateResults = updateResults;
   vm.getPicks = getPicks;
-  vm.getResult = getResult;
-  vm.resultChecker = resultChecker;
+  // vm.getResult = getResult;
+  // vm.resultChecker = resultChecker;
   vm.getDates = getDates;
   vm.activeUserSumToday;
   vm.picks = [];
   vm.users = [];
+
+  // vm.newResultCheck = function(){
+  //   resultsService.newResultCheck().then(function(result){
+  //     console.log(result)
+  //   })
+  // }
 
   vm.getAllUsers = function(){
     usersService.getAllUsers().then(function(result){
@@ -88,21 +94,21 @@ function ResultController (oddsService, picksService, resultsService, usersServi
     })
   }
 
-  function resultChecker (game) {
-    if (game.GameStatus !== "Final") {
-      vm.getResult(game);
-    }
-  }
+  // function resultChecker (game) {
+  //   if (game.GameStatus !== "Final") {
+  //     vm.getResult(game);
+  //   }
+  // }
 
-  function getResult (game) {
-    resultsService.getResult(game.EventID).then(function(result){
-      game.HomeScore = result[0].HomeScore;
-      game.AwayScore = result[0].AwayScore;
-      if (result[0].Final === true) {
-        oddsService.updateStatus(result);
-      }
-    })
-  }
+  // function getResult (game) {
+  //   resultsService.getResult(game.EventID).then(function(result){
+  //     game.HomeScore = result[0].HomeScore;
+  //     game.AwayScore = result[0].AwayScore;
+  //     if (result[0].Final === true) {
+  //       oddsService.updateStatus(result);
+  //     }
+  //   })
+  // }
 
   function getDates () {
     oddsService.getDates().then(function(dates){
