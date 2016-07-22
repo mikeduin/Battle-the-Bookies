@@ -584,7 +584,6 @@ router.put('/picks', auth, function(req, res, next){
       function(err, line){
         if (err) {console.log(err)}
 
-        console.log("line is updated with MLAwayPick: ", line)
       })
     } else if (pick.pickType === "Home Moneyline") {
       Line.findOneAndUpdate({EventID: pick.EventID}, {
@@ -595,7 +594,6 @@ router.put('/picks', auth, function(req, res, next){
       function(err, line){
         if (err) {console.log(err)}
 
-        console.log("line is updated with MLHomePick: ", line)
       })
     } else if (pick.pickType === "Home Spread") {
       Line.findOneAndUpdate({EventID: pick.EventID}, {
@@ -606,7 +604,6 @@ router.put('/picks', auth, function(req, res, next){
       function(err, line){
         if (err) {console.log(err)}
 
-        console.log("line is updated with SpreadHomePick: ", line)
       })
     } else if (pick.pickType === "Away Spread") {
       Line.findOneAndUpdate({EventID: pick.EventID}, {
@@ -617,7 +614,6 @@ router.put('/picks', auth, function(req, res, next){
       function(err, line){
         if (err) {console.log(err)}
 
-        console.log("line is updated with SpreadAwayPick: ", line)
       })
     } else if (pick.pickType === "Total Over") {
       Line.findOneAndUpdate({EventID: pick.EventID}, {
@@ -628,7 +624,6 @@ router.put('/picks', auth, function(req, res, next){
       function(err, line){
         if (err) {console.log(err)}
 
-        console.log("line is updated with OverPick: ", line)
       })
     } else if (pick.pickType === "Total Under") {
       Line.findOneAndUpdate({EventID: pick.EventID}, {
@@ -639,7 +634,6 @@ router.put('/picks', auth, function(req, res, next){
       function(err, line){
         if (err) {console.log(err)}
 
-        console.log("line is updated with UnderPick: ", line)
       })
     } else {
       console.log("no pick type was found")
