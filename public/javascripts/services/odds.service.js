@@ -14,11 +14,6 @@ function oddsService ($http) {
         return lines.data
       })
     },
-    // updateStatus: function(result){
-    //   return $http.put('/lines/updateStatus', result).then(function(){
-    //     console.log('status updated')
-    //   })
-    // },
     getPicks: function(){
       return $http.get('/picks').then(function(picks){
         return picks.data
@@ -35,6 +30,8 @@ function oddsService ($http) {
           }
         }
         console.log("dates are: " + dates);
+        // dates.sort();
+        // console.log("sorted dates are: " + dates)
         return dates;
       })
     },

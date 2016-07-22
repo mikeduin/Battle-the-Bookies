@@ -640,6 +640,7 @@ router.put('/picks', auth, function(req, res, next){
     }
 
     console.log(pick + ' has been updated with pick submission info!');
+    res.json(pick);
   })
 })
 
