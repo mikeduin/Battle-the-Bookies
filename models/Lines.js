@@ -36,7 +36,13 @@ var LineSchema = new mongoose.Schema({
   UnderLine: Number,
   GameStatus: String,
   HomeScore: Number,
-  AwayScore: Number
+  AwayScore: Number,
+  MLHomePicks: Number,
+  MLAwayPicks: Number,
+  SpreadHomePicks: Number,
+  SpreadAwayPicks: Number,
+  OverPicks: Number,
+  UnderPicks: Number
 })
 
 mongoose.model('Line', LineSchema);

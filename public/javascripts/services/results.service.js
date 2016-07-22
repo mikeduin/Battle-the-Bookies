@@ -15,10 +15,5 @@ function resultsService ($http){
         return results.data
       })
     }
-    // getResult: function(EventID){
-    //   return $http.get('/results/' + EventID).then(function(result){
-    //     return result.data
-    //   })
-    // }
   }
 }

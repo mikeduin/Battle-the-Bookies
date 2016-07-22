@@ -64,7 +64,6 @@ setInterval(function(){
   })
 }, 30000)
 
-
 // The next function below looks for picks that have a finalPayout of ZERO (e.g., they have not been 'settled' yet) then checks to see if the Result of that pick's game is final. If the result IS final, it updates the picks with the HomeScore and AwayScore and sets 'Final' to true for that pick. THEN, it runs through each potential outcome based on PickType and updates the result variables accordingly.
 
 setInterval(function(){
@@ -232,86 +231,32 @@ router.get('/lines', function(req, res, next){
   })
 })
 
-// router.put('/lines/updateStatus', function (req, res, next){
-//   console.log(req.body)
-//   Line.update({EventID: req.body[0].EventID},
-//     {
-//       GameStatus: "Final",
-//       HomeScore: req.body[0].HomeScore,
-//       AwayScore: req.body[0].AwayScore,
-//     },
-//     function(err, game){
-//     if (err) { console.log(err) };
-//
-//     console.log('game status updated to final')
-//   })
-// })
-
-// END LINE ROUTES
-// BEGIN RESULTS ROUTES
-
-router.get('/results', function(req, res, next){
-  Result.find(function(err, games) {
-    if (err) { next(err) };
-
-    res.json(games);
-  })
-})
-
-router.param('EventID', function(req, res, next, EventID) {
-  var query = Result.find({ EventID: EventID });
-
-  query.exec(function (err, result) {
-    if (err) { next(err) }
-    if (!result) {return next(new Error("can't find game")); }
-
-    req.result = result;
-    return next();
-  })
-})
-
-// router.get('/results/:EventID', function(req, res) {
-//     res.json(req.result);
-// })
-
-// END RESULTS ROUTES
-// BEGIN PICK ROUTES
-
-router.get('/picks', function (req, res, next){
-  Pick.find(function(err, picks){
-    if(err) { next(err) }
-
-    res.json(picks)
-  })
-})
-
-// The function below checks every five minutes to make sure that no game start times have been adjusted and then updates the associated picks with the new start times in order to show that games and picks are displayed in an identical order on the Results page.
-
 setInterval(function(){
   Line.find({
-    GameStatus: {
-      $ne: "final"
+    MLHomePicks: {
+      $exists: false
     }
-  }, function (err, lines){
+  }, function(err, lines){
     if (err) {console.log(err)}
 
-  }).then(function(lines){
     lines.forEach(function(line){
-      Pick.update({
-        EventID: line.EventID
-      }, {
-        MatchTime: line.MatchTime
-      }, {
-        multi: true
-      },function(err, result){
-        if (err) {console.log(err)}
-
+      Line.findOneAndUpdate({EventID: line.EventID}, {
+        MLHomePicks: 0,
+        MLAwayPicks: 0,
+        SpreadHomePicks: 0,
+        SpreadAwayPicks: 0,
+        OverPicks: 0,
+        UnderPicks: 0
+      }, function(err, line){
+        console.log(line, " was updated")
       })
     })
-  })
-  console.log("matchtimes have been updated")
-}, 300000)
 
+    console.log("pick counters updated")
+  })
+}, 10000)
+
+// This function checks to see if a game is final and, if so, updates the line data with the final score and change's the game status
 
 setInterval(function(){
   Line.find({
@@ -344,37 +289,66 @@ setInterval(function(){
   })
 }, 30000)
 
-// router.get('/newResultCheck', function(req, res, next){
-//   Line.find({
-//     GameStatus: {
-//       $ne: "Final"
-//     }
-//   }, function(err, lines){
-//     if (err) {console.log(err)}
-//   }).then(function(lines){
-//     lines.forEach(function(line){
-//       Result.find({EventID: line.EventID}, function(err, result){
-//         if (err) {console.log(err)}
-//
-//       }).then(function(result){
-//         if (result[0].Final === true) {
-//           Line.update({EventID: result[0].EventID}, {
-//             HomeScore: result[0].HomeScore,
-//             AwayScore: result[0].AwayScore,
-//             GameStatus: "Final"
-//           }, function(err, message){
-//             if(err) {console.log(err)}
-//
-//             console.log("game final has been updated")
-//           })
-//         } else {
-//           console.log(result[0].EventID + " is not final")
-//         }
-//       })
-//     })
-//   })
-// })
+// END LINE ROUTES
+// BEGIN RESULTS ROUTES
 
+router.get('/results', function(req, res, next){
+  Result.find(function(err, games) {
+    if (err) { next(err) };
+
+    res.json(games);
+  })
+})
+
+router.param('EventID', function(req, res, next, EventID) {
+  var query = Result.find({ EventID: EventID });
+
+  query.exec(function (err, result) {
+    if (err) { next(err) }
+    if (!result) {return next(new Error("can't find game")); }
+
+    req.result = result;
+    return next();
+  })
+})
+
+// END RESULTS ROUTES
+// BEGIN PICK ROUTES
+
+router.get('/picks', function (req, res, next){
+  Pick.find(function(err, picks){
+    if(err) { next(err) }
+
+    res.json(picks)
+  })
+})
+
+// The function below checks every five minutes to make sure that no game start times have been adjusted and then updates the associated picks with the new start times in order to show that games and picks are displayed in an identical order on the Results page.
+
+setInterval(function(){
+  Line.find({
+    GameStatus: {
+      $ne: "Final"
+    }
+  }, function (err, lines){
+    if (err) {console.log(err)}
+
+  }).then(function(lines){
+    lines.forEach(function(line){
+      Pick.update({
+        EventID: line.EventID
+      }, {
+        MatchTime: line.MatchTime
+      }, {
+        multi: true
+      },function(err, result){
+        if (err) {console.log(err)}
+
+      })
+    })
+  })
+  console.log("matchtimes have been updated")
+}, 300000)
 
 // This function below checks every five minutes to see if new lines have been added, and if so, adds user pick templates for those lines to ensure results are displayed correctly and in the proper order.
 
@@ -570,8 +544,9 @@ router.post('/picks/addTemp', auth, function (req, res, next){
   })
 })
 
+// The following function both updates the user pick template with the user's actual pick and then updates the line's counters that track pick types.
+
 router.put('/picks', auth, function(req, res, next){
-  console.log(req.body);
   var activeSpread;
   var activeTotal;
   if (req.body.activeSpread) {
@@ -585,7 +560,7 @@ router.put('/picks', auth, function(req, res, next){
     activeTotal = 0;
   };
 
-  Pick.update({
+  Pick.findOneAndUpdate({
     EventID: req.body.activeGame,
     username: req.payload.username,
   }, {
@@ -597,11 +572,80 @@ router.put('/picks', auth, function(req, res, next){
     pickType: req.body.pickType,
     favType: req.body.favType,
     submittedAt: new Date()
-  }, function(err, pick) {
+  }, {new: true}, function(err, pick) {
     if (err) {console.log(err)}
 
+    if (pick.pickType === "Away Moneyline") {
+      Line.findOneAndUpdate({EventID: pick.EventID}, {
+        $inc: {
+          MLAwayPicks: 1
+        }
+      }, {new: true},
+      function(err, line){
+        if (err) {console.log(err)}
+
+        console.log("line is updated with MLAwayPick: ", line)
+      })
+    } else if (pick.pickType === "Home Moneyline") {
+      Line.findOneAndUpdate({EventID: pick.EventID}, {
+        $inc: {
+          MLHomePicks: 1
+        }
+      }, {new: true},
+      function(err, line){
+        if (err) {console.log(err)}
+
+        console.log("line is updated with MLHomePick: ", line)
+      })
+    } else if (pick.pickType === "Home Spread") {
+      Line.findOneAndUpdate({EventID: pick.EventID}, {
+        $inc: {
+          SpreadHomePicks: 1
+        }
+      }, {new: true},
+      function(err, line){
+        if (err) {console.log(err)}
+
+        console.log("line is updated with SpreadHomePick: ", line)
+      })
+    } else if (pick.pickType === "Away Spread") {
+      Line.findOneAndUpdate({EventID: pick.EventID}, {
+        $inc: {
+          SpreadAwayPicks: 1
+        }
+      }, {new: true},
+      function(err, line){
+        if (err) {console.log(err)}
+
+        console.log("line is updated with SpreadAwayPick: ", line)
+      })
+    } else if (pick.pickType === "Total Over") {
+      Line.findOneAndUpdate({EventID: pick.EventID}, {
+        $inc: {
+          OverPicks: 1
+        }
+      }, {new: true},
+      function(err, line){
+        if (err) {console.log(err)}
+
+        console.log("line is updated with OverPick: ", line)
+      })
+    } else if (pick.pickType === "Total Under") {
+      Line.findOneAndUpdate({EventID: pick.EventID}, {
+        $inc: {
+          UnderPicks: 1
+        }
+      }, {new: true},
+      function(err, line){
+        if (err) {console.log(err)}
+
+        console.log("line is updated with UnderPick: ", line)
+      })
+    } else {
+      console.log("no pick type was found")
+    }
+
     console.log(pick + ' has been updated with pick submission info!');
-    res.json(pick);
   })
 })
 
