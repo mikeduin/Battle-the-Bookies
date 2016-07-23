@@ -25,6 +25,7 @@ function oddsService ($http) {
         var dates = [];
         var games = lines.data;
         for (var i in games) {
+          console.log((games[i].MatchDay));
           if (dates.indexOf(games[i].MatchDay) === -1) {
             dates.push(games[i].MatchDay)
           }
