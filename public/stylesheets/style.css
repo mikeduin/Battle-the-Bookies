@@ -1,6 +1,8 @@
+
 body {
   padding-left: 5px;
   padding-right: 5px;
+  background-size: cover;
   font-family: 'Raleway', sans-serif;
 }
 
@@ -97,7 +99,7 @@ subLead {
 /*BEGIN LOGIN + REG STYLES*/
 
 loginBox {
-  margin-top: 80px;
+  margin-top: 140px;
   display: inline-block;
   background-color: #eeeeee;
   border: solid 3px #B4B4B4;
@@ -111,7 +113,7 @@ error {
 }
 
 regBox {
-  margin-top: 30px;
+  margin-top: 80px;
   display: inline-block;
   background-color: #eeeeee;
   border: solid 3px #B4B4B4;
@@ -133,10 +135,18 @@ loginBox i {
   padding-top: 10px
 }
 
-regBack {
-  height: 550px;
-  background: url('../images/bet_board2.png') no-repeat center center;
+.image-back {
+  background: url('../images/bet_board2.png') no-repeat;
   background-size: cover;
+  min-height: 100%;
+  min-width: 1024px;
+
+  width: 100%;
+  height: auto;
+
+  position: fixed;
+  top: 0;
+  left: 0;
 }
 
 regBox i {
@@ -166,6 +176,16 @@ regBox form label {
 }
 /* label underline focus color */
 .input-field input[type=text]:focus {
+  border-bottom: 1px solid #01579B;
+  box-shadow: 0 1px 0 0 #01579B;
+}
+
+/* label focus color */
+.input-field input[type=email]:focus + label {
+  color: #01579B;
+}
+/* label underline focus color */
+.input-field input[type=email]:focus {
   border-bottom: 1px solid #01579B;
   box-shadow: 0 1px 0 0 #01579B;
 }
@@ -227,6 +247,24 @@ buyInLevel span {
   color: #01579B;
   font-style: italic;
   font-weight: 600;
+  margin-left: -30px;
+}
+
+.form-error {
+  color: #B71C1C;
+  font-weight: 600;
+}
+
+.bronze {
+  color: #6D4C41;
+}
+
+.silver {
+  color: #616161;
+}
+
+.gold {
+  color: #B68708;
 }
 
 /*END LOGIN/REG STYLES*/

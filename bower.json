@@ -1,0 +1,21 @@
+{
+  "name": "battle-the-bookies",
+  "description": "ALA Web App that pits entrants against Vegas bookies and their friends",
+  "main": "index.html",
+  "authors": [
+    "Mike Duin <michael.s.duin@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/mikeduin/Battle-the-Bookies",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-spinkit": "^0.3.4"
+  }
+}

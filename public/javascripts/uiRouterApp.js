@@ -2,7 +2,9 @@ angular
   .module('battleBookies', [
     'ui.router',
     'ngAnimate',
-    'zingchart-angularjs'
+    'zingchart-angularjs',
+    'ui.validate',
+    'angular-spinkit'
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', siteConfig])
 

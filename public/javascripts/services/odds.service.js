@@ -31,8 +31,6 @@ function oddsService ($http) {
           }
         }
         console.log("dates are: " + dates);
-        // dates.sort();
-        // console.log("sorted dates are: " + dates)
         return dates;
       })
     },
