@@ -500,6 +500,12 @@ pickLocked {
 /*END MAKE PICK STYLES*/
 /*BEGIN RESULTS STYLES*/
 
+chasing-dots-spinner {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+}
+
 .pickWin {
   color: green;
   font-weight: 600;

@@ -50,7 +50,7 @@
         <td class="pushdown ytdwBox"> <b> {{user.ytdL}} </b> </td>
         <td class="pushdown"> <i> {{user.ytdPct | percentage:2}} </i> </td>
         <td class="pushdown bord-right sum-total" ng-class="{dayWin: user.sumYtd > 0, dayLoss: user.sumYtd < 0}"> {{user.sumYtd | currency:$:2}} </td>
-        <td colspan="4" ng-repeat="day in user.dailyStats | limitTo: 4: vm.pageView" class="bord-right">
+        <td colspan="4" ng-repeat="day in user.dailyStats | limitTo: 4: vm.pageView" class="bord-right" on-finish-render="ngRepeatFinished">
           <table><tr>
             <td class="wBox"> {{day.totalWins}} </td>
             <td class="wBox"> {{day.totalLosses}} </td>
@@ -60,4 +60,5 @@
       </tr>
     </tbody>
   </table>
+  <chasing-dots-spinner ng-show="vm.showSpinner === true"></chasing-dots-spinner>
 </standings>

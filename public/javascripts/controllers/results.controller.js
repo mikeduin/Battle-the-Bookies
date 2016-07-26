@@ -19,6 +19,9 @@ function ResultController (oddsService, picksService, resultsService, usersServi
   vm.activeUserSumToday;
   vm.picks = [];
   vm.users = [];
+  $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent){
+    vm.showSpinner = false;
+  })
 
   vm.getAllUsers = function(){
     usersService.getAllUsers().then(function(result){
@@ -64,6 +67,7 @@ function ResultController (oddsService, picksService, resultsService, usersServi
   }
 
   function getMlbLines (){
+    vm.showSpinner = true;
     oddsService.getMlbLines().then(function(games){
       console.log(games)
       vm.mlbLines = games;

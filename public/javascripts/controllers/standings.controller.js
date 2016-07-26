@@ -1,8 +1,8 @@
 angular
   .module('battleBookies')
-  .controller('StandingsController', ['picksService', 'oddsService', 'usersService', StandingsController])
+  .controller('StandingsController', ['picksService', 'oddsService', 'usersService', '$scope', StandingsController])
 
-function StandingsController (picksService, oddsService, usersService) {
+function StandingsController (picksService, oddsService, usersService, $scope) {
   var vm = this;
   vm.getDates = getDates;
   vm.getDateNumbs = getDateNumbs;
@@ -17,6 +17,9 @@ function StandingsController (picksService, oddsService, usersService) {
   vm.username = "mikeduin";
   vm.user = {};
   vm.dailyStats = [];
+  $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent){
+    vm.showSpinner = false;
+  })
 
   vm.getAllUsers = function(){
     usersService.getAllUsers().then(function(result){
@@ -60,6 +63,7 @@ function StandingsController (picksService, oddsService, usersService) {
   }
 
   function getDates () {
+    vm.showSpinner = true;
     oddsService.getDates().then(function(dates){
       // console.log(dates);
       vm.daysOfGames = dates;
