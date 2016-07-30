@@ -101,6 +101,9 @@ function PickController (oddsService, picksService, resultsService, authService)
     picksService.submitPick(vm.pick).then(function(){
       console.log('pick submitted!');
       vm.pick.activeGame = {};
+    }, function(){
+      console.log('pick failed to submit!');
+      vm.pick.activeGame = {};
     });
   };
 
