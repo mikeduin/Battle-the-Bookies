@@ -15,12 +15,13 @@ $(document).ready(function(){
       <ul class="right hide-on-med-and-down">
         <li ng-show="vm.isLoggedIn() !== false"><a ui-sref="home.user({username: vm.currentUser()})">{{ vm.currentUser() }}</a></li>
         <li ng-hide="vm.isLoggedIn() !== false"><a ui-sref='home.login'>Login</a></li>
-        <li ng-show="vm.isLoggedIn() !== false"><a ng-click="vm.logOut()">Logout</a></li>
+        <li ng-show="vm.isLoggedIn() !== false"><a ng-click="vm.logOut()" class="gold">Logout</a></li>
         <li><a ui-sref="home.tutorial">How to Play</a></li>
         <li><a ui-sref="home.makepicks">Make Picks</a></li>
         <li><a ui-sref='home.results'>Results</a></li>
         <li><a ui-sref='home.standings'>Standings</a></li>
         <li><a ui-sref='home.user'>User Analytics</a></li>
+        <li><a ui-sref='home.prizes'>Prizes</a></li>
       </ul>
       <ul class="side-nav" id="mobile-nav">
         <li ng-show="vm.isLoggedIn() !== false"><a ui-sref="home.user({username: vm.currentUser()})">{{ vm.currentUser() }}</a></li>
@@ -31,6 +32,7 @@ $(document).ready(function(){
         <li><a ui-sref='home.results'>Results</a></li>
         <li><a ui-sref='home.standings'>Standings</a></li>
         <li><a ui-sref='home.user'>User Analytics</a></li>
+        <li><a ui-sref='home.prizes'>Prizes</a></li>
       </ul>
     </div>
   </nav>

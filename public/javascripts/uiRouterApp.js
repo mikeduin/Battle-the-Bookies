@@ -107,6 +107,16 @@ function siteConfig ($stateProvider, $urlRouterProvider, $locationProvider) {
         }
       }
     })
+    .state('home.prizes', {
+      url: 'prizes',
+      views: {
+        'content@': {
+          templateUrl: 'views/prizes.html',
+          controller: 'PrizesController',
+          controllerAs: 'vm'
+        }
+      }
+    })
     .state('home.user', {
       url: 'user/:username',
       views: {

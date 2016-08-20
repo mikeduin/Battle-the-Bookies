@@ -711,3 +711,23 @@ gameTitle {
 profits {
   font-size: 16px
 }
+
+/*END USER STYLES*/
+/*BEGIN PRIZE STYLES*/
+
+prizeIntro div {
+  margin-top: 2%;
+}
+
+.prize-row td {
+  padding-top: 10px;
+  padding-bottom: 0;
+}
+
+.prize-header {
+  font-size: 28px;
+  font-weight: 700;
+  color: #616161;
+  margin-top: 10px;
+  text-decoration: underline;
+}
