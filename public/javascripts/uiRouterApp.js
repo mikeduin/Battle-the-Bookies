@@ -7,6 +7,9 @@ angular
     'angular-spinkit'
   ])
   .config(['$stateProvider', '$urlRouterProvider', '$locationProvider', siteConfig])
+  .config(['$locationProvider', function($locationProvider) {
+    $locationProvider.html5Mode(true);
+  }])
 
 function siteConfig ($stateProvider, $urlRouterProvider, $locationProvider) {
   $urlRouterProvider.otherwise('/');
