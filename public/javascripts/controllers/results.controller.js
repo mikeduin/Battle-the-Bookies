@@ -1,8 +1,8 @@
 angular
   .module('battleBookies')
-  .controller('ResultController', ['oddsService', 'picksService', 'resultsService', 'usersService', '$scope', ResultController])
+  .controller('ResultController', ['oddsService', 'picksService', 'resultsService', 'usersService', '$scope', '$timeout', ResultController])
 
-function ResultController (oddsService, picksService, resultsService, usersService, $scope) {
+function ResultController (oddsService, picksService, resultsService, usersService, $scope, $timeout) {
   var vm = this;
   vm.matchDayFilter;
   vm.dateNumbFilter;
@@ -19,9 +19,23 @@ function ResultController (oddsService, picksService, resultsService, usersServi
   vm.activeUserSumToday;
   vm.picks = [];
   vm.users = [];
-  $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent){
-    vm.showSpinner = false;
-  })
+  // $scope.$on('ngRepeatFinished', function(ngRepeatFinishedEvent){
+  //   vm.showSpinner = false;
+  // })
+  $timeout(function(){
+    vm.showSpinner = false
+  }, 10000)
+
+  vm.checkTime = function(gametime) {
+    if (moment(gametime).isBefore(vm.currentTime)){
+      return true
+    } else {
+      return false
+    }
+  }
+
+  vm.currentTime = moment().format();
+  console.log('current time is ', vm.currentTime);
 
   vm.getAllUsers = function(){
     usersService.getAllUsers().then(function(result){
@@ -36,7 +50,7 @@ function ResultController (oddsService, picksService, resultsService, usersServi
   vm.sumDay = function(user, datenumb) {
     username = user.username;
     return picksService.sumToday(username, datenumb).then(function(result){
-      console.log("total returned in controller is " + result);
+      // console.log("total returned in controller is " + result);
       return result;
     })
   }
@@ -69,7 +83,7 @@ function ResultController (oddsService, picksService, resultsService, usersServi
   function getMlbLines (){
     vm.showSpinner = true;
     oddsService.getMlbLines().then(function(games){
-      console.log(games)
+      console.log(games);
       vm.mlbLines = games;
     })
   }
@@ -86,7 +100,7 @@ function ResultController (oddsService, picksService, resultsService, usersServi
   function getPicks () {
     oddsService.getPicks().then(function(data){
       vm.picks = data;
-      // console.log(vm.picks);
+      console.log(vm.picks);
     })
   }
 
@@ -97,8 +111,8 @@ function ResultController (oddsService, picksService, resultsService, usersServi
       var lastDay = dateArray[dateArray.length - 1];
       var currentDay = moment().format('MMMM Do, YYYY');
       var currentDateNumb = moment().format('YYYYMMDD');
-      console.log("last day is ", lastDay);
-      console.log("current day is ", currentDay);
+      // console.log("last day is ", lastDay);
+      // console.log("current day is ", currentDay);
       vm.matchDayFilter = currentDay;
       // vm.dateNumbFilter = currentDateNumb;
     })
